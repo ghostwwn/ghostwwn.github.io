@@ -8,6 +8,11 @@
 <script src="https://cdn.jsdelivr.net/npm/svelte@3.59.1/compiled/svelte.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
+/* Ensure instant scroll behavior to override any smooth-scroll defaults */
+html, body {
+    scroll-behavior: auto !important;
+}
+
 :root {
 --primary: #3b82f6;
 --secondary: #10b981;
@@ -417,6 +422,7 @@ Send Message
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // This will instantly scroll the page to the top (0,0 coordinates)
     window.scrollTo(0, 0);
 
     const interactiveTerminalDiv = document.getElementById('interactive-terminal');
