@@ -410,7 +410,7 @@ Send Message
 </div>
 </section>
 
-<footer>
+<footer class="border-t border-gray-800 pt-8 mt-12">
 <div class="flex flex-col md:flex-row justify-between items-center">
 <div class="mb-4 md:mb-0">
 <div class="flex items-center">
@@ -438,15 +438,18 @@ Send Message
 </div>
 
 <script>
+// Force scroll to top on page load for consistent landing experience
 document.addEventListener('DOMContentLoaded', function() {
     window.scrollTo(0, 0);
 });
 
+// Interactive Terminal functionality
 document.addEventListener('DOMContentLoaded', function() {
     const interactiveTerminalDiv = document.getElementById('interactive-terminal');
-    let terminalInput = document.getElementById('terminal-input');
-    let terminalInputLine = document.getElementById('terminal-input-line');
+    let terminalInput = document.getElementById('terminal-input'); // Initialize here
+    let terminalInputLine = document.getElementById('terminal-input-line'); // Get the whole line container
 
+    // Initial terminal content for the interactive terminal
     const initialContentHtml = `
         <div class="mb-2">Welcome to Nour's interactive terminal. Type 'help' for available commands.</div>
         <div class="flex items-center mb-4" id="terminal-input-line">
@@ -456,11 +459,14 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     `;
 
+    // Ensure the terminal starts with this content
     interactiveTerminalDiv.innerHTML = initialContentHtml;
+    // Re-select elements as innerHTML assignment recreates them
     terminalInput = document.getElementById('terminal-input');
     terminalInputLine = document.getElementById('terminal-input-line');
-    terminalInput.focus();
+    terminalInput.focus(); // Ensure input is focused on load
 
+    // Available commands
     const commands = {
         help: {
             description: "List all available commands",
@@ -503,25 +509,30 @@ document.addEventListener('DOMContentLoaded', function() {
         clear: {
             description: "Clear the terminal screen",
             execute: () => {
-                interactiveTerminalDiv.innerHTML = initialContentHtml;
+                interactiveTerminalDiv.innerHTML = initialContentHtml; // Reset to initial content
+                // Re-select the input and input line after resetting innerHTML
                 terminalInput = document.getElementById('terminal-input');
                 terminalInputLine = document.getElementById('terminal-input-line');
-                terminalInput.focus();
-                return "";
+                terminalInput.focus(); // Re-focus the input
+                return ""; // No additional output needed
             }
         }
     };
 
+    // Handle terminal input
     terminalInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
             const command = terminalInput.value.trim().toLowerCase();
-            terminalInput.value = '';
+            terminalInput.value = ''; // Clear input immediately
 
+            // Create a div for the command that was entered
             const commandLine = document.createElement('div');
             commandLine.className = 'flex items-center mb-1';
             commandLine.innerHTML = `<span class="text-green-400 mr-2">ghostwwn@terminal:~$</span> ${command}`;
+            // Insert the command line BEFORE the input line
             interactiveTerminalDiv.insertBefore(commandLine, terminalInputLine);
 
+            // Process command
             let response = "Command not found. Type 'help' for available commands.";
             if (commands[command]) {
                 response = commands[command].execute();
@@ -531,17 +542,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 const responseDiv = document.createElement('div');
                 responseDiv.className = 'mb-4';
                 responseDiv.innerHTML = response;
+                // Insert the response BEFORE the input line
                 interactiveTerminalDiv.insertBefore(responseDiv, terminalInputLine);
             }
 
+            // Scroll to bottom
             interactiveTerminalDiv.scrollTop = interactiveTerminalDiv.scrollHeight;
         }
     });
 
+    // Auto-scroll terminal when typing (optional, can be removed if jumpy)
     terminalInput.addEventListener('input', function() {
         interactiveTerminalDiv.scrollTop = interactiveTerminalDiv.scrollHeight;
     });
 
+    // Focus on input when clicking anywhere in terminal body
     interactiveTerminalDiv.addEventListener('click', function() {
         terminalInput.focus();
     });
