@@ -24,18 +24,6 @@ font-family: 'Fira Code', monospace, sans-serif;
 transition: all 0.3s ease;
 }
 
-.typewriter {
-border-right: 3px solid var(--primary);
-white-space: nowrap;
-overflow: hidden;
-animation: blink-caret 0.75s step-end infinite;
-}
-
-@keyframes blink-caret {
-from, to { border-color: transparent }
-50% { border-color: var(--primary) }
-}
-
 .terminal {
 background-color: rgba(30, 41, 59, 0.9);
 border: 1px solid rgba(59, 130, 246, 0.3);
@@ -59,15 +47,6 @@ color: var(--secondary);
 .response {
 color: var(--text);
 margin-bottom: 1rem;
-}
-
-.cursor {
-animation: blink 1s infinite;
-}
-
-@keyframes blink {
-0%, 100% { opacity: 1; }
-50% { opacity: 0; }
 }
 
 .skill-card:hover {
@@ -207,7 +186,7 @@ Skills & Expertise
 <div class="w-12 h-12 bg-blue-900 bg-opacity-50 rounded-full flex items-center justify-center mb-4">
 <i class="fas fa-search text-blue-400 text-xl"></i>
 </div>
-<h3 class="text-xl font-bold mb-2 text-blue-400">OSINT</h3>
+<h3 class="text-xl font-bold mb-2">OSINT</h3>
 <ul class="list-disc pl-5 space-y-1 text-gray-300">
 <li>Reverse image search (PimEyes, Yandex, Tineye)</li>
 <li>People search and username tracing</li>
@@ -345,7 +324,6 @@ Interactive Terminal
     <div class="flex items-center mb-4" id="terminal-input-line">
         <span class="text-green-400 mr-2">ghostwwn@terminal:~$</span>
         <input type="text" id="terminal-input" class="bg-transparent border-none outline-none flex-grow text-white" autofocus>
-        <span class="cursor">|</span>
     </div>
 </div>
 </div>
@@ -410,7 +388,7 @@ Send Message
 </div>
 </section>
 
-<footer class="border-t border-gray-800 pt-8 mt-12">
+<footer>
 <div class="flex flex-col md:flex-row justify-between items-center">
 <div class="mb-4 md:mb-0">
 <div class="flex items-center">
@@ -438,35 +416,28 @@ Send Message
 </div>
 
 <script>
-// Force scroll to top on page load for consistent landing experience
 document.addEventListener('DOMContentLoaded', function() {
     window.scrollTo(0, 0);
-});
 
-// Interactive Terminal functionality
-document.addEventListener('DOMContentLoaded', function() {
     const interactiveTerminalDiv = document.getElementById('interactive-terminal');
-    let terminalInput = document.getElementById('terminal-input'); // Initialize here
-    let terminalInputLine = document.getElementById('terminal-input-line'); // Get the whole line container
+    let terminalInput = document.getElementById('terminal-input');
 
-    // Initial terminal content for the interactive terminal
     const initialContentHtml = `
         <div class="mb-2">Welcome to Nour's interactive terminal. Type 'help' for available commands.</div>
         <div class="flex items-center mb-4" id="terminal-input-line">
             <span class="text-green-400 mr-2">ghostwwn@terminal:~$</span>
             <input type="text" id="terminal-input" class="bg-transparent border-none outline-none flex-grow text-white" autofocus>
-            <span class="cursor">|</span>
         </div>
     `;
 
-    // Ensure the terminal starts with this content
-    interactiveTerminalDiv.innerHTML = initialContentHtml;
-    // Re-select elements as innerHTML assignment recreates them
-    terminalInput = document.getElementById('terminal-input');
-    terminalInputLine = document.getElementById('terminal-input-line');
-    terminalInput.focus(); // Ensure input is focused on load
+    function setupTerminalElements() {
+        interactiveTerminalDiv.innerHTML = initialContentHtml;
+        terminalInput = document.getElementById('terminal-input');
+        terminalInput.focus();
+    }
 
-    // Available commands
+    setupTerminalElements();
+
     const commands = {
         help: {
             description: "List all available commands",
@@ -505,34 +476,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 return "Telegram: <a href='https://t.me/ghostwwn' target='_blank' class='text-blue-400'>@ghostwwn</a><br>" +
                        "Location: New Jersey, USA";
             }
-        },
-        clear: {
-            description: "Clear the terminal screen",
-            execute: () => {
-                interactiveTerminalDiv.innerHTML = initialContentHtml; // Reset to initial content
-                // Re-select the input and input line after resetting innerHTML
-                terminalInput = document.getElementById('terminal-input');
-                terminalInputLine = document.getElementById('terminal-input-line');
-                terminalInput.focus(); // Re-focus the input
-                return ""; // No additional output needed
-            }
         }
     };
 
-    // Handle terminal input
+    // Add 'clear' command separately, as it needs to reset the terminal input
+    commands.clear = {
+        description: "Clear the terminal screen",
+        execute: () => {
+            setupTerminalElements();
+            return "";
+        }
+    };
+
     terminalInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
             const command = terminalInput.value.trim().toLowerCase();
-            terminalInput.value = ''; // Clear input immediately
+            terminalInput.value = '';
 
-            // Create a div for the command that was entered
             const commandLine = document.createElement('div');
             commandLine.className = 'flex items-center mb-1';
             commandLine.innerHTML = `<span class="text-green-400 mr-2">ghostwwn@terminal:~$</span> ${command}`;
-            // Insert the command line BEFORE the input line
-            interactiveTerminalDiv.insertBefore(commandLine, terminalInputLine);
+            interactiveTerminalDiv.insertBefore(commandLine, document.getElementById('terminal-input-line'));
 
-            // Process command
             let response = "Command not found. Type 'help' for available commands.";
             if (commands[command]) {
                 response = commands[command].execute();
@@ -542,21 +507,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 const responseDiv = document.createElement('div');
                 responseDiv.className = 'mb-4';
                 responseDiv.innerHTML = response;
-                // Insert the response BEFORE the input line
-                interactiveTerminalDiv.insertBefore(responseDiv, terminalInputLine);
+                interactiveTerminalDiv.insertBefore(responseDiv, document.getElementById('terminal-input-line'));
             }
 
-            // Scroll to bottom
             interactiveTerminalDiv.scrollTop = interactiveTerminalDiv.scrollHeight;
         }
     });
 
-    // Auto-scroll terminal when typing (optional, can be removed if jumpy)
     terminalInput.addEventListener('input', function() {
         interactiveTerminalDiv.scrollTop = interactiveTerminalDiv.scrollHeight;
     });
 
-    // Focus on input when clicking anywhere in terminal body
     interactiveTerminalDiv.addEventListener('click', function() {
         terminalInput.focus();
     });
