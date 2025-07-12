@@ -1,21 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-<style id="hidebody">body{visibility:hidden !important;}</style>
-<script>
-  // Prevent browser from scrolling to anchor or restoring scroll on load (universal solution)
-  history.scrollRestoration = "manual";
-  if (window.location.hash) {
-    window.location.replace(window.location.pathname + window.location.search);
-  }
-  window.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-      window.scrollTo(0, 0);
-      var h = document.getElementById('hidebody');
-      if (h) h.parentNode.removeChild(h);
-    }, 1);
-  });
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nour | OSINT & Crypto Specialist</title>
@@ -23,10 +8,6 @@
 <script src="https://cdn.jsdelivr.net/npm/svelte@3.59.1/compiled/svelte.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-html, body {
-    scroll-behavior: auto !important;
-}
-
 :root {
 --primary: #3b82f6;
 --secondary: #10b981;
