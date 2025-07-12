@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+<style id="hidebody">body{visibility:hidden !important;}</style>
 <script>
-  // Prevent browser from scrolling to anchor or restoring scroll on load
+  // Prevent browser from scrolling to anchor or restoring scroll on load (universal solution)
   history.scrollRestoration = "manual";
   if (window.location.hash) {
-    history.replaceState(null, document.title, window.location.pathname + window.location.search);
-    window.scrollTo(0, 0);
-  } else {
-    window.scrollTo(0, 0);
+    window.location.replace(window.location.pathname + window.location.search);
   }
+  window.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      window.scrollTo(0, 0);
+      var h = document.getElementById('hidebody');
+      if (h) h.parentNode.removeChild(h);
+    }, 1);
+  });
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
