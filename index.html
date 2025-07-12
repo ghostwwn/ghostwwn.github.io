@@ -2,9 +2,10 @@
 <html lang="en" class="dark">
 <head>
 <script>
-
-  if (window.location.hash) window.location.hash = "";
-  window.scrollTo(0, 0);
+  if (window.location.hash) {
+    history.replaceState(null, document.title, window.location.pathname + window.location.search);
+    window.scrollTo(0, 0);
+  }
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
