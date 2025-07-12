@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+<style id="hidebody">body{visibility:hidden !important;}</style>
+<script>
+  history.scrollRestoration = "manual";
+  let hideBodyElement = document.getElementById('hidebody');
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+      const terminalInput = document.getElementById('terminal-input');
+      if (terminalInput) terminalInput.focus({ preventScroll: true });
+      if (hideBodyElement) hideBodyElement.remove();
+    }, 1);
+  });
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nour | OSINT & Crypto Specialist</title>
@@ -323,7 +336,7 @@ Interactive Terminal
     <div class="mb-2">Welcome to Nour's interactive terminal. Type 'help' for available commands.</div>
     <div class="flex items-center mb-4" id="terminal-input-line">
         <span class="text-green-400 mr-2">ghostwwn@terminal:~$</span>
-        <input type="text" id="terminal-input" class="bg-transparent border-none outline-none flex-grow text-white" autofocus>
+        <input type="text" id="terminal-input" class="bg-transparent border-none outline-none flex-grow text-white">
     </div>
 </div>
 </div>
