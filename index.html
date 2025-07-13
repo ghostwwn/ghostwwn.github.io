@@ -370,23 +370,53 @@ Interested in discussing OSINT techniques, cryptocurrency tracing, or potential 
 </div>
 
 <div class="md:w-1/2">
-<form class="bg-gray-800 rounded-xl p-6 shadow-lg">
-<div class="mb-4">
-<label for="name" class="block mb-2">Name</label>
-<input type="text" id="name" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
+<div class="space-y-4">
+  <div class="bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
+    <div class="mr-4">
+      <i class="fab fa-instagram text-pink-400 text-2xl"></i>
+    </div>
+    <div>
+      <h3 class="font-bold">Instagram</h3>
+      <a href="https://instagram.com/ghostwwn" target="_blank" class="text-pink-400 hover:underline">@ghostwwn</a>
+    </div>
+  </div>
+  <div class="bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
+    <div class="mr-4">
+      <i class="fab fa-github text-gray-400 text-2xl"></i>
+    </div>
+    <div>
+      <h3 class="font-bold">GitHub</h3>
+      <a href="https://github.com/ghostwwn" target="_blank" class="text-gray-400 hover:underline">@ghostwwn</a>
+    </div>
+  </div>
+  <div class="bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
+    <div class="mr-4">
+      <i class="fab fa-tiktok text-white text-2xl"></i>
+    </div>
+    <div>
+      <h3 class="font-bold">TikTok</h3>
+      <a href="https://www.tiktok.com/@ghostwwn" target="_blank" class="text-white hover:underline">@ghostwwn</a>
+    </div>
+  </div>
+  <div class="bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
+    <div class="mr-4">
+      <i class="fab fa-discord text-indigo-400 text-2xl"></i>
+    </div>
+    <div>
+      <h3 class="font-bold">Discord</h3>
+      <span class="text-indigo-400">@ghostwwn</span>
+    </div>
+  </div>
+  <div class="bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
+    <div class="mr-4">
+      <i class="fas fa-envelope text-blue-400 text-2xl"></i>
+    </div>
+    <div>
+      <h3 class="font-bold">Email</h3>
+      <a href="mailto:nourdous@proton.me" class="text-blue-400 hover:underline">nourdous@proton.me</a>
+    </div>
+  </div>
 </div>
-<div class="mb-4">
-<label for="email" class="block mb-2">Email</label>
-<input type="email" id="email" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
-</div>
-<div class="mb-4">
-<label for="message" class="block mb-2">Message</label>
-<textarea id="message" rows="4" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"></textarea>
-</div>
-<button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition w-full">
-Send Message
-</button>
-</form>
 </div>
 </div>
 </section>
@@ -423,7 +453,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.scrollTo(0, 0);
 
     const interactiveTerminalDiv = document.getElementById('interactive-terminal');
-    let terminalInput = document.getElementById('terminal-input');
+    let terminalInput;
 
     const initialContentHtml = `
         <div class="mb-2">Welcome to Nour's interactive terminal. Type 'help' for available commands.</div>
@@ -433,21 +463,14 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     `;
 
-    function setupTerminalElements() {
-        interactiveTerminalDiv.innerHTML = initialContentHtml;
-        terminalInput = document.getElementById('terminal-input');
-        terminalInput.focus();
-    }
-
-    setupTerminalElements();
-
+    // Command definitions
     const commands = {
         help: {
             description: "List all available commands",
             execute: () => {
                 let output = "Available commands:<br>";
                 for (const cmd in commands) {
-                    output += `<span class="text-blue-400">${cmd}</span> - ${commands[cmd].description}<br>`;
+                    output += `<span class=\"text-blue-400\">${cmd}</span> - ${commands[cmd].description}<br>`;
                 }
                 return output;
             }
@@ -482,6 +505,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
+    // The clear command needs to reset the terminal and reattach listeners
     commands.clear = {
         description: "Clear the terminal screen",
         execute: () => {
@@ -490,39 +514,50 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    terminalInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-            const command = terminalInput.value.trim().toLowerCase();
-            terminalInput.value = '';
+    function attachTerminalListeners() {
+        terminalInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const command = terminalInput.value.trim().toLowerCase();
+                terminalInput.value = '';
 
-            const commandLine = document.createElement('div');
-            commandLine.className = 'flex items-center mb-1';
-            commandLine.innerHTML = `<span class="text-green-400 mr-2">ghostwwn@terminal:~$</span> ${command}`;
-            interactiveTerminalDiv.insertBefore(commandLine, document.getElementById('terminal-input-line'));
+                const commandLine = document.createElement('div');
+                commandLine.className = 'flex items-center mb-1';
+                commandLine.innerHTML = `<span class=\"text-green-400 mr-2\">ghostwwn@terminal:~$</span> ${command}`;
+                interactiveTerminalDiv.insertBefore(commandLine, document.getElementById('terminal-input-line'));
 
-            let response = "Command not found. Type 'help' for available commands.";
-            if (commands[command]) {
-                response = commands[command].execute();
+                let response = "Command not found. Type 'help' for available commands.";
+                if (commands[command]) {
+                    response = commands[command].execute();
+                }
+
+                if (response) {
+                    const responseDiv = document.createElement('div');
+                    responseDiv.className = 'mb-4';
+                    responseDiv.innerHTML = response;
+                    interactiveTerminalDiv.insertBefore(responseDiv, document.getElementById('terminal-input-line'));
+                }
+
+                interactiveTerminalDiv.scrollTop = interactiveTerminalDiv.scrollHeight;
             }
+        });
 
-            if (response) {
-                const responseDiv = document.createElement('div');
-                responseDiv.className = 'mb-4';
-                responseDiv.innerHTML = response;
-                interactiveTerminalDiv.insertBefore(responseDiv, document.getElementById('terminal-input-line'));
-            }
-
+        terminalInput.addEventListener('input', function() {
             interactiveTerminalDiv.scrollTop = interactiveTerminalDiv.scrollHeight;
-        }
-    });
+        });
 
-    terminalInput.addEventListener('input', function() {
-        interactiveTerminalDiv.scrollTop = interactiveTerminalDiv.scrollHeight;
-    });
+        interactiveTerminalDiv.addEventListener('click', function() {
+            terminalInput.focus();
+        });
+    }
 
-    interactiveTerminalDiv.addEventListener('click', function() {
+    function setupTerminalElements() {
+        interactiveTerminalDiv.innerHTML = initialContentHtml;
+        terminalInput = document.getElementById('terminal-input');
+        attachTerminalListeners();
         terminalInput.focus();
-    });
+    }
+
+    setupTerminalElements();
 });
 </script>
 </body>
