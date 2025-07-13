@@ -66,6 +66,18 @@ margin-bottom: 1rem;
 transform: translateY(-5px);
 box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
 }
+.skill-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+}
+
+.contact-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+}
 
 .glow {
 text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
@@ -371,7 +383,16 @@ Interested in discussing OSINT techniques, cryptocurrency tracing, or potential 
 
 <div class="md:w-1/2">
 <div class="space-y-4">
-  <div class="bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
+  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
+    <div class="mr-4">
+      <i class="fab fa-telegram text-blue-400 text-2xl"></i>
+    </div>
+    <div>
+      <h3 class="font-bold">Telegram</h3>
+      <a href="https://t.me/ghostwwn" target="_blank" class="text-blue-400 hover:underline">@ghostwwn</a>
+    </div>
+  </div>
+  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
     <div class="mr-4">
       <i class="fab fa-instagram text-pink-400 text-2xl"></i>
     </div>
@@ -380,7 +401,7 @@ Interested in discussing OSINT techniques, cryptocurrency tracing, or potential 
       <a href="https://instagram.com/ghostwwn" target="_blank" class="text-pink-400 hover:underline">@ghostwwn</a>
     </div>
   </div>
-  <div class="bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
+  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
     <div class="mr-4">
       <i class="fab fa-github text-gray-400 text-2xl"></i>
     </div>
@@ -389,7 +410,7 @@ Interested in discussing OSINT techniques, cryptocurrency tracing, or potential 
       <a href="https://github.com/ghostwwn" target="_blank" class="text-gray-400 hover:underline">@ghostwwn</a>
     </div>
   </div>
-  <div class="bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
+  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
     <div class="mr-4">
       <i class="fab fa-tiktok text-white text-2xl"></i>
     </div>
@@ -398,7 +419,7 @@ Interested in discussing OSINT techniques, cryptocurrency tracing, or potential 
       <a href="https://www.tiktok.com/@ghostwwn" target="_blank" class="text-white hover:underline">@ghostwwn</a>
     </div>
   </div>
-  <div class="bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
+  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
     <div class="mr-4">
       <i class="fab fa-discord text-indigo-400 text-2xl"></i>
     </div>
@@ -407,7 +428,7 @@ Interested in discussing OSINT techniques, cryptocurrency tracing, or potential 
       <span class="text-indigo-400">@ghostwwn</span>
     </div>
   </div>
-  <div class="bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
+  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
     <div class="mr-4">
       <i class="fas fa-envelope text-blue-400 text-2xl"></i>
     </div>
@@ -436,9 +457,6 @@ Interested in discussing OSINT techniques, cryptocurrency tracing, or potential 
 </div>
 
 <div class="flex space-x-6">
-<a href="https://t.me/ghostwwn" target="_blank" class="text-gray-400 hover:text-blue-400 transition">
-<i class="fab fa-telegram text-blue-400 text-xl"></i>
-</a>
 </div>
 </div>
 
