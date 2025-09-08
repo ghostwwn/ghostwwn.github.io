@@ -580,9 +580,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script>
-// Fade-in animation for all main sections and smoother Get in Touch scroll
+
 document.addEventListener('DOMContentLoaded', function() {
-  // Fade-in animation
   const fadeEls = document.querySelectorAll('.fade-in-up');
   fadeEls.forEach((el, i) => {
     setTimeout(() => {
@@ -590,22 +589,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 200 + i * 180);
   });
 
-  // Smoother, slower scroll for Get in Touch
-  var btn = document.getElementById('get-in-touch-btn');
-  if (btn) {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      var contactSection = document.getElementById('contact');
-      if (contactSection) {
-        const y = contactSection.getBoundingClientRect().top + window.pageYOffset - 30;
-        smoothScrollTo(y, 1200);
-      } else {
-        window.location.hash = '#contact';
-      }
-    });
-  }
-
-  // Custom smooth scroll function for slower effect
   function smoothScrollTo(targetY, duration) {
     const startY = window.pageYOffset;
     const diff = targetY - startY;
@@ -624,6 +607,35 @@ document.addEventListener('DOMContentLoaded', function() {
   function easeInOutCubic(t) {
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   }
+
+  var btn = document.getElementById('get-in-touch-btn');
+  if (btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      var contactSection = document.getElementById('contact');
+      if (contactSection) {
+        const y = contactSection.getBoundingClientRect().top + window.pageYOffset - 30;
+        smoothScrollTo(y, 1200);
+      } else {
+        window.location.hash = '#contact';
+      }
+    });
+  }
+
+  const navLinks = document.querySelectorAll('nav a[href^="#"]');
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      const hash = this.getAttribute('href');
+      if (hash && hash.startsWith('#')) {
+        const target = document.getElementById(hash.substring(1));
+        if (target) {
+          e.preventDefault();
+          const y = target.getBoundingClientRect().top + window.pageYOffset - 30;
+          smoothScrollTo(y, 1200);
+        }
+      }
+    });
+  });
 });
 </script>
 </body>
