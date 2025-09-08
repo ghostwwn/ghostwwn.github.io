@@ -28,6 +28,16 @@
 --bg: #0f172a;
 --card-bg: #1e293b;
 --text: #e2e8f0;
+  --fade-up-distance: 60px;
+}
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(var(--fade-up-distance));
+  transition: opacity 1.1s cubic-bezier(0.23, 1, 0.32, 1), transform 1.1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 body {
@@ -86,7 +96,7 @@ text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
 </head>
 <body class="min-h-screen bg-gray-900 text-gray-200">
 <div id="app" class="container mx-auto px-4 py-8 max-w-6xl">
-<header class="flex flex-col md:flex-row justify-between items-center mb-12">
+<header class="flex flex-col md:flex-row justify-between items-center mb-12 fade-in-up">
 <div class="flex items-center mb-6 md:mb-0">
 <div class="w-16 h-16 rounded-full bg-blue-500 flex items-center justify-center mr-4">
 <span class="text-2xl font-bold">N</span>
@@ -105,7 +115,7 @@ text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
 </nav>
 </header>
 
-<section class="mb-20">
+<section class="mb-20 fade-in-up">
 <div class="flex flex-col md:flex-row items-center">
 <div class="md:w-1/2 mb-10 md:mb-0">
 <h2 class="text-4xl md:text-5xl font-bold mb-4">
@@ -150,7 +160,7 @@ Get in Touch
 </div>
 </section>
 
-<section id="about" class="mb-20">
+<section id="about" class="mb-20 fade-in-up">
 <h2 class="text-3xl font-bold mb-8 flex items-center">
   <i class="fas fa-user text-blue-400 text-2xl md:text-3xl mr-4"></i>
   About Me
@@ -196,7 +206,7 @@ Expected Graduation: 2027
 </div>
 </section>
 
-<section id="skills" class="mb-20">
+<section id="skills" class="mb-20 fade-in-up">
 <h2 class="text-3xl font-bold mb-8 flex items-center">
   <i class="fas fa-code text-blue-400 text-2xl md:text-3xl mr-4"></i>
   Skills & Expertise
@@ -244,7 +254,7 @@ Expected Graduation: 2027
 </div>
 </section>
 
-<section id="experience" class="mb-20">
+<section id="experience" class="mb-20 fade-in-up">
 <h2 class="text-3xl font-bold mb-8 flex items-center">
   <i class="fas fa-briefcase text-blue-400 text-2xl md:text-3xl mr-4"></i>
   Experience & Projects
@@ -264,27 +274,6 @@ Expected Graduation: 2027
 <li>Linked fake profiles across platforms using image searches, username tools, and metadata</li>
 <li>Shared findings with impacted individuals and helped explain how scams occurred</li>
 <li>Gained hands-on experience through 4+ years of consistent practice, research, and casework</li>
-<style>
-  html {
-    scroll-behavior: smooth;
-  }
-</style>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var btn = document.getElementById('get-in-touch-btn');
-  if (btn) {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      var contactSection = document.getElementById('contact');
-      if (contactSection) {
-        contactSection.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        window.location.hash = '#contact';
-      }
-    });
-  }
-});
-</script>
 </ul>
 </div>
 </div>
@@ -342,7 +331,7 @@ Documented common patterns in cryptocurrency scams, creating a reference guide f
 </div>
 </section>
 
-<section id="terminal" class="mb-20">
+<section id="terminal" class="mb-20 fade-in-up">
 <h2 class="text-3xl font-bold mb-8 flex items-center">
   <i class="fas fa-terminal text-blue-400 text-2xl md:text-3xl mr-4"></i>
   Interactive Terminal
@@ -367,7 +356,7 @@ Documented common patterns in cryptocurrency scams, creating a reference guide f
 </div>
 </section>
 
-<section id="contact" class="mb-12">
+<section id="contact" class="mb-12 fade-in-up">
 <h2 class="text-3xl font-bold mb-8 flex items-center">
   <i class="fas fa-envelope text-blue-400 text-2xl md:text-3xl mr-4"></i>
   Get In Touch
@@ -454,7 +443,7 @@ Interested in discussing OSINT techniques, cryptocurrency tracing, or potential 
 </div>
 </section>
 
-<footer>
+<footer class="fade-in-up">
 <div class="flex flex-col md:flex-row justify-between items-center">
 <div class="mb-4 md:mb-0">
 <div class="flex items-center">
@@ -588,6 +577,53 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     setupTerminalElements();
+});
+</script>
+<script>
+// Fade-in animation for all main sections and smoother Get in Touch scroll
+document.addEventListener('DOMContentLoaded', function() {
+  // Fade-in animation
+  const fadeEls = document.querySelectorAll('.fade-in-up');
+  fadeEls.forEach((el, i) => {
+    setTimeout(() => {
+      el.classList.add('visible');
+    }, 200 + i * 180);
+  });
+
+  // Smoother, slower scroll for Get in Touch
+  var btn = document.getElementById('get-in-touch-btn');
+  if (btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      var contactSection = document.getElementById('contact');
+      if (contactSection) {
+        const y = contactSection.getBoundingClientRect().top + window.pageYOffset - 30;
+        smoothScrollTo(y, 1200);
+      } else {
+        window.location.hash = '#contact';
+      }
+    });
+  }
+
+  // Custom smooth scroll function for slower effect
+  function smoothScrollTo(targetY, duration) {
+    const startY = window.pageYOffset;
+    const diff = targetY - startY;
+    let start;
+    function step(timestamp) {
+      if (!start) start = timestamp;
+      const time = timestamp - start;
+      const percent = Math.min(time / duration, 1);
+      window.scrollTo(0, startY + diff * easeInOutCubic(percent));
+      if (time < duration) {
+        requestAnimationFrame(step);
+      }
+    }
+    requestAnimationFrame(step);
+  }
+  function easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
 });
 </script>
 </body>
