@@ -1,0 +1,19 @@
+# .gitignore for macOS projects
+# This file tells Git which files/folders to ignore so they are not tracked in your repository.
+# It's important to ignore system files and editor-specific files to keep your repo clean and portable.
+
+# macOS system files
+.DS_Store        # Finder metadata, appears in every folder on macOS
+.AppleDouble     # Stores additional file info on non-HFS volumes
+.LSOverride      # Finder alias customizations
+
+# macOS resource fork files
+Icon?            # Custom folder icons (the ? matches any single character)
+._*              # Resource fork files created by macOS on some filesystems
+
+# macOS Trash and Spotlight
+.Trashes         # macOS Trash folder on external drives
+.Spotlight-V100  # Spotlight search index
+.fseventsd       # File system events log
+
+# End of file
