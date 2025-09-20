@@ -96,6 +96,7 @@ text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
 </style>
 </head>
 <body class="min-h-screen bg-gray-900 text-gray-200">
+<div id="tsparticles" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;"></div>
 <canvas id="cyber-dots-bg" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;"></canvas>
 <div id="app" class="container mx-auto px-4 py-8 max-w-6xl">
 <header class="flex flex-col md:flex-row justify-between items-center mb-12 fade-in-up">
@@ -648,6 +649,48 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@3.3.0/tsparticles.bundle.min.js"></script>
+<script>
+tsParticles.load("tsparticles", {
+  background: {
+    color: "#0f172a"
+  },
+  fpsLimit: 60,
+  interactivity: {
+    events: {
+      onHover: { enable: true, mode: "repulse" },
+      resize: true
+    },
+    modes: {
+      repulse: { distance: 120, duration: 0.4 }
+    }
+  },
+  particles: {
+    color: { value: ["#3b82f6", "#10b981"] },
+    links: {
+      color: "#3b82f6",
+      distance: 130,
+      enable: true,
+      opacity: 0.18,
+      width: 1.2
+    },
+    collisions: { enable: false },
+    move: {
+      direction: "none",
+      enable: true,
+      outModes: { default: "bounce" },
+      random: false,
+      speed: 1.1,
+      straight: false
+    },
+    number: { density: { enable: true, area: 900 }, value: 60 },
+    opacity: { value: 0.38 },
+    shape: { type: "circle" },
+    size: { value: { min: 2, max: 4 } }
+  },
+  detectRetina: true
 });
 </script>
 <script>
