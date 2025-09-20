@@ -97,7 +97,6 @@ text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
 </head>
 <body class="min-h-screen bg-gray-900 text-gray-200">
 <div id="particles-js" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;"></div>
-<canvas id="cyber-dots-bg" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;"></canvas>
 <div id="app" class="container mx-auto px-4 py-8 max-w-6xl">
 <header class="flex flex-col md:flex-row justify-between items-center mb-12 fade-in-up">
 <div class="flex items-center mb-6 md:mb-0">
@@ -702,71 +701,6 @@ particlesJS("particles-js", {
   },
   "retina_detect": true
 });
-</script>
-<script>
-// Parallax dots background, cyber style, closely matching ryanmontgomery.me
-const canvas = document.getElementById('cyber-dots-bg');
-const ctx = canvas.getContext('2d');
-let width = window.innerWidth;
-let height = window.innerHeight;
-canvas.width = width;
-canvas.height = height;
-
-const DOT_COLOR = 'rgba(59,130,246,0.22)'; // blue-500, subtle
-const DOT_COLOR_ALT = 'rgba(16,185,129,0.18)'; // green-500, subtle
-const DOT_RADIUS = 2.2;
-const DOT_RADIUS_ALT = 1.2;
-const DOT_GAP = 38;
-const DOTS = [];
-let mouse = { x: width/2, y: height/2 };
-let parallax = { x: 0, y: 0 };
-
-function createDots() {
-  DOTS.length = 0;
-  for (let y = DOT_GAP/2; y < height; y += DOT_GAP) {
-    for (let x = DOT_GAP/2; x < width; x += DOT_GAP) {
-      DOTS.push({
-        x0: x,
-        y0: y,
-        color: ((Math.floor(x/DOT_GAP)+Math.floor(y/DOT_GAP))%2===0) ? DOT_COLOR : DOT_COLOR_ALT,
-        r: ((Math.floor(x/DOT_GAP)+Math.floor(y/DOT_GAP))%2===0) ? DOT_RADIUS : DOT_RADIUS_ALT
-      });
-    }
-  }
-}
-createDots();
-
-window.addEventListener('resize', () => {
-  width = window.innerWidth;
-  height = window.innerHeight;
-  canvas.width = width;
-  canvas.height = height;
-  createDots();
-});
-
-window.addEventListener('mousemove', e => {
-  // Calculate normalized mouse position (-1 to 1)
-  const nx = (e.clientX / width) * 2 - 1;
-  const ny = (e.clientY / height) * 2 - 1;
-  parallax.x = nx * 18; // adjust strength
-  parallax.y = ny * 18;
-});
-
-function drawDots() {
-  ctx.clearRect(0, 0, width, height);
-  for (let dot of DOTS) {
-    // Each dot moves in a parallax pattern based on mouse
-    ctx.beginPath();
-    ctx.arc(dot.x0 + parallax.x * (dot.x0 / width - 0.5), dot.y0 + parallax.y * (dot.y0 / height - 0.5), dot.r, 0, 2 * Math.PI);
-    ctx.fillStyle = dot.color;
-    ctx.shadowColor = dot.color;
-    ctx.shadowBlur = dot.r === DOT_RADIUS ? 6 : 3;
-    ctx.fill();
-    ctx.shadowBlur = 0;
-  }
-  requestAnimationFrame(drawDots);
-}
-drawDots();
 </script>
 </body>
 </html>
