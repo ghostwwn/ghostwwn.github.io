@@ -656,50 +656,47 @@ document.addEventListener('DOMContentLoaded', function() {
 particlesJS("particles-js", {
   "particles": {
     "number": {
-      "value": 70,
-      "density": { "enable": true, "value_area": 900 }
+      "value": 80,
+      "density": { "enable": true, "value_area": 800 }
     },
     "color": { "value": ["#3b82f6", "#10b981"] },
     "shape": { "type": "circle" },
     "opacity": {
-      "value": 0.7,
-      "random": false,
-      "anim": { "enable": false }
+      "value": 0.5,
+      "random": false
     },
     "size": {
-      "value": 4.5,
-      "random": false,
-      "anim": { "enable": false }
+      "value": 3,
+      "random": true
     },
     "line_linked": {
       "enable": true,
-      "distance": 170,
+      "distance": 150,
       "color": "#3b82f6",
-      "opacity": 0.45,
-      "width": 2.2
+      "opacity": 0.4,
+      "width": 1
     },
     "move": {
       "enable": true,
-      "speed": 1.2,
+      "speed": 1,
       "direction": "none",
       "random": false,
       "straight": false,
       "out_mode": "out",
-      "bounce": false,
-      "attract": { "enable": false }
+      "bounce": false
     }
   },
   "interactivity": {
     "detect_on": "canvas",
     "events": {
       "onhover": { "enable": true, "mode": "grab" },
-      "onclick": { "enable": false },
+      "onclick": { "enable": true, "mode": "push" },
       "resize": true
     },
     "modes": {
       "grab": {
-        "distance": 220,
-        "line_linked": { "opacity": 1, "color": "#3b82f6" }
+        "distance": 140,
+        "line_linked": { "opacity": 1 }
       }
     }
   },
