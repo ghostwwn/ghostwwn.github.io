@@ -652,54 +652,55 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
+// particles.js config for smooth, responsive, blue/green, mouse-interactive network
 particlesJS("particles-js", {
-  "particles": {
-    "number": {
-      "value": 80,
-      "density": { "enable": true, "value_area": 800 }
+  particles: {
+    number: {
+      value: 90,
+      density: { enable: true, value_area: 900 }
     },
-    "color": { "value": ["#3b82f6", "#10b981"] },
-    "shape": { "type": "circle" },
-    "opacity": {
-      "value": 0.5,
-      "random": false
+    color: { value: ["#3b82f6", "#10b981"] },
+    shape: { type: "circle" },
+    opacity: {
+      value: 0.55,
+      random: false
     },
-    "size": {
-      "value": 3,
-      "random": true
+    size: {
+      value: 2.2,
+      random: true
     },
-    "line_linked": {
-      "enable": true,
-      "distance": 150,
-      "color": "#3b82f6",
-      "opacity": 0.4,
-      "width": 1
+    line_linked: {
+      enable: true,
+      distance: 130,
+      color: "#10b981",
+      opacity: 0.7,
+      width: 1.2
     },
-    "move": {
-      "enable": true,
-      "speed": 1,
-      "direction": "none",
-      "random": false,
-      "straight": false,
-      "out_mode": "out",
-      "bounce": false
+    move: {
+      enable: true,
+      speed: 0.6,
+      direction: "none",
+      random: false,
+      straight: false,
+      out_mode: "out",
+      bounce: false
     }
   },
-  "interactivity": {
-    "detect_on": "canvas",
-    "events": {
-      "onhover": { "enable": true, "mode": "grab" },
-      "onclick": { "enable": true, "mode": "push" },
-      "resize": true
+  interactivity: {
+    detect_on: "canvas",
+    events: {
+      onhover: { enable: true, mode: "grab" },
+      onclick: { enable: false },
+      resize: true
     },
-    "modes": {
-      "grab": {
-        "distance": 140,
-        "line_linked": { "opacity": 1 }
+    modes: {
+      grab: {
+        distance: 170,
+        line_linked: { opacity: 1 }
       }
     }
   },
-  "retina_detect": true
+  retina_detect: true
 });
 </script>
 </body>
