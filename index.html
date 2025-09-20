@@ -652,14 +652,14 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
-// particles.js config: 90 particles, blue/green, blue lines, mouse grab, tuned for your style
+// particles.js config: 90 particles, blue/green, light lines, repulse on hover, push on click
 particlesJS("particles-js", {
   "particles": {
     "number": {
       "value": 90,
       "density": { "enable": true, "value_area": 1000 }
     },
-    "color": { "value": ["#3b82f6", "#10b981"] }, // blue + green particles
+    "color": { "value": ["#3b82f6", "#10b981"] },
     "shape": { "type": "circle" },
     "opacity": { "value": 0.5 },
     "size": {
@@ -667,10 +667,10 @@ particlesJS("particles-js", {
       "random": true
     },
     "line_linked": {
-      "enable": true,
+      "enable": true, // This is the key setting
       "distance": 150,
-      "color": "#3b82f6", // blue connecting lines
-      "opacity": 0.4,
+      "color": "#e2e8f0",
+      "opacity": 0.2,
       "width": 1
     },
     "move": {
@@ -686,14 +686,17 @@ particlesJS("particles-js", {
   "interactivity": {
     "detect_on": "canvas",
     "events": {
-      "onhover": { "enable": true, "mode": "grab" }, // connect to mouse
-      "onclick": { "enable": false },
+      "onhover": { "enable": true, "mode": "repulse" },
+      "onclick": { "enable": true, "mode": "push" },
       "resize": true
     },
     "modes": {
-      "grab": {
+      "repulse": {
         "distance": 180,
-        "line_linked": { "opacity": 0.8 }
+        "duration": 0.4
+      },
+      "push": {
+        "particles_nb": 4
       }
     }
   },
