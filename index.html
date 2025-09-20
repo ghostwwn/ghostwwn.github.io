@@ -651,7 +651,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script>
-// Improved cyber parallax dots background: dots follow mouse more directly
+// Parallax dots background, cyber style, closely matching ryanmontgomery.me
 const canvas = document.getElementById('cyber-dots-bg');
 const ctx = canvas.getContext('2d');
 let width = window.innerWidth;
@@ -666,7 +666,7 @@ const DOT_RADIUS_ALT = 1.2;
 const DOT_GAP = 38;
 const DOTS = [];
 let mouse = { x: width/2, y: height/2 };
-let target = { x: width/2, y: height/2 };
+let parallax = { x: 0, y: 0 };
 
 function createDots() {
   DOTS.length = 0;
@@ -692,21 +692,19 @@ window.addEventListener('resize', () => {
 });
 
 window.addEventListener('mousemove', e => {
-  target.x = e.clientX;
-  target.y = e.clientY;
+  // Calculate normalized mouse position (-1 to 1)
+  const nx = (e.clientX / width) * 2 - 1;
+  const ny = (e.clientY / height) * 2 - 1;
+  parallax.x = nx * 18; // adjust strength
+  parallax.y = ny * 18;
 });
 
 function drawDots() {
-  // Smoothly interpolate mouse position
-  mouse.x += (target.x - mouse.x) * 0.12;
-  mouse.y += (target.y - mouse.y) * 0.12;
   ctx.clearRect(0, 0, width, height);
   for (let dot of DOTS) {
-    // Parallax offset, now tied to mouse position
-    const dx = (mouse.x - width/2) * 0.18 * (dot.r === DOT_RADIUS ? 1 : 1.5);
-    const dy = (mouse.y - height/2) * 0.18 * (dot.r === DOT_RADIUS ? 1 : 1.5);
+    // Each dot moves in a parallax pattern based on mouse
     ctx.beginPath();
-    ctx.arc(dot.x0 + dx, dot.y0 + dy, dot.r, 0, 2 * Math.PI);
+    ctx.arc(dot.x0 + parallax.x * (dot.x0 / width - 0.5), dot.y0 + parallax.y * (dot.y0 / height - 0.5), dot.r, 0, 2 * Math.PI);
     ctx.fillStyle = dot.color;
     ctx.shadowColor = dot.color;
     ctx.shadowBlur = dot.r === DOT_RADIUS ? 6 : 3;
