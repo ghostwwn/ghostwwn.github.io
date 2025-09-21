@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-<style id="hidebody">body{visibility:hidden !important;}</style>
 <script>
+  // Preserve scroll position behavior; do not hide the body by default.
   history.scrollRestoration = "manual";
-  let hideBodyElement = document.getElementById('hidebody');
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       window.scrollTo(0, 0);
       const terminalInput = document.getElementById('terminal-input');
       if (terminalInput) terminalInput.focus({ preventScroll: true });
-      if (hideBodyElement) hideBodyElement.remove();
     }, 1);
   });
 </script>
@@ -19,7 +17,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nour | OSINT & Crypto Specialist</title>
 <!-- Security: Content Security Policy to mitigate XSS and framing attacks -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: https://i.ibb.co; frame-ancestors 'none'; base-uri 'self';">
+<!-- NOTE: Inline scripts are allowed here temporarily ('unsafe-inline') so existing inline scripts can run (e.g. hidebody removal).
+  For production, move inline scripts to external files and serve CSP via headers with nonces instead of 'unsafe-inline'. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://cdn.tailwindcss.com; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://cdn.tailwindcss.com; img-src 'self' data: https://i.ibb.co; frame-ancestors 'none'; base-uri 'self';">
 <!-- Additional security-related meta tags. Prefer setting these as HTTP headers on your host for best effect. -->
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
