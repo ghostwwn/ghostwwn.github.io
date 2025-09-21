@@ -629,7 +629,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     interactiveTerminalDiv.addEventListener('click', function() {
-      terminalInput.focus();
+      try { terminalInput.focus({ preventScroll: true }); } catch (e) { terminalInput.focus(); }
     });
 
     // Trim terminal DOM if it grows too large
