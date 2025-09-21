@@ -18,6 +18,14 @@
 <meta name="description" content="Portfolio of Nour (@ghostwwn), a 16-year-old OSINT & Crypto Specialist. Specializing in online fraud investigation and cryptocurrency tracing.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nour | OSINT & Crypto Specialist</title>
+<!-- Security: Content Security Policy to mitigate XSS and framing attacks -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: https://i.ibb.co; frame-ancestors 'none'; base-uri 'self';">
+<!-- Additional security-related meta tags. Prefer setting these as HTTP headers on your host for best effect. -->
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- Permissions-Policy (formerly Feature-Policy) to disable powerful features by default -->
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), gyroscope=(), accelerometer=()">
+<!-- Note: For maximum security, move the CSP into an HTTP header and add HSTS (Strict-Transport-Security) on your server. -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/svelte@3.59.1/compiled/svelte.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -507,54 +515,47 @@ document.addEventListener('DOMContentLoaded', function() {
     const interactiveTerminalDiv = document.getElementById('interactive-terminal');
     let terminalInput;
 
-    const initialContentHtml = `
-        <div class="mb-2">Welcome to Nour's interactive terminal. Type 'help' for available commands.</div>
-        <div class="flex items-center mb-4" id="terminal-input-line">
-            <span class="text-green-400 mr-2">ghostwwn@terminal:~$</span>
-            <input type="text" id="terminal-input" class="bg-transparent border-none outline-none flex-grow text-white" autofocus>
-        </div>
-    `;
+  const initialContentHtml = null;
 
     
     const commands = {
-        help: {
-            description: "List all available commands",
-            execute: () => {
-                let output = "Available commands:<br>";
-                for (const cmd in commands) {
-                    output += `<span class=\"text-blue-400\">${cmd}</span> - ${commands[cmd].description}<br>`;
-                }
-                return output;
-            }
-        },
-        about: {
-            description: "Display information about me",
-            execute: () => {
-                return "Nour | 16-year-old OSINT & Crypto Specialist<br>" +
-                       "Independent researcher since 2022<br>" +
-                       "Specializing in fraud investigation and crypto tracing";
-            }
-        },
-        skills: {
-            description: "List my technical skills",
-            execute: () => {
-                return "OSINT Techniques:<br>" +
-                       "- Reverse image search (PimEyes, Yandex, Tineye)<br>" +
-                       "- People search and username tracing<br>" +
-                       "- Metadata analysis & digital footprint tracking<br><br>" +
-                       "Cryptocurrency Analysis:<br>" +
-                       "- BTC & ETH wallet tracking<br>" +
-                       "- Blockchain explorers (Etherscan)<br>" +
-                       "- Transaction flow analysis";
-            }
-        },
-        contact: {
-            description: "Show contact information",
-            execute: () => {
-                return "Telegram: <a href='https://t.me/ghostwwn' target='_blank' class='text-blue-400'>@ghostwwn</a><br>" +
-                       "Location: New Jersey, USA";
-            }
+    help: {
+      description: "List all available commands",
+      execute: () => {
+        let output = "Available commands:\n";
+        for (const cmd in commands) {
+          output += `${cmd} - ${commands[cmd].description}\n`;
         }
+        return output;
+      }
+    },
+    about: {
+      description: "Display information about me",
+      execute: () => {
+        return "Nour | 16-year-old OSINT & Crypto Specialist\n" +
+             "Independent researcher since 2022\n" +
+             "Specializing in fraud investigation and crypto tracing";
+      }
+    },
+    skills: {
+      description: "List my technical skills",
+      execute: () => {
+        return "OSINT Techniques:\n" +
+             "- Reverse image search (PimEyes, Yandex, Tineye)\n" +
+             "- People search and username tracing\n" +
+             "- Metadata analysis & digital footprint tracking\n\n" +
+             "Cryptocurrency Analysis:\n" +
+             "- BTC & ETH wallet tracking\n" +
+             "- Blockchain explorers (Etherscan)\n" +
+             "- Transaction flow analysis";
+      }
+    },
+    contact: {
+      description: "Show contact information",
+      execute: () => {
+        return "Telegram: @ghostwwn (https://t.me/ghostwwn)\nLocation: New Jersey, USA";
+      }
+    }
     };
 
     
@@ -566,48 +567,174 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    function attachTerminalListeners() {
-        terminalInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                const command = terminalInput.value.trim().toLowerCase();
-                terminalInput.value = '';
+  function attachTerminalListeners() {
+    // Limit terminal input length and sanitize pasted content
+    const MAX_INPUT_LENGTH = 300;
+    const MAX_TERMINAL_LINES = 200; // cap lines kept in DOM to prevent memory/abuse
 
-                const commandLine = document.createElement('div');
-                commandLine.className = 'flex items-center mb-1';
-                commandLine.innerHTML = `<span class=\"text-green-400 mr-2\">ghostwwn@terminal:~$</span> ${command}`;
-                interactiveTerminalDiv.insertBefore(commandLine, document.getElementById('terminal-input-line'));
+    terminalInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const command = terminalInput.value.trim().toLowerCase();
+        terminalInput.value = '';
 
-                let response = "Command not found. Type 'help' for available commands.";
-                if (commands[command]) {
-                    response = commands[command].execute();
-                }
+        // render command line safely (no innerHTML)
+        const commandLine = document.createElement('div');
+        commandLine.className = 'flex items-center mb-1';
+        const promptSpan = document.createElement('span');
+        promptSpan.className = 'text-green-400 mr-2';
+        promptSpan.textContent = 'ghostwwn@terminal:~$';
+        commandLine.appendChild(promptSpan);
+        const cmdText = document.createTextNode(' ' + command);
+        commandLine.appendChild(cmdText);
+        interactiveTerminalDiv.insertBefore(commandLine, document.getElementById('terminal-input-line'));
 
-                if (response) {
-                    const responseDiv = document.createElement('div');
-                    responseDiv.className = 'mb-4';
-                    responseDiv.innerHTML = response;
-                    interactiveTerminalDiv.insertBefore(responseDiv, document.getElementById('terminal-input-line'));
-                }
+        let response = "Command not found. Type 'help' for available commands.";
+        if (commands[command]) {
+          try {
+            response = commands[command].execute();
+          } catch (err) {
+            response = 'Error executing command.';
+            console.error(err);
+          }
+        }
 
-                interactiveTerminalDiv.scrollTop = interactiveTerminalDiv.scrollHeight;
-            }
-        });
+        if (response) {
+          const responseDiv = document.createElement('div');
+          responseDiv.className = 'mb-4';
+          renderSafeTextWithLinks(responseDiv, response);
+          interactiveTerminalDiv.insertBefore(responseDiv, document.getElementById('terminal-input-line'));
+        }
 
-        terminalInput.addEventListener('input', function() {
-            interactiveTerminalDiv.scrollTop = interactiveTerminalDiv.scrollHeight;
-        });
+        trimTerminalLines();
+        interactiveTerminalDiv.scrollTop = interactiveTerminalDiv.scrollHeight;
+      }
+    });
 
-        interactiveTerminalDiv.addEventListener('click', function() {
-            terminalInput.focus();
-        });
+    terminalInput.addEventListener('input', function() {
+      if (terminalInput.value.length > MAX_INPUT_LENGTH) {
+        terminalInput.value = terminalInput.value.slice(0, MAX_INPUT_LENGTH);
+      }
+      interactiveTerminalDiv.scrollTop = interactiveTerminalDiv.scrollHeight;
+    });
+
+    // sanitize paste: strip any HTML and limit length
+    terminalInput.addEventListener('paste', function(e) {
+      e.preventDefault();
+      const text = (e.clipboardData || window.clipboardData).getData('text').slice(0, MAX_INPUT_LENGTH);
+      // insert as plain text at caret
+      const start = terminalInput.selectionStart || 0;
+      const end = terminalInput.selectionEnd || 0;
+      const newVal = terminalInput.value.slice(0, start) + text + terminalInput.value.slice(end);
+      terminalInput.value = newVal.slice(0, MAX_INPUT_LENGTH);
+    });
+
+    interactiveTerminalDiv.addEventListener('click', function() {
+      terminalInput.focus();
+    });
+
+    // Trim terminal DOM if it grows too large
+    const trimTerminalLines = () => {
+      const children = interactiveTerminalDiv.children;
+      if (children.length > MAX_TERMINAL_LINES + 5) { // +5 for input lines
+        // remove the oldest lines (but keep the input line at end)
+        let toRemove = children.length - (MAX_TERMINAL_LINES + 5);
+        for (let i = 0; i < children.length && toRemove > 0; i++) {
+          const child = children[i];
+          if (child.id !== 'terminal-input-line') {
+            interactiveTerminalDiv.removeChild(child);
+            toRemove--;
+            i--;
+          }
+        }
+      }
+    };
+  }
+
+  function setupTerminalElements() {
+    // Create welcome line and input line using safe DOM methods
+    interactiveTerminalDiv.innerHTML = '';
+    const welcomeDiv = document.createElement('div');
+    welcomeDiv.className = 'mb-2';
+    welcomeDiv.textContent = "Welcome to Nour's interactive terminal. Type 'help' for available commands.";
+    interactiveTerminalDiv.appendChild(welcomeDiv);
+
+    const inputLine = document.createElement('div');
+    inputLine.className = 'flex items-center mb-4';
+    inputLine.id = 'terminal-input-line';
+
+    const prompt = document.createElement('span');
+    prompt.className = 'text-green-400 mr-2';
+    prompt.textContent = 'ghostwwn@terminal:~$';
+
+    terminalInput = document.createElement('input');
+    terminalInput.type = 'text';
+    terminalInput.id = 'terminal-input';
+    terminalInput.className = 'bg-transparent border-none outline-none flex-grow text-white';
+
+    inputLine.appendChild(prompt);
+    inputLine.appendChild(terminalInput);
+    interactiveTerminalDiv.appendChild(inputLine);
+
+    attachTerminalListeners();
+    terminalInput.focus();
+  }
+
+  // Helper: render text preserving newlines and converting safe http(s) URLs into clickable anchors
+  function isSafeUrl(urlString) {
+    try {
+      const url = new URL(urlString);
+      if (url.protocol !== 'http:' && url.protocol !== 'https:') return false;
+      // Optionally restrict hosts here if needed (e.g., allowlist)
+      return true;
+    } catch (e) {
+      return false;
     }
+  }
 
-    function setupTerminalElements() {
-        interactiveTerminalDiv.innerHTML = initialContentHtml;
-        terminalInput = document.getElementById('terminal-input');
-        attachTerminalListeners();
-        terminalInput.focus();
+  function renderSafeTextWithLinks(container, text) {
+    // Regex to find http(s) URLs. This is simple and intentionally conservative.
+    const urlRegex = /(https?:\/\/[\w\-._~:\/?#\[\]@!$&'()*+,;=%]+)/g;
+    let lastIndex = 0;
+    let match;
+    while ((match = urlRegex.exec(text)) !== null) {
+      const before = text.slice(lastIndex, match.index);
+      if (before) {
+        // preserve newlines
+        before.split('\n').forEach((line, idx) => {
+          container.appendChild(document.createTextNode(line));
+          if (idx < before.split('\n').length - 1) container.appendChild(document.createElement('br'));
+        });
+      }
+      // Trim trailing punctuation from the matched candidate (e.g., .,:;!?) and closing brackets
+      let candidate = match[0];
+      let suffix = '';
+      while (candidate.length && /[\.\,\!\?\:\;\)\]\}]/.test(candidate[candidate.length - 1])) {
+        suffix = candidate[candidate.length - 1] + suffix;
+        candidate = candidate.slice(0, -1);
+      }
+      if (isSafeUrl(candidate)) {
+        const a = document.createElement('a');
+        a.href = candidate;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer nofollow';
+        a.textContent = candidate;
+        a.style.color = '#60a5fa'; // match blue-400
+        container.appendChild(a);
+        if (suffix) container.appendChild(document.createTextNode(suffix));
+      } else {
+        // if candidate isn't a safe URL, render original match as text (including any suffix)
+        container.appendChild(document.createTextNode(match[0]));
+      }
+      lastIndex = urlRegex.lastIndex;
     }
+    const rest = text.slice(lastIndex);
+    if (rest) {
+      rest.split('\n').forEach((line, idx) => {
+        container.appendChild(document.createTextNode(line));
+        if (idx < rest.split('\n').length - 1) container.appendChild(document.createElement('br'));
+      });
+    }
+  }
 
     setupTerminalElements();
 });

@@ -1,0 +1,24 @@
+{
+  "name": "ghostwwn.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "linkify-test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghostwwn/ghostwwn.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ghostwwn/ghostwwn.github.io/issues"
+  },
+  "homepage": "https://github.com/ghostwwn/ghostwwn.github.io#readme",
+  "dependencies": {
+    "jsdom": "^27.0.0"
+  }
+}
