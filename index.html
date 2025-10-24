@@ -19,7 +19,9 @@
 <!-- Security: Content Security Policy to mitigate XSS and framing attacks -->
 <!-- NOTE: Inline scripts are allowed here temporarily ('unsafe-inline') so existing inline scripts can run (e.g. hidebody removal).
   For production, move inline scripts to external files and serve CSP via headers with nonces instead of 'unsafe-inline'. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://cdn.tailwindcss.com; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://cdn.tailwindcss.com; img-src 'self' data: https://i.ibb.co; frame-ancestors 'none'; base-uri 'self';">
+<!-- DEVELOPMENT NOTE: Relaxed CSP so third-party embeds (Credly) can load while previewing locally.
+  For production, move CSP into an HTTP header and tighten sources (avoid wildcard '*'). -->
+<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; script-src * 'unsafe-inline' 'unsafe-eval' data:; style-src * 'unsafe-inline' data:; img-src * data:; connect-src *; frame-src *; frame-ancestors 'none'; base-uri *;">
 <!-- Additional security-related meta tags. Prefer setting these as HTTP headers on your host for best effect. -->
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -121,6 +123,20 @@ text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
 #app > * {
   pointer-events: auto;
 }
+</style>
+<!-- Credly embed styling: try to force readable white text for embeds that inject inline markup. -->
+<style>
+  /* Target the embed wrapper and any descendants. If Credly injects an iframe, iframe contents cannot be styled from here
+     but when the embed outputs inline markup this will force white text and improve contrast on the dark card. */
+  #credly-embed-wrapper, #credly-embed-wrapper * {
+    color: #ffffff !important;
+    background-color: transparent !important;
+    border-color: rgba(255,255,255,0.12) !important;
+  }
+  #credly-embed-wrapper a { color: #ffffff !important; }
+  #credly-embed-wrapper svg { fill: #ffffff !important; }
+  /* If the embed creates images or svgs with low contrast, increase their opacity/brightness where possible. */
+  #credly-embed-wrapper img { filter: none !important; opacity: 1 !important; }
 </style>
 </head>
 <body class="min-h-screen text-gray-200">
@@ -288,8 +304,27 @@ Get in Touch
   <div class="bg-gray-800 rounded-xl p-6 shadow-lg transition duration-300 hover:shadow-blue-500/40 hover:border-blue-400 border border-transparent md:col-span-2">
         <div class="flex flex-col items-center text-white">
           <div class="w-full flex justify-center mb-4">
-            <!-- Certificate image (centered, larger for full-width aesthetic) -->
-            <img src="/assets/images/opswat-cert.png" alt="OPSWAT Certificate (OCOE)" class="rounded-lg max-w-[800px] w-full h-auto object-contain border-2 border-white shadow-md transform transition-transform duration-300 hover:scale-105">
+            <!-- Two-column layout: left = clickable static cert image, right = Credly embed (visual). -->
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-center gap-6 w-full max-w-4xl">
+              <!-- Left: Credly embed kept for visuals but pointer-events disabled so it doesn't hijack clicks/focus. -->
+              <!-- Official Credly embed -->
+              <div id="credly-embed-wrapper" class="flex-shrink-0 order-1 md:order-1 relative">
+                <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="77910ee2-bfcc-46b1-8854-837f032c7617" data-share-badge-host="https://www.credly.com"></div>
+                <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+              </div>
+
+              <!-- Right: clickable certificate image -->
+              <a href="https://learn.opswatacademy.com/certificate/6BdTXwop_A" target="_blank" rel="noopener noreferrer" class="inline-block order-0 md:order-2">
+                <img src="/assets/images/opswat-cert.png" alt="OPSWAT Certificate (OCOE)" class="rounded-lg max-w-[260px] w-full h-auto object-contain border-2 border-white shadow-md mx-auto">
+              </a>
+
+              <!-- noscript fallback: clickable image for users without JS -->
+              <noscript>
+                <a href="https://learn.opswatacademy.com/certificate/6BdTXwop_A" target="_blank" rel="noopener noreferrer" class="inline-block md:hidden">
+                  <img src="/assets/images/opswat-cert.png" alt="OPSWAT Certificate (OCOE)" class="rounded-lg max-w-[260px] w-full h-auto object-contain border-2 border-white shadow-md mx-auto">
+                </a>
+              </noscript>
+            </div>
           </div>
           <div class="w-full text-center">
             <h3 class="text-xl font-bold mb-2">OPSWAT Comprehensive OSINT Expert (OCOE)</h3>
