@@ -19,9 +19,10 @@
 <!-- Security: Content Security Policy to mitigate XSS and framing attacks -->
 <!-- NOTE: Inline scripts are allowed here temporarily ('unsafe-inline') so existing inline scripts can run (e.g. hidebody removal).
   For production, move inline scripts to external files and serve CSP via headers with nonces instead of 'unsafe-inline'. -->
-<!-- DEVELOPMENT NOTE: Relaxed CSP so third-party embeds (Credly) can load while previewing locally.
-  For production, move CSP into an HTTP header and tighten sources (avoid wildcard '*'). -->
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; script-src * 'unsafe-inline' 'unsafe-eval' data:; style-src * 'unsafe-inline' data:; img-src * data:; connect-src *; frame-src *; frame-ancestors 'none'; base-uri *;">
+<!-- Content-Security-Policy (meta) - conservative default to reduce risk from third-party scripts while
+     still allowing known CDNs used by this page. For production, prefer setting this as an HTTP header
+     via a CDN (Cloudflare, Fastly) to enable frame-ancestors and stronger enforcement. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data:; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://cdn.credly.com; style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://learn.opswatacademy.com https://www.credly.com https://api.github.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
 <!-- Additional security-related meta tags. Prefer setting these as HTTP headers on your host for best effect. -->
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
