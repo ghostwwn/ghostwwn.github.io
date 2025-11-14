@@ -1,0 +1,5 @@
+Contact: mailto:ghostwwn@proton.me
+Encryption: https://ghostwwn.com/pgp-key.txt
+Policy: https://ghostwwn.com/security-policy.html
+Acknowledgements: https://ghostwwn.com/security-acknowledgements
+Preferred-Languages: en
