@@ -105,6 +105,239 @@ box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
 .glow {
 text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
 }
+
+/* From Uiverse.io by milegelu */
+.button {
+  --bezier: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --edge-light: hsla(0, 0%, 50%, 0.8);
+  --text-light: rgba(255, 255, 255, 0.4);
+  --back-color: 240, 40%;
+
+  cursor: pointer;
+  padding: 0.5em 0.8em;
+  border-radius: 0.5em;
+  min-height: 2em;
+  min-width: 2.5em;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+
+  font-size: 15px;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  font-weight: bold;
+
+  background: linear-gradient(
+    140deg,
+    hsla(var(--back-color), 50%, 1) min(2em, 20%),
+    hsla(var(--back-color), 50%, 0.6) min(8em, 100%)
+  );
+  color: hsla(0, 0%, 90%);
+  border: 0;
+  box-shadow: inset 0.4px 1px 4px var(--edge-light);
+
+  transition: all 0.1s var(--bezier);
+}
+
+.button:hover {
+  --edge-light: hsla(0, 0%, 50%, 1);
+  text-shadow: 0px 0px 10px var(--text-light);
+  box-shadow: inset 0.4px 1px 4px var(--edge-light),
+    2px 4px 8px hsla(0, 0%, 0%, 0.295);
+}
+
+.button:active {
+  --text-light: rgba(255, 255, 255, 1);
+
+  background: linear-gradient(
+    140deg,
+    hsla(var(--back-color), 50%, 1) min(2em, 20%),
+    hsla(var(--back-color), 50%, 0.6) min(8em, 100%)
+  );
+  box-shadow: inset 0.4px 1px 8px var(--edge-light),
+    0px 0px 8px hsla(var(--back-color), 50%, 0.6);
+  text-shadow: 0px 0px 20px var(--text-light);
+  color: hsla(0, 0%, 100%, 1);
+  letter-spacing: 0.1em;
+}
+
+.button-compact {
+  padding: 0.4em 0.8em !important;
+  min-height: 1.8em !important;
+}
+
+/* From Uiverse.io by kennyotsu - Hover Tracker Cards */
+.container {
+  position: relative;
+  width: 190px;
+  height: 254px;
+  transition: 200ms;
+  pointer-events: none;
+}
+
+.canvas {
+  pointer-events: auto;
+}
+
+#card {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  transition: 700ms;
+  background: linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%);
+}
+
+.subtitle {
+  transform: translateY(160px);
+  color: rgb(134, 110, 221);
+  text-align: center;
+  width: 100%;
+}
+
+.title {
+  opacity: 0;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out-out;
+  transition-delay: 100ms;
+  position: absolute;
+  font-size: x-large;
+  font-weight: bold;
+  color: white;
+}
+
+.tracker:hover ~ #card .title {
+  opacity: 1;
+}
+
+#prompt {
+  bottom: 8px;
+  left: 12px;
+  z-index: 20;
+  font-size: 20px;
+  font-weight: bold;
+  transition: 300ms ease-in-out-out;
+  position: absolute;
+  max-width: 110px;
+  color: rgb(255, 255, 255);
+}
+
+.tracker {
+  position: absolute;
+  z-index: 200;
+  width: 100%;
+  height: 100%;
+}
+
+.tracker:hover {
+  cursor: pointer;
+}
+
+.tracker:hover ~ #card #prompt {
+  opacity: 0;
+}
+
+.tracker:hover ~ #card {
+  transition: 300ms;
+  filter: brightness(1.1);
+}
+
+.container:hover #card::before {
+  transition: 200ms;
+  content: '';
+  opacity: 80%;
+}
+
+.canvas {
+  perspective: 800px;
+  inset: 0;
+  z-index: 200;
+  position: absolute;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "tr-1 tr-2 tr-3 tr-4 tr-5"
+    "tr-6 tr-7 tr-8 tr-9 tr-10"
+    "tr-11 tr-12 tr-13 tr-14 tr-15"
+    "tr-16 tr-17 tr-18 tr-19 tr-20"
+    "tr-21 tr-22 tr-23 tr-24 tr-25";
+}
+
+#card::before {
+  content: '';
+  background: linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%);
+  filter: blur(2rem);
+  opacity: 30%;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  transition: 200ms;
+}
+
+.tr-1 { grid-area: tr-1; }
+.tr-2 { grid-area: tr-2; }
+.tr-3 { grid-area: tr-3; }
+.tr-4 { grid-area: tr-4; }
+.tr-5 { grid-area: tr-5; }
+.tr-6 { grid-area: tr-6; }
+.tr-7 { grid-area: tr-7; }
+.tr-8 { grid-area: tr-8; }
+.tr-9 { grid-area: tr-9; }
+.tr-10 { grid-area: tr-10; }
+.tr-11 { grid-area: tr-11; }
+.tr-12 { grid-area: tr-12; }
+.tr-13 { grid-area: tr-13; }
+.tr-14 { grid-area: tr-14; }
+.tr-15 { grid-area: tr-15; }
+.tr-16 { grid-area: tr-16; }
+.tr-17 { grid-area: tr-17; }
+.tr-18 { grid-area: tr-18; }
+.tr-19 { grid-area: tr-19; }
+.tr-20 { grid-area: tr-20; }
+.tr-21 { grid-area: tr-21; }
+.tr-22 { grid-area: tr-22; }
+.tr-23 { grid-area: tr-23; }
+.tr-24 { grid-area: tr-24; }
+.tr-25 { grid-area: tr-25; }
+
+.tr-1:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(20deg) rotateY(-10deg) rotateZ(0deg); }
+.tr-2:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(20deg) rotateY(-5deg) rotateZ(0deg); }
+.tr-3:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(20deg) rotateY(0deg) rotateZ(0deg); }
+.tr-4:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(20deg) rotateY(5deg) rotateZ(0deg); }
+.tr-5:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(20deg) rotateY(10deg) rotateZ(0deg); }
+.tr-6:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(10deg) rotateY(-10deg) rotateZ(0deg); }
+.tr-7:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(10deg) rotateY(-5deg) rotateZ(0deg); }
+.tr-8:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(10deg) rotateY(0deg) rotateZ(0deg); }
+.tr-9:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(10deg) rotateY(5deg) rotateZ(0deg); }
+.tr-10:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(10deg) rotateY(10deg) rotateZ(0deg); }
+.tr-11:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(-10deg) rotateZ(0deg); }
+.tr-12:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(-5deg) rotateZ(0deg); }
+.tr-13:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+.tr-14:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(5deg) rotateZ(0deg); }
+.tr-15:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(10deg) rotateZ(0deg); }
+.tr-16:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-10deg) rotateY(-10deg) rotateZ(0deg); }
+.tr-17:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-10deg) rotateY(-5deg) rotateZ(0deg); }
+.tr-18:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-10deg) rotateY(0deg) rotateZ(0deg); }
+.tr-19:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-10deg) rotateY(5deg) rotateZ(0deg); }
+.tr-20:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-10deg) rotateY(10deg) rotateZ(0deg); }
+.tr-21:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-20deg) rotateY(-10deg) rotateZ(0deg); }
+.tr-22:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-20deg) rotateY(-5deg) rotateZ(0deg); }
+.tr-23:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-20deg) rotateY(0deg) rotateZ(0deg); }
+.tr-24:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-20deg) rotateY(5deg) rotateZ(0deg); }
+.tr-25:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-20deg) rotateY(10deg) rotateZ(0deg); }
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 </style>
 <style>
 #particles-js {
@@ -129,16 +362,29 @@ text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
 <style>
   /* Target the embed wrapper and any descendants. If Credly injects an iframe, iframe contents cannot be styled from here
      but when the embed outputs inline markup this will force white text and improve contrast on the dark card. */
-  #credly-embed-wrapper, #credly-embed-wrapper * {
+  #credly-embed-wrapper, #credly-embed-icip, 
+  #credly-embed-wrapper *, #credly-embed-icip * {
     color: #ffffff !important;
     background-color: transparent !important;
     border-color: rgba(255,255,255,0.12) !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
-  #credly-embed-wrapper a { color: #ffffff !important; }
-  #credly-embed-wrapper svg { fill: #ffffff !important; }
+  #credly-embed-wrapper, #credly-embed-icip {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-height: 270px;
+    z-index: 10 !important;
+    position: relative !important;
+  }
+  #credly-embed-wrapper a, #credly-embed-icip a { color: #ffffff !important; }
+  #credly-embed-wrapper svg, #credly-embed-icip svg { fill: #ffffff !important; }
   /* If the embed creates images or svgs with low contrast, increase their opacity/brightness where possible. */
-  #credly-embed-wrapper img { filter: none !important; opacity: 1 !important; }
+  #credly-embed-wrapper img, #credly-embed-icip img { filter: none !important; opacity: 1 !important; }
 </style>
+<script type="text/javascript" async src="https://cdn.credly.com/assets/utilities/embed.js"></script>
 </head>
 <body class="min-h-screen text-gray-200">
 <div id="particles-js"></div>
@@ -173,9 +419,12 @@ text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
 Investigating online fraud, tracing cryptocurrency transactions, and exposing digital deception since 2022.
 </p>
 <div class="flex space-x-4">
-<a href="#contact" id="get-in-touch-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition">
-Get in Touch
-</a>
+<button id="get-in-touch-btn" class="button">
+  <svg viewBox="0 0 16 16" class="bi bi-lightning-charge-fill" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
+    <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"></path>
+  </svg>
+  Get in Touch
+</button>
 </div>
 </div>
 <div class="md:w-1/2 flex justify-center">
@@ -311,7 +560,6 @@ Get in Touch
               <!-- Official Credly embed -->
               <div id="credly-embed-wrapper" class="flex-shrink-0 order-1 md:order-1 relative">
                 <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="77910ee2-bfcc-46b1-8854-837f032c7617" data-share-badge-host="https://www.credly.com"></div>
-                <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
               </div>
 
               <!-- Right: clickable certificate image -->
@@ -335,7 +583,7 @@ Get in Touch
               <span>Expiration: 10/23/2026</span>
             </p>
             <p class="mb-3">Certificate ID: <span class="font-mono">6BdTXwop_A</span></p>
-            <a href="https://learn.opswatacademy.com/certificate/6BdTXwop_A" target="_blank" rel="noopener noreferrer" class="inline-block bg-white text-blue-700 font-semibold px-4 py-2 rounded-lg shadow hover:bg-gray-100">View Certificate</a>
+            <a href="https://learn.opswatacademy.com/certificate/6BdTXwop_A" target="_blank" rel="noopener noreferrer" class="button" style="width: 100%; justify-content: center;">View Certificate</a>
             <p class="mt-3 text-sm break-all">Full URL: https://learn.opswatacademy.com/certificate/6BdTXwop_A</p>
           </div>
         </div>
@@ -349,7 +597,6 @@ Get in Touch
               <!-- Left: Credly embed for ICIP -->
               <div id="credly-embed-icip" class="flex-shrink-0 order-1 md:order-1 relative">
                 <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="c68439cc-5320-48d4-ac1d-d1104609b435" data-share-badge-host="https://www.credly.com"></div>
-                <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
               </div>
 
               <!-- Right: clickable static certificate image (upload as /assets/images/icip-cert.png) -->
@@ -373,7 +620,7 @@ Get in Touch
               <span>Expiration: 10/24/2026</span>
             </p>
             <p class="mb-3">Certificate ID: <span class="font-mono">o1QZONmexA</span></p>
-            <a href="https://learn.opswatacademy.com/certificate/o1QZONmexA" target="_blank" rel="noopener noreferrer" class="inline-block bg-white text-blue-700 font-semibold px-4 py-2 rounded-lg shadow hover:bg-gray-100">View Certificate</a>
+            <a href="https://learn.opswatacademy.com/certificate/o1QZONmexA" target="_blank" rel="noopener noreferrer" class="button" style="width: 100%; justify-content: center;">View Certificate</a>
             <p class="mt-3 text-sm break-all">Full URL: https://learn.opswatacademy.com/certificate/o1QZONmexA</p>
           </div>
         </div>
@@ -476,70 +723,255 @@ Interested in discussing OSINT techniques, cryptocurrency tracing, or potential 
 </div>
 </div>
 
-<div class="md:w-1/2">
-<div class="space-y-4">
-  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
-    <div class="mr-4">
-      <i class="fab fa-telegram text-blue-400 text-2xl"></i>
-    </div>
-    <div>
-      <h3 class="font-bold">Telegram</h3>
-      <a href="https://t.me/ghostwwn" target="_blank" class="text-blue-400 hover:underline">@ghostwwn</a>
-    </div>
-  </div>
-  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
-    <div class="mr-4">
-      <i class="fab fa-instagram text-pink-400 text-2xl"></i>
-    </div>
-    <div>
-      <h3 class="font-bold">Instagram</h3>
-      <a href="https://instagram.com/ghostwwn" target="_blank" class="text-pink-400 hover:underline">@ghostwwn</a>
-    </div>
-  </div>
-  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
-    <div class="mr-4">
-      <i class="fab fa-github text-gray-400 text-2xl"></i>
-    </div>
-    <div>
-      <h3 class="font-bold">GitHub</h3>
-      <a href="https://github.com/ghostwwn" target="_blank" class="text-gray-400 hover:underline">@ghostwwn</a>
-    </div>
-  </div>
-  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
-    <div class="mr-4">
-      <i class="fab fa-tiktok text-white text-2xl"></i>
-    </div>
-    <div>
-      <h3 class="font-bold">TikTok</h3>
-      <a href="https://www.tiktok.com/@ghostwwn" target="_blank" class="text-white hover:underline">@ghostwwn</a>
+<div class="md:w-1/2 flex flex-wrap justify-center gap-8">
+<!-- Telegram Card -->
+<div class="container noselect">
+  <div class="canvas">
+    <div class="tracker tr-1"></div>
+    <div class="tracker tr-2"></div>
+    <div class="tracker tr-3"></div>
+    <div class="tracker tr-4"></div>
+    <div class="tracker tr-5"></div>
+    <div class="tracker tr-6"></div>
+    <div class="tracker tr-7"></div>
+    <div class="tracker tr-8"></div>
+    <div class="tracker tr-9"></div>
+    <div class="tracker tr-10"></div>
+    <div class="tracker tr-11"></div>
+    <div class="tracker tr-12"></div>
+    <div class="tracker tr-13"></div>
+    <div class="tracker tr-14"></div>
+    <div class="tracker tr-15"></div>
+    <div class="tracker tr-16"></div>
+    <div class="tracker tr-17"></div>
+    <div class="tracker tr-18"></div>
+    <div class="tracker tr-19"></div>
+    <div class="tracker tr-20"></div>
+    <div class="tracker tr-21"></div>
+    <div class="tracker tr-22"></div>
+    <div class="tracker tr-23"></div>
+    <div class="tracker tr-24"></div>
+    <div class="tracker tr-25"></div>
+    <div id="card">
+      <p id="prompt">TELEGRAM</p>
+      <div class="title">Message<br>Me!</div>
+      <div class="subtitle"><a href="https://t.me/ghostwwn" target="_blank" class="text-white hover:underline">@ghostwwn</a></div>
     </div>
   </div>
-  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
-    <div class="mr-4">
-      <i class="fab fa-discord text-indigo-400 text-2xl"></i>
-    </div>
-    <div>
-      <h3 class="font-bold">Discord</h3>
-      <span class="text-indigo-400">@ghostwwn</span>
+</div>
+
+<!-- Instagram Card -->
+<div class="container noselect">
+  <div class="canvas">
+    <div class="tracker tr-1"></div>
+    <div class="tracker tr-2"></div>
+    <div class="tracker tr-3"></div>
+    <div class="tracker tr-4"></div>
+    <div class="tracker tr-5"></div>
+    <div class="tracker tr-6"></div>
+    <div class="tracker tr-7"></div>
+    <div class="tracker tr-8"></div>
+    <div class="tracker tr-9"></div>
+    <div class="tracker tr-10"></div>
+    <div class="tracker tr-11"></div>
+    <div class="tracker tr-12"></div>
+    <div class="tracker tr-13"></div>
+    <div class="tracker tr-14"></div>
+    <div class="tracker tr-15"></div>
+    <div class="tracker tr-16"></div>
+    <div class="tracker tr-17"></div>
+    <div class="tracker tr-18"></div>
+    <div class="tracker tr-19"></div>
+    <div class="tracker tr-20"></div>
+    <div class="tracker tr-21"></div>
+    <div class="tracker tr-22"></div>
+    <div class="tracker tr-23"></div>
+    <div class="tracker tr-24"></div>
+    <div class="tracker tr-25"></div>
+    <div id="card">
+      <p id="prompt">INSTAGRAM</p>
+      <div class="title">Follow<br>Me!</div>
+      <div class="subtitle"><a href="https://instagram.com/ghostwwn" target="_blank" class="text-white hover:underline">@ghostwwn</a></div>
     </div>
   </div>
-  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
-    <div class="mr-4">
-      <i class="fas fa-envelope text-blue-400 text-2xl"></i>
-    </div>
-    <div>
-      <h3 class="font-bold">Email</h3>
-      <a href="mailto:ghostwwn@proton.me" class="text-blue-400 hover:underline">ghostwwn@proton.me</a>
+</div>
+
+<!-- GitHub Card -->
+<div class="container noselect">
+  <div class="canvas">
+    <div class="tracker tr-1"></div>
+    <div class="tracker tr-2"></div>
+    <div class="tracker tr-3"></div>
+    <div class="tracker tr-4"></div>
+    <div class="tracker tr-5"></div>
+    <div class="tracker tr-6"></div>
+    <div class="tracker tr-7"></div>
+    <div class="tracker tr-8"></div>
+    <div class="tracker tr-9"></div>
+    <div class="tracker tr-10"></div>
+    <div class="tracker tr-11"></div>
+    <div class="tracker tr-12"></div>
+    <div class="tracker tr-13"></div>
+    <div class="tracker tr-14"></div>
+    <div class="tracker tr-15"></div>
+    <div class="tracker tr-16"></div>
+    <div class="tracker tr-17"></div>
+    <div class="tracker tr-18"></div>
+    <div class="tracker tr-19"></div>
+    <div class="tracker tr-20"></div>
+    <div class="tracker tr-21"></div>
+    <div class="tracker tr-22"></div>
+    <div class="tracker tr-23"></div>
+    <div class="tracker tr-24"></div>
+    <div class="tracker tr-25"></div>
+    <div id="card">
+      <p id="prompt">GITHUB</p>
+      <div class="title">Check My<br>Code!</div>
+      <div class="subtitle"><a href="https://github.com/ghostwwn" target="_blank" class="text-white hover:underline">@ghostwwn</a></div>
     </div>
   </div>
-  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
-    <div class="mr-4">
-      <!-- Session logo SVG -->
-      <svg width="28" height="28" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h192v192H0z" style="fill:none"/><path d="M67.54 22h67.14c10.86 0 20.97 6.19 25.31 16.14 1.4 3.21 2.2 6.72 2.28 10.37.07 3.76-.63 7.4-1.98 10.74-4.18 10.35-14.52 16.87-25.67 16.87H96l44.55 24.75c7.44 4.13 13.67 10.26 17.49 17.87 5.34 10.64 5.81 22.7.92 32.48-2.66 5.32-6.51 9.18-10.47 11.96-6.49 4.56-14.32 6.81-22.25 6.81H57.07c-1.95 0-3.89-.14-5.8-.55-12.18-2.65-21.28-13.4-21.54-25.95-.26-12.92 8.91-24.25 21.42-27.03 1.95-.44 3.96-.58 5.96-.58h38.88L49.58 90.21c-7.3-4.04-13.29-10.2-16.75-17.8-2.06-4.53-3.47-9.97-3.11-16.17.4-6.92 2.92-13.51 7.04-19.09C43.92 27.46 55.48 22 67.53 22Z" style="stroke-linecap:round;stroke-linejoin:round;stroke:#10b981;stroke-width:12px;fill:none"/><path d="M96 76.12v39.76" style="stroke:#10b981;stroke-width:12px;stroke-miterlimit:10;fill:none"/></svg>
+</div>
+
+<!-- TikTok Card -->
+<div class="container noselect">
+  <div class="canvas">
+    <div class="tracker tr-1"></div>
+    <div class="tracker tr-2"></div>
+    <div class="tracker tr-3"></div>
+    <div class="tracker tr-4"></div>
+    <div class="tracker tr-5"></div>
+    <div class="tracker tr-6"></div>
+    <div class="tracker tr-7"></div>
+    <div class="tracker tr-8"></div>
+    <div class="tracker tr-9"></div>
+    <div class="tracker tr-10"></div>
+    <div class="tracker tr-11"></div>
+    <div class="tracker tr-12"></div>
+    <div class="tracker tr-13"></div>
+    <div class="tracker tr-14"></div>
+    <div class="tracker tr-15"></div>
+    <div class="tracker tr-16"></div>
+    <div class="tracker tr-17"></div>
+    <div class="tracker tr-18"></div>
+    <div class="tracker tr-19"></div>
+    <div class="tracker tr-20"></div>
+    <div class="tracker tr-21"></div>
+    <div class="tracker tr-22"></div>
+    <div class="tracker tr-23"></div>
+    <div class="tracker tr-24"></div>
+    <div class="tracker tr-25"></div>
+    <div id="card">
+      <p id="prompt">TIKTOK</p>
+      <div class="title">Watch My<br>Videos!</div>
+      <div class="subtitle"><a href="https://www.tiktok.com/@ghostwwn" target="_blank" class="text-white hover:underline">@ghostwwn</a></div>
     </div>
-    <div>
-      <h3 class="font-bold">Session</h3>
-      <span class="break-all text-green-400">05ea0c73c6cfd5b7f7f9a9976c76e87aa207def5cd269f317b29f1e780465e6a42</span>
+  </div>
+</div>
+
+<!-- Discord Card -->
+<div class="container noselect">
+  <div class="canvas">
+    <div class="tracker tr-1"></div>
+    <div class="tracker tr-2"></div>
+    <div class="tracker tr-3"></div>
+    <div class="tracker tr-4"></div>
+    <div class="tracker tr-5"></div>
+    <div class="tracker tr-6"></div>
+    <div class="tracker tr-7"></div>
+    <div class="tracker tr-8"></div>
+    <div class="tracker tr-9"></div>
+    <div class="tracker tr-10"></div>
+    <div class="tracker tr-11"></div>
+    <div class="tracker tr-12"></div>
+    <div class="tracker tr-13"></div>
+    <div class="tracker tr-14"></div>
+    <div class="tracker tr-15"></div>
+    <div class="tracker tr-16"></div>
+    <div class="tracker tr-17"></div>
+    <div class="tracker tr-18"></div>
+    <div class="tracker tr-19"></div>
+    <div class="tracker tr-20"></div>
+    <div class="tracker tr-21"></div>
+    <div class="tracker tr-22"></div>
+    <div class="tracker tr-23"></div>
+    <div class="tracker tr-24"></div>
+    <div class="tracker tr-25"></div>
+    <div id="card">
+      <p id="prompt">DISCORD</p>
+      <div class="title">Join My<br>Server!</div>
+      <div class="subtitle"><span class="text-white">@ghostwwn</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Email Card -->
+<div class="container noselect">
+  <div class="canvas">
+    <div class="tracker tr-1"></div>
+    <div class="tracker tr-2"></div>
+    <div class="tracker tr-3"></div>
+    <div class="tracker tr-4"></div>
+    <div class="tracker tr-5"></div>
+    <div class="tracker tr-6"></div>
+    <div class="tracker tr-7"></div>
+    <div class="tracker tr-8"></div>
+    <div class="tracker tr-9"></div>
+    <div class="tracker tr-10"></div>
+    <div class="tracker tr-11"></div>
+    <div class="tracker tr-12"></div>
+    <div class="tracker tr-13"></div>
+    <div class="tracker tr-14"></div>
+    <div class="tracker tr-15"></div>
+    <div class="tracker tr-16"></div>
+    <div class="tracker tr-17"></div>
+    <div class="tracker tr-18"></div>
+    <div class="tracker tr-19"></div>
+    <div class="tracker tr-20"></div>
+    <div class="tracker tr-21"></div>
+    <div class="tracker tr-22"></div>
+    <div class="tracker tr-23"></div>
+    <div class="tracker tr-24"></div>
+    <div class="tracker tr-25"></div>
+    <div id="card">
+      <p id="prompt">EMAIL</p>
+      <div class="title">Send Me<br>Mail!</div>
+      <div class="subtitle"><a href="mailto:ghostwwn@proton.me" class="text-white hover:underline break-all">ghostwwn@proton.me</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- Session Card -->
+<div class="container noselect">
+  <div class="canvas">
+    <div class="tracker tr-1"></div>
+    <div class="tracker tr-2"></div>
+    <div class="tracker tr-3"></div>
+    <div class="tracker tr-4"></div>
+    <div class="tracker tr-5"></div>
+    <div class="tracker tr-6"></div>
+    <div class="tracker tr-7"></div>
+    <div class="tracker tr-8"></div>
+    <div class="tracker tr-9"></div>
+    <div class="tracker tr-10"></div>
+    <div class="tracker tr-11"></div>
+    <div class="tracker tr-12"></div>
+    <div class="tracker tr-13"></div>
+    <div class="tracker tr-14"></div>
+    <div class="tracker tr-15"></div>
+    <div class="tracker tr-16"></div>
+    <div class="tracker tr-17"></div>
+    <div class="tracker tr-18"></div>
+    <div class="tracker tr-19"></div>
+    <div class="tracker tr-20"></div>
+    <div class="tracker tr-21"></div>
+    <div class="tracker tr-22"></div>
+    <div class="tracker tr-23"></div>
+    <div class="tracker tr-24"></div>
+    <div class="tracker tr-25"></div>
+    <div id="card">
+      <p id="prompt">SESSION</p>
+      <div class="title">Encrypted<br>Chat!</div>
+      <div class="subtitle"><span class="text-white text-xs">05ea0c7...</span></div>
     </div>
   </div>
 </div>
