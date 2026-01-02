@@ -1,1198 +1,703 @@
-<!DOCTYPE html>
-<html lang="en" class="dark">
-<head>
-<script>
-  // Preserve scroll position behavior; do not hide the body by default.
-  history.scrollRestoration = "manual";
-  window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-      const terminalInput = document.getElementById('terminal-input');
-      if (terminalInput) terminalInput.focus({ preventScroll: true });
-    }, 1);
-  });
-</script>
-<meta charset="UTF-8">
-<meta name="description" content="Portfolio of Nour (@ghostwwn), a 16-year-old OSINT & Crypto Researcher. Specializing in online fraud investigation and cryptocurrency tracing.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nour | OSINT & Crypto Researcher</title>
-<!-- Security: Content Security Policy to mitigate XSS and framing attacks -->
-<!-- NOTE: Inline scripts are allowed here temporarily ('unsafe-inline') so existing inline scripts can run (e.g. hidebody removal).
-  For production, move inline scripts to external files and serve CSP via headers with nonces instead of 'unsafe-inline'. -->
-<!-- Content-Security-Policy (meta) - conservative default to reduce risk from third-party scripts while
-     still allowing known CDNs used by this page. For production, prefer setting this as an HTTP header
-     via a CDN (Cloudflare, Fastly) to enable frame-ancestors and stronger enforcement. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data:; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://cdn.credly.com; style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://learn.opswatacademy.com https://www.credly.com https://api.github.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
-<!-- Additional security-related meta tags. Prefer setting these as HTTP headers on your host for best effect. -->
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-<!-- Permissions-Policy (formerly Feature-Policy) to disable powerful features by default -->
-<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), gyroscope=(), accelerometer=()">
-<!-- Note: For maximum security, move the CSP into an HTTP header and add HSTS (Strict-Transport-Security) on your server. -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/svelte@3.59.1/compiled/svelte.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="/assets/js/clarity.js" async></script>
-<style>
-:root {
---primary: #3b82f6;
---secondary: #10b981;
---accent: #f59e0b;
---bg: #0f172a;
---card-bg: #1e293b;
---text: #e2e8f0;
-  --fade-up-distance: 60px;
-}
-.fade-in-up {
-  opacity: 0;
-  transform: translateY(var(--fade-up-distance));
-  transition: opacity 1.1s cubic-bezier(0.23, 1, 0.32, 1), transform 1.1s cubic-bezier(0.23, 1, 0.32, 1);
-}
-.fade-in-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+<html lang="en" class="scroll-smooth"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <title>Nour | OSINT &amp; Crypto Researcher</title>
+    <meta name="description" content="Portfolio of Nour (@ghostwwn). Specializing in online fraud investigation, OSINT, and cryptocurrency tracing.">
+    <meta name="author" content="Nour (@ghostwwn)">
+    
+    <!-- Tailwind & Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" defer></script>
+    
+    <!-- Fonts with Fallback -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        zinc: {
+                            850: '#1f1f22',
+                            900: '#18181b',
+                            950: '#09090b',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'pulse-glow': 'pulseGlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 8s cubic-bezier(0.4, 0, 0.2, 1) infinite',
+                        'scale-in': 'scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px) scale(0.95)' },
+                            '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.4)', opacity: '1' },
+                            '50%': { boxShadow: '0 0 35px rgba(59, 130, 246, 0.7)', opacity: '0.9' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '33%': { transform: 'translateY(-10px) rotate(1deg)' },
+                            '66%': { transform: 'translateY(-5px) rotate(-1deg)' },
+                        },
+                        scaleIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.9)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        }
+                    },
+                    transitionTimingFunction: {
+                        'smooth': 'cubic-bezier(0.16, 1, 0.3, 1)',
+                        'bounce': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #030304 0%, #0a0511 100%);
+            color: #a1a1aa;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+        
+        /* Glass Effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, border-color, background;
+        }
+        .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .glass-card:active {
+            transform: translateY(-2px) scale(0.99);
+        }
 
-body {
-background-color: var(--bg);
-color: var(--text);
-font-family: 'Fira Code', monospace, sans-serif;
-transition: all 0.3s ease;
-}
+        /* Session Icon Styling */
+        .session-icon path {
+            stroke: currentColor;
+            stroke-width: 12px;
+            fill: none;
+        }
 
-.terminal {
-background-color: rgba(30, 41, 59, 0.9);
-border: 1px solid rgba(59, 130, 246, 0.3);
-box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
-}
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+        ::-webkit-scrollbar-thumb:hover { 
+            background: linear-gradient(180deg, #60a5fa, #a78bfa);
+            background-clip: content-box;
+        }
 
-.terminal-header {
-background-color: rgba(15, 23, 42, 0.8);
-border-bottom: 1px solid rgba(59, 130, 246, 0.2);
-}
+        .button {
+            --bezier: cubic-bezier(0.16, 1, 0.3, 1);
+            --edge-light: hsla(0, 0%, 50%, 0.8);
+            --text-light: rgba(255, 255, 255, 0.4);
+            --back-color: 240, 40%;
+            cursor: pointer;
+            padding: 0.5em 0.8em;
+            border-radius: 0.5em;
+            min-height: 2em;
+            min-width: 2.5em;
+            display: flex;
+            align-items: center;
+            gap: 0.4em;
+            font-size: 15px;
+            letter-spacing: 0.05em;
+            line-height: 1;
+            font-weight: bold;
+            background: linear-gradient(
+                140deg,
+                hsla(var(--back-color), 50%, 1) min(2em, 20%),
+                hsla(var(--back-color), 50%, 0.6) min(8em, 100%)
+            );
+            color: hsla(0, 0%, 90%);
+            border: 0;
+            box-shadow: inset 0.4px 1px 4px var(--edge-light);
+            transition: all 0.3s var(--bezier);
+            will-change: transform, box-shadow;
+        }
+        .button:hover {
+            --edge-light: hsla(0, 0%, 50%, 1);
+            text-shadow: 0px 0px 12px var(--text-light);
+            box-shadow: inset 0.4px 1px 4px var(--edge-light),
+                2px 6px 12px hsla(0, 0%, 0%, 0.4);
+            transform: translateY(-2px);
+        }
+        .button:active {
+            --text-light: rgba(255, 255, 255, 1);
+            background: linear-gradient(
+                140deg,
+                hsla(var(--back-color), 50%, 1) min(2em, 20%),
+                hsla(var(--back-color), 50%, 0.6) min(8em, 100%)
+            );
+            box-shadow: inset 0.4px 1px 8px var(--edge-light),
+                0px 0px 8px hsla(var(--back-color), 50%, 0.6);
+            text-shadow: 0px 0px 20px var(--text-light);
+            color: hsla(0, 0%, 100%, 1);
+            letter-spacing: 0.1em;
+            transform: translateY(0px);
+        }
 
-.terminal-body {
-height: 300px;
-overflow-y: auto;
-}
+        /* Enhanced animations with stagger */
+        @media (prefers-reduced-motion: no-preference) {
+            .animate-fade-in {
+                animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                opacity: 0;
+            }
+            .delay-\[100ms\] { animation-delay: 150ms; }
+            .delay-\[200ms\] { animation-delay: 250ms; }
+            .delay-\[300ms\] { animation-delay: 350ms; }
+            .delay-\[400ms\] { animation-delay: 450ms; }
+        }
 
-.command {
-color: var(--secondary);
-}
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
 
-.response {
-color: var(--text);
-margin-bottom: 1rem;
-}
+        /* Floating effect */
+        .float-animation {
+            animation: float 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            will-change: transform;
+        }
 
-.skill-card:hover {
-transform: translateY(-5px);
-box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
-}
-.skill-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
-}
+        /* Gradient text animation */
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradientShift 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            will-change: background-position;
+        }
 
-.contact-card {
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.contact-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
-}
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            25% { background-position: 50% 100%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 0%; }
+        }
 
-.glow {
-text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
-}
+        /* Accessibility improvements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
 
-/* From Uiverse.io by milegelu */
-.button {
-  --bezier: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --edge-light: hsla(0, 0%, 50%, 0.8);
-  --text-light: rgba(255, 255, 255, 0.4);
-  --back-color: 240, 40%;
+        /* Smooth link transitions */
+        a, button {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        /* Focus styles for keyboard navigation */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+            transition: outline-offset 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        /* Performance optimizations */
+        img {
+            will-change: transform;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        img:hover {
+            transform: scale(1.05);
+        }
 
-  cursor: pointer;
-  padding: 0.5em 0.8em;
-  border-radius: 0.5em;
-  min-height: 2em;
-  min-width: 2.5em;
-  display: flex;
-  align-items: center;
-  gap: 0.4em;
+        /* Remove focus outline from terminal input */
+        #cmd-input:focus,
+        #cmd-input:focus-visible {
+            outline: none !important;
+            box-shadow: none !important;
+            border: none !important;
+        }
 
-  font-size: 15px;
-  letter-spacing: 0.05em;
-  line-height: 1;
-  font-weight: bold;
-
-  background: linear-gradient(
-    140deg,
-    hsla(var(--back-color), 50%, 1) min(2em, 20%),
-    hsla(var(--back-color), 50%, 0.6) min(8em, 100%)
-  );
-  color: hsla(0, 0%, 90%);
-  border: 0;
-  box-shadow: inset 0.4px 1px 4px var(--edge-light);
-
-  transition: all 0.1s var(--bezier);
-}
-
-.button:hover {
-  --edge-light: hsla(0, 0%, 50%, 1);
-  text-shadow: 0px 0px 10px var(--text-light);
-  box-shadow: inset 0.4px 1px 4px var(--edge-light),
-    2px 4px 8px hsla(0, 0%, 0%, 0.295);
-}
-
-.button:active {
-  --text-light: rgba(255, 255, 255, 1);
-
-  background: linear-gradient(
-    140deg,
-    hsla(var(--back-color), 50%, 1) min(2em, 20%),
-    hsla(var(--back-color), 50%, 0.6) min(8em, 100%)
-  );
-  box-shadow: inset 0.4px 1px 8px var(--edge-light),
-    0px 0px 8px hsla(var(--back-color), 50%, 0.6);
-  text-shadow: 0px 0px 20px var(--text-light);
-  color: hsla(0, 0%, 100%, 1);
-  letter-spacing: 0.1em;
-}
-
-.button-compact {
-  padding: 0.4em 0.8em !important;
-  min-height: 1.8em !important;
-}
-
-/* From Uiverse.io by kennyotsu - Hover Tracker Cards */
-.container {
-  position: relative;
-  width: 190px;
-  height: 254px;
-  transition: 200ms;
-  pointer-events: none;
-}
-
-.canvas {
-  pointer-events: auto;
-}
-
-#card {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  transition: 700ms;
-  background: linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%);
-}
-
-.subtitle {
-  transform: translateY(160px);
-  color: rgb(134, 110, 221);
-  text-align: center;
-  width: 100%;
-}
-
-.title {
-  opacity: 0;
-  transition-duration: 300ms;
-  transition-timing-function: ease-in-out-out;
-  transition-delay: 100ms;
-  position: absolute;
-  font-size: x-large;
-  font-weight: bold;
-  color: white;
-}
-
-.tracker:hover ~ #card .title {
-  opacity: 1;
-}
-
-#prompt {
-  bottom: 8px;
-  left: 12px;
-  z-index: 20;
-  font-size: 20px;
-  font-weight: bold;
-  transition: 300ms ease-in-out-out;
-  position: absolute;
-  max-width: 110px;
-  color: rgb(255, 255, 255);
-}
-
-.tracker {
-  position: absolute;
-  z-index: 200;
-  width: 100%;
-  height: 100%;
-}
-
-.tracker:hover {
-  cursor: pointer;
-}
-
-.tracker:hover ~ #card #prompt {
-  opacity: 0;
-}
-
-.tracker:hover ~ #card {
-  transition: 300ms;
-  filter: brightness(1.1);
-}
-
-.container:hover #card::before {
-  transition: 200ms;
-  content: '';
-  opacity: 80%;
-}
-
-.canvas {
-  perspective: 800px;
-  inset: 0;
-  z-index: 200;
-  position: absolute;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  gap: 0px 0px;
-  grid-template-areas: "tr-1 tr-2 tr-3 tr-4 tr-5"
-    "tr-6 tr-7 tr-8 tr-9 tr-10"
-    "tr-11 tr-12 tr-13 tr-14 tr-15"
-    "tr-16 tr-17 tr-18 tr-19 tr-20"
-    "tr-21 tr-22 tr-23 tr-24 tr-25";
-}
-
-#card::before {
-  content: '';
-  background: linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%);
-  filter: blur(2rem);
-  opacity: 30%;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: -1;
-  transition: 200ms;
-}
-
-.tr-1 { grid-area: tr-1; }
-.tr-2 { grid-area: tr-2; }
-.tr-3 { grid-area: tr-3; }
-.tr-4 { grid-area: tr-4; }
-.tr-5 { grid-area: tr-5; }
-.tr-6 { grid-area: tr-6; }
-.tr-7 { grid-area: tr-7; }
-.tr-8 { grid-area: tr-8; }
-.tr-9 { grid-area: tr-9; }
-.tr-10 { grid-area: tr-10; }
-.tr-11 { grid-area: tr-11; }
-.tr-12 { grid-area: tr-12; }
-.tr-13 { grid-area: tr-13; }
-.tr-14 { grid-area: tr-14; }
-.tr-15 { grid-area: tr-15; }
-.tr-16 { grid-area: tr-16; }
-.tr-17 { grid-area: tr-17; }
-.tr-18 { grid-area: tr-18; }
-.tr-19 { grid-area: tr-19; }
-.tr-20 { grid-area: tr-20; }
-.tr-21 { grid-area: tr-21; }
-.tr-22 { grid-area: tr-22; }
-.tr-23 { grid-area: tr-23; }
-.tr-24 { grid-area: tr-24; }
-.tr-25 { grid-area: tr-25; }
-
-.tr-1:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(20deg) rotateY(-10deg) rotateZ(0deg); }
-.tr-2:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(20deg) rotateY(-5deg) rotateZ(0deg); }
-.tr-3:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(20deg) rotateY(0deg) rotateZ(0deg); }
-.tr-4:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(20deg) rotateY(5deg) rotateZ(0deg); }
-.tr-5:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(20deg) rotateY(10deg) rotateZ(0deg); }
-.tr-6:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(10deg) rotateY(-10deg) rotateZ(0deg); }
-.tr-7:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(10deg) rotateY(-5deg) rotateZ(0deg); }
-.tr-8:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(10deg) rotateY(0deg) rotateZ(0deg); }
-.tr-9:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(10deg) rotateY(5deg) rotateZ(0deg); }
-.tr-10:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(10deg) rotateY(10deg) rotateZ(0deg); }
-.tr-11:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(-10deg) rotateZ(0deg); }
-.tr-12:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(-5deg) rotateZ(0deg); }
-.tr-13:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
-.tr-14:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(5deg) rotateZ(0deg); }
-.tr-15:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(10deg) rotateZ(0deg); }
-.tr-16:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-10deg) rotateY(-10deg) rotateZ(0deg); }
-.tr-17:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-10deg) rotateY(-5deg) rotateZ(0deg); }
-.tr-18:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-10deg) rotateY(0deg) rotateZ(0deg); }
-.tr-19:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-10deg) rotateY(5deg) rotateZ(0deg); }
-.tr-20:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-10deg) rotateY(10deg) rotateZ(0deg); }
-.tr-21:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-20deg) rotateY(-10deg) rotateZ(0deg); }
-.tr-22:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-20deg) rotateY(-5deg) rotateZ(0deg); }
-.tr-23:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-20deg) rotateY(0deg) rotateZ(0deg); }
-.tr-24:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-20deg) rotateY(5deg) rotateZ(0deg); }
-.tr-25:hover ~ #card { transition: 125ms ease-in-out; transform: rotateX(-20deg) rotateY(10deg) rotateZ(0deg); }
-
-.noselect {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-</style>
-<style>
-#particles-js {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: #0f172a;
-  z-index: 0;
-}
-</style>
-<style>
-#app {
-  pointer-events: none;
-}
-#app > * {
-  pointer-events: auto;
-}
-</style>
-<!-- Credly embed styling: try to force readable white text for embeds that inject inline markup. -->
-<style>
-  /* Target the embed wrapper and any descendants. If Credly injects an iframe, iframe contents cannot be styled from here
-     but when the embed outputs inline markup this will force white text and improve contrast on the dark card. */
-  #credly-embed-wrapper, #credly-embed-icip, 
-  #credly-embed-wrapper *, #credly-embed-icip * {
-    color: #ffffff !important;
-    background-color: transparent !important;
-    border-color: rgba(255,255,255,0.12) !important;
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-  }
-  #credly-embed-wrapper, #credly-embed-icip {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    min-height: 270px;
-    z-index: 10 !important;
-    position: relative !important;
-  }
-  #credly-embed-wrapper a, #credly-embed-icip a { color: #ffffff !important; }
-  #credly-embed-wrapper svg, #credly-embed-icip svg { fill: #ffffff !important; }
-  /* If the embed creates images or svgs with low contrast, increase their opacity/brightness where possible. */
-  #credly-embed-wrapper img, #credly-embed-icip img { filter: none !important; opacity: 1 !important; }
-</style>
-<script type="text/javascript" async src="https://cdn.credly.com/assets/utilities/embed.js"></script>
+        /* Improved mobile responsiveness */
+        @media (max-width: 640px) {
+            .glass-card:hover {
+                transform: translateY(-1px);
+            }
+            
+            main {
+                padding-top: 28px;
+            }
+        }
+    </style>
 </head>
-<body class="min-h-screen text-gray-200">
-<div id="particles-js"></div>
-<div id="app" class="relative z-10 container mx-auto px-4 py-8 max-w-6xl">
-<header class="flex flex-col md:flex-row justify-between items-center mb-12 fade-in-up">
-<div class="flex items-center mb-6 md:mb-0">
-<div class="w-16 h-16 rounded-full overflow-hidden mr-4 border-2 border-blue-500 shadow">
-  <img src="https://i.ibb.co/mrLbRhQT/517245085-18011839061770877-8505106980687542313-n.jpg" alt="Profile" class="w-16 h-16 object-cover rounded-full">
-</div>
-<div>
-<h1 class="text-3xl font-bold glow">Nour</h1>
-<p class="text-blue-400">@ghostwwn</p>
-</div>
-</div>
+<body class="antialiased min-h-screen relative selection:bg-blue-500/20 selection:text-blue-200">
 
-<nav class="flex space-x-6">
-<a href="#about" class="hover:text-blue-400 transition">About</a>
-<a href="#skills" class="hover:text-blue-400 transition">Skills</a>
-<a href="#experience" class="hover:text-blue-400 transition">Experience</a>
-<a href="#contact" class="hover:text-blue-400 transition">Contact</a>
-</nav>
-</header>
-
-<section class="mb-20 fade-in-up">
-<div class="flex flex-col md:flex-row items-center">
-<div class="md:w-1/2 mb-10 md:mb-0">
-<h2 class="text-4xl md:text-5xl font-bold mb-4">
-<span class="text-blue-400">OSINT</span> &
-<span class="text-green-400">Crypto</span> Researcher
-</h2>
-<p class="text-xl mb-6 text-gray-300">
-Investigating online fraud, tracing cryptocurrency transactions, and exposing digital deception since 2022.
-</p>
-<div class="flex space-x-4">
-<button id="get-in-touch-btn" class="button">
-  <svg viewBox="0 0 16 16" class="bi bi-lightning-charge-fill" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
-    <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"></path>
-  </svg>
-  Get in Touch
-</button>
-</div>
-</div>
-<div class="md:w-1/2 flex justify-center">
-<div class="terminal w-full max-w-lg rounded-lg overflow-hidden">
-<div class="terminal-header flex items-center px-4 py-2">
-<div class="flex space-x-2 mr-4">
-<div class="w-3 h-3 rounded-full bg-red-500"></div>
-<div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-<div class="w-3 h-3 rounded-full bg-green-500"></div>
-</div>
-<div class="text-sm text-gray-400">ghostwwn@terminal:~</div>
-</div>
-<div class="terminal-body p-4 font-mono text-sm" id="terminal-output-hero">
-<div class="mb-2">ghostwwn@portfolio:~$ whoami</div>
-<div class="mb-4">nour - osint & crypto researcher</div>
-
-<div class="mb-2">ghostwwn@portfolio:~$ info</div>
-<div class="mb-1">• 16 y/o researcher from New Jersey</div>
-<div class="mb-1">• 4+ years OSINT experience</div>
-<div class="mb-1">• Specializing in crypto tracing</div>
-<div class="mb-1">• Investigated 10+ scam cases</div>
-
-<div class="flex items-center">
-<span class="text-green-400 mr-2">ghostwwn@portfolio:~$</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-
-<section id="about" class="mb-20 fade-in-up">
-  <h2 class="text-3xl font-bold mb-8 flex items-center">
-    <i class="fas fa-user text-blue-400 text-2xl md:text-3xl mr-4"></i>
-    About Me
-  </h2>
-
-  <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
-    <div class="flex flex-col md:flex-row">
-      <div class="md:w-2/3 pr-0 md:pr-8">
-        <p class="mb-4">I am a 16‑year‑old OSINT and cryptocurrency researcher with four years of studied practice and hands‑on casework since 2022. I began learning investigation techniques through independent research and quickly progressed to applying those methods to real cases involving online fraud, impersonation, and crypto theft.</p>
-        <p class="mb-4">My approach combines meticulous on‑chain analysis, reverse image and metadata verification, and cross‑platform identity correlation. I prioritize reproducible evidence, clear documentation, and pragmatic remediation recommendations for victims and platform abuse teams.</p>
-        <p>Objective: Actively seeking an internship or part‑time role in threat intelligence, OSINT, or crypto‑fraud analysis where I can contribute investigative work and grow in a professional setting.</p>
-      </div>
-      <div class="md:w-1/3 mt-6 md:mt-0">
-        <div class="bg-gray-700 p-4 rounded-lg">
-          <h3 class="font-bold text-lg mb-3 text-blue-400">Quick Facts</h3>
-          <ul class="space-y-2">
-            <li class="flex items-center"><i class="fas fa-map-marker-alt text-blue-400 text-xl mr-2"></i>New Jersey, USA</li>
-            <li class="flex items-center"><i class="fas fa-birthday-cake text-blue-400 text-xl mr-2"></i>16 years old</li>
-            <li class="flex items-center"><i class="fas fa-laptop-code text-blue-400 text-xl mr-2"></i>Self‑taught since 2021 (practical casework from 2022)</li>
-            <li class="flex items-center"><i class="fas fa-graduation-cap text-blue-400 text-xl mr-2"></i>Expected Graduation: 2027</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="skills" class="mb-20 fade-in-up">
-  <h2 class="text-3xl font-bold mb-8 flex items-center">
-    <i class="fas fa-code text-blue-400 text-2xl md:text-3xl mr-4"></i>
-    Skills & Expertise
-  </h2>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div class="skill-card bg-gray-800 rounded-xl p-6 shadow-lg transition duration-300 hover:shadow-blue-500/20">
-      <div class="mb-4"><i class="fas fa-search text-blue-400 text-2xl"></i></div>
-      <h3 class="text-xl font-bold mb-2">OSINT</h3>
-      <ul class="list-disc pl-5 space-y-1 text-gray-300">
-        <li>Reverse image search (Yandex, TinEye, Google Images, PimEyes)</li>
-        <li>Username & account correlation</li>
-        <li>Metadata / EXIF analysis</li>
-        <li>Internet footprinting & social graphing</li>
-      </ul>
+    <!-- Subtle Grid Background -->
+    <div class="fixed inset-0 pointer-events-none z-0 opacity-20" style="background-image: linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px); background-size: 30px 30px; mask-image: radial-gradient(circle at center, black, transparent 90%);" aria-hidden="true">
     </div>
 
-    <div class="skill-card bg-gray-800 rounded-xl p-6 shadow-lg transition duration-300 hover:shadow-green-500/20">
-      <div class="mb-4"><i class="fab fa-bitcoin text-green-400 text-2xl"></i></div>
-      <h3 class="text-xl font-bold mb-2 text-green-400">Cryptocurrency Analysis</h3>
-      <ul class="list-disc pl-5 space-y-1 text-gray-300">
-        <li>BTC & ETH wallet tracing</li>
-        <li>On‑chain analysis with Etherscan and block explorers</li>
-        <li>Transaction flow visualization & address clustering</li>
-        <li>Scam pattern identification and cash‑out detection</li>
-      </ul>
-    </div>
-
-    <div class="skill-card bg-gray-800 rounded-xl p-6 shadow-lg transition duration-300 hover:shadow-yellow-500/20">
-      <div class="mb-4"><i class="fas fa-tools text-yellow-400 text-2xl"></i></div>
-      <h3 class="text-xl font-bold mb-2 text-yellow-400">Tools & Practices</h3>
-      <ul class="list-disc pl-5 space-y-1 text-gray-300">
-        <li>Report writing & evidence preservation</li>
-        <li>Privacy and confidentiality best practices</li>
-        <li>Manual triage workflows, timeline reconstruction, and documentation</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="experience" class="mb-20 fade-in-up">
-  <h2 class="text-3xl font-bold mb-8 flex items-center">
-    <i class="fas fa-briefcase text-blue-400 text-2xl md:text-3xl mr-4"></i>
-    Experience & Projects
-  </h2>
-
-  <div class="space-y-6">
-    <div class="bg-gray-800 rounded-xl p-6 shadow-lg transition duration-300 hover:shadow-blue-500/40 hover:border-blue-400 border border-transparent">
-      <div class="flex flex-col md:flex-row">
-        <div class="md:w-1/4 mb-4 md:mb-0">
-          <h3 class="text-xl font-bold text-blue-400">Independent OSINT & Crypto Researcher</h3>
-          <p class="text-gray-400">2022 - Present</p>
-        </div>
-        <div class="md:w-3/4">
-          <ul class="list-disc pl-5 space-y-2 text-gray-300">
-            <li>Investigated 10+ scam cases covering impersonation, online fraud, and crypto theft</li>
-            <li>Performed wallet tracing, cross‑platform identity correlation, and produced investigation reports</li>
-            <li>Developed a repeatable investigation workflow and documented recurring scam indicators</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-  <!-- OPSWAT Certificate Card -->
-  <div class="bg-gray-800 rounded-xl p-6 shadow-lg transition duration-300 hover:shadow-blue-500/40 hover:border-blue-400 border border-transparent md:col-span-2">
-        <div class="flex flex-col items-center text-white">
-          <div class="w-full flex justify-center mb-4">
-            <!-- Two-column layout: left = clickable static cert image, right = Credly embed (visual). -->
-            <div class="flex flex-col md:flex-row items-start md:items-center justify-center gap-6 w-full max-w-4xl">
-              <!-- Left: Credly embed kept for visuals but pointer-events disabled so it doesn't hijack clicks/focus. -->
-              <!-- Official Credly embed -->
-              <div id="credly-embed-wrapper" class="flex-shrink-0 order-1 md:order-1 relative">
-                <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="77910ee2-bfcc-46b1-8854-837f032c7617" data-share-badge-host="https://www.credly.com"></div>
-              </div>
-
-              <!-- Right: clickable certificate image -->
-              <a href="https://learn.opswatacademy.com/certificate/6BdTXwop_A" target="_blank" rel="noopener noreferrer" class="inline-block order-0 md:order-2">
-                <img src="/assets/images/opswat-cert.png" alt="OPSWAT Certificate (OCOE)" class="rounded-lg max-w-[260px] w-full h-auto object-contain border-2 border-white shadow-md mx-auto">
-              </a>
-
-              <!-- noscript fallback: clickable image for users without JS -->
-              <noscript>
-                <a href="https://learn.opswatacademy.com/certificate/6BdTXwop_A" target="_blank" rel="noopener noreferrer" class="inline-block md:hidden">
-                  <img src="/assets/images/opswat-cert.png" alt="OPSWAT Certificate (OCOE)" class="rounded-lg max-w-[260px] w-full h-auto object-contain border-2 border-white shadow-md mx-auto">
-                </a>
-              </noscript>
+    <!-- Navigation -->
+    <nav class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 sm:px-6" role="navigation" aria-label="Main navigation">
+        <div class="glass-card rounded-full pl-5 pr-2 py-2 flex items-center gap-4 sm:gap-8 shadow-2xl bg-[#0a0a0b]/80 w-full max-w-2xl">
+            <a href="#hero" class="text-zinc-100 font-semibold tracking-tight text-sm flex items-center gap-2 flex-shrink-0" aria-label="Nour - Home">
+                <div class="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)] animate-pulse" aria-hidden="true"></div>
+                <span class="hidden sm:inline">ghost</span>
+            </a>
+            <div class="hidden sm:flex items-center gap-6 text-[13px] font-medium text-zinc-500 flex-1">
+                <a href="#about" class="hover:text-blue-400 transition-colors duration-300">About</a>
+                <a href="#cases" class="hover:text-blue-400 transition-colors duration-300">Cases</a>
+                <a href="#terminal" class="hover:text-blue-400 transition-colors duration-300">Terminal</a>
             </div>
-          </div>
-          <div class="w-full text-center">
-            <h3 class="text-xl font-bold mb-2">OPSWAT Comprehensive OSINT Expert (OCOE)</h3>
-            <p class="mb-2">
-              <span>Issued: 10/23/2025</span>
-              <span class="mx-2 text-gray-400" aria-hidden="true">|</span>
-              <span>Expiration: 10/23/2026</span>
-            </p>
-            <p class="mb-3">Certificate ID: <span class="font-mono">6BdTXwop_A</span></p>
-            <a href="https://learn.opswatacademy.com/certificate/6BdTXwop_A" target="_blank" rel="noopener noreferrer" class="button" style="width: 100%; justify-content: center;">View Certificate</a>
-            <p class="mt-3 text-sm break-all">Full URL: https://learn.opswatacademy.com/certificate/6BdTXwop_A</p>
-          </div>
+            <a href="#contact" class="ml-auto text-[11px] font-mono bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-blue-500/50 flex-shrink-0">
+                CONTACT
+            </a>
         </div>
-      </div>
+    </nav>
 
-      <!-- ICIP Certificate Card -->
-      <div class="bg-gray-800 rounded-xl p-6 shadow-lg transition duration-300 hover:shadow-blue-500/40 hover:border-blue-400 border border-transparent md:col-span-2">
-        <div class="flex flex-col items-center text-white">
-          <div class="w-full flex justify-center mb-4">
-            <div class="flex flex-col md:flex-row items-start md:items-center justify-center gap-6 w-full max-w-4xl">
-              <!-- Left: Credly embed for ICIP -->
-              <div id="credly-embed-icip" class="flex-shrink-0 order-1 md:order-1 relative">
-                <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="c68439cc-5320-48d4-ac1d-d1104609b435" data-share-badge-host="https://www.credly.com"></div>
-              </div>
+    <main class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-32 pb-24 space-y-32" role="main">
+        
+        <!-- Hero Section -->
+        <section id="hero" class="grid lg:grid-cols-2 gap-12 items-center animate-fade-in" aria-label="Hero section">
+            <div class="space-y-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/5 border border-blue-500/10 text-[11px] font-mono text-blue-400 tracking-wide uppercase">
+                    <span class="relative flex h-2 w-2" aria-hidden="true">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                    </span>
+                    Open to Work
+                </div>
+                
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight">
+                    OSINT &amp; <br>
+                    <span class="gradient-text">Crypto Researcher</span>
+                </h1>
+                
+                <p class="text-zinc-300 text-sm sm:text-base leading-relaxed max-w-md">
+                    I'm <strong class="text-white">Nour</strong> (@ghostwwn). A 16-year-old independent researcher specializing in online fraud investigation, OSINT, and cryptocurrency tracing.
+                </p>
 
-              <!-- Right: clickable static certificate image (upload as /assets/images/icip-cert.png) -->
-                <a href="https://learn.opswatacademy.com/certificate/o1QZONmexA" target="_blank" rel="noopener noreferrer" class="inline-block order-0 md:order-2">
-                <!-- Attempt to load the real PNG first; if missing, fallback to the temporary SVG placeholder we just added. -->
-                <img src="/assets/images/icip-cert.png" alt="OPSWAT ICIP Certificate" onerror="this.onerror=null;this.src='/assets/images/icip-cert.svg'" class="rounded-lg max-w-[260px] w-full h-auto object-contain border-2 border-white shadow-md mx-auto">
-              </a>
-
-              <noscript>
-                <a href="https://learn.opswatacademy.com/certificate/o1QZONmexA" target="_blank" rel="noopener noreferrer" class="inline-block md:hidden">
-                  <img src="/assets/images/icip-cert.png" alt="OPSWAT ICIP Certificate" onerror="this.onerror=null;this.src='/assets/images/icip-cert.svg'" class="rounded-lg max-w-[260px] w-full h-auto object-contain border-2 border-white shadow-md mx-auto">
-                </a>
-              </noscript>
+                <div class="flex flex-wrap items-center gap-3 pt-4">
+                    <a href="#contact" id="get-in-touch-btn" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-blue-500/50 hover:scale-105 flex items-center gap-2" role="button">
+                        <iconify-icon icon="lucide:zap" width="14"></iconify-icon> Get in Touch
+                    </a>
+                    <a href="https://t.me/ghostwwn" target="_blank" rel="noopener noreferrer" class="px-6 py-2.5 glass-card text-zinc-300 hover:text-white text-xs font-medium rounded-lg transition-all duration-300 flex items-center gap-2" aria-label="Telegram (opens in new window)">
+                        <iconify-icon icon="lucide:send" width="14"></iconify-icon> Telegram
+                    </a>
+                </div>
             </div>
-          </div>
-          <div class="w-full text-center">
-            <h3 class="text-xl font-bold mb-2">OPSWAT Introduction to Critical Infrastructure Protection (ICIP)</h3>
-            <p class="mb-2">
-              <span>Issued: 10/24/2025</span>
-              <span class="mx-2 text-gray-400" aria-hidden="true">|</span>
-              <span>Expiration: 10/24/2026</span>
-            </p>
-            <p class="mb-3">Certificate ID: <span class="font-mono">o1QZONmexA</span></p>
-            <a href="https://learn.opswatacademy.com/certificate/o1QZONmexA" target="_blank" rel="noopener noreferrer" class="button" style="width: 100%; justify-content: center;">View Certificate</a>
-            <p class="mt-3 text-sm break-all">Full URL: https://learn.opswatacademy.com/certificate/o1QZONmexA</p>
-          </div>
-        </div>
-      </div>
 
-      <div class="bg-gray-800 rounded-xl p-6 shadow-lg transition duration-300 hover:shadow-blue-500/40 hover:border-blue-400 border border-transparent">
-        <div class="flex items-center mb-3">
-          <div class="mr-3"><i class="fas fa-user-secret text-purple-400 text-xl"></i></div>
-          <h3 class="text-lg font-bold text-purple-400">Fake Dating Profile Exposure</h3>
-        </div>
-  <p class="text-gray-300"><strong>Situation:</strong> A user was targeted by a dating profile using stolen images and cloned identities to defraud victims.
-  <br><br><strong>Task:</strong> Verify the actor’s identity and gather provable links between accounts.
-  <br><br><strong>Action:</strong> Ran reverse image searches (Yandex, Google), checked image EXIF where available, correlated usernames across platforms, and traced account creation patterns.
-  <br><br><strong>Result:</strong> Assembled an evidence package linking the profile to multiple cloned accounts and documented provenance of original images; recommendations were provided for takedown and victim guidance.</p>
-      </div>
-      <div class="bg-gray-800 rounded-xl p-6 shadow-lg transition duration-300 hover:shadow-blue-500/40 hover:border-blue-400 border border-transparent">
-        <div class="flex items-center mb-3">
-          <div class="mr-3"><i class="fab fa-ethereum text-green-400 text-xl"></i></div>
-          <h3 class="text-lg font-bold text-green-400">ETH Investment Scam Tracing</h3>
-        </div>
-  <p class="text-gray-300"><strong>Situation:</strong> An investment scam resulted in unreturned ETH transfers with obfuscated recipient paths.
-  <br><br><strong>Task:</strong> Trace the flow of funds, identify intermediary addresses, and present a reproducible transaction trail.
-  <br><br><strong>Action:</strong> Performed on‑chain analysis using Etherscan and block explorers, exported transaction histories, and visualized flows to identify clusters and likely cash‑out points.
-  <br><br><strong>Result:</strong> Mapped transfers to intermediary wallets and produced a technical report including TXIDs, annotated flow diagrams, and recommended reporting vectors for exchanges and law enforcement.</p>
-      </div>
+            <!-- Profile Badge -->
+            <div class="relative group justify-self-center lg:justify-self-end float-animation">
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-[80px] rounded-full" aria-hidden="true"></div>
+                <div class="glass-card p-6 rounded-2xl w-[280px] relative z-10 hover:-translate-y-2 transition-all duration-500 shadow-2xl">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img src="https://i.ibb.co/mrLbRhQT/517245085-18011839061770877-8505106980687542313-n.jpg" class="w-16 h-16 rounded-full border-2 border-blue-500/30 object-cover" alt="Nour's profile picture">
+                        <div>
+                            <div class="text-sm font-bold text-white">Nour</div>
+                            <div class="text-[11px] text-blue-400 font-mono">@ghostwwn</div>
+                        </div>
+                    </div>
+                    <div class="space-y-3 font-mono text-[10px] text-zinc-500 border-t border-white/5 pt-4">
+                        <div class="flex justify-between hover:text-zinc-300 transition-colors"><span>LOC</span> <span class="text-blue-400">NJ, USA</span></div>
+                        <div class="flex justify-between hover:text-zinc-300 transition-colors"><span>EXP</span> <span class="text-blue-400">4+ YEARS</span></div>
+                        <div class="flex justify-between hover:text-zinc-300 transition-colors"><span>FOCUS</span> <span class="text-blue-400">FRAUD / CRYPTO</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      <div class="bg-gray-800 rounded-xl p-6 shadow-lg transition duration-300 hover:shadow-blue-500/40 hover:border-blue-400 border border-transparent">
-        <div class="flex items-center mb-3">
-          <div class="mr-3"><i class="fas fa-building text-red-400 text-xl"></i></div>
-          <h3 class="text-lg font-bold text-red-400">Job Scam Identification</h3>
-        </div>
-  <p class="text-gray-300"><strong>Situation:</strong> Applicants reported job offers that requested fees and used cloned company branding.
-  <br><br><strong>Task:</strong> Confirm fraud, identify infrastructure, and document attacker tactics.
-  <br><br><strong>Action:</strong> Conducted WHOIS and DNS checks, analyzed VOIP numbers and messaging traces, and compared job copy against legitimate company postings.
-  <br><br><strong>Result:</strong> Confirmed the campaign was fraudulent, identified responsible domains and VOIP endpoints, and delivered a timeline and evidence package to affected applicants.</p>
-      </div>
+        <!-- Certifications -->
+        <section id="about" class="animate-fade-in delay-[100ms]" aria-labelledby="cert-heading">
+            <h2 id="cert-heading" class="text-xs font-mono text-zinc-400 mb-8 uppercase tracking-widest font-bold">Certifications &amp; Credentials</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <a href="https://learn.opswatacademy.com/certificate/6BdTXwop_A" target="_blank" rel="noopener noreferrer" class="glass-card p-6 rounded-xl group relative overflow-hidden transition-all hover:scale-105 cursor-pointer" aria-label="Comprehensive OSINT Expert certification - opens in new window">
+                    <div class="absolute top-0 right-0 p-4 opacity-30 group-hover:opacity-100 transition-opacity" aria-hidden="true">
+                        <iconify-icon icon="lucide:external-link" width="18" class="text-blue-400 group-hover:text-blue-300"></iconify-icon>
+                    </div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-3 bg-blue-500/15 rounded-lg text-blue-400 border border-blue-500/30">
+                            <iconify-icon icon="lucide:shield-check" width="20"></iconify-icon>
+                        </div>
+                        <span class="text-[10px] font-mono text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded border border-blue-500/20 font-semibold">OCOE</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-white">Comprehensive OSINT Expert</h3>
+                    <p class="text-[11px] text-zinc-400 mt-2">OPSWAT Academy • Valid until 10/2026</p>
+                </a>
 
-      <div class="bg-gray-800 rounded-xl p-6 shadow-lg transition duration-300 hover:shadow-blue-500/40 hover:border-blue-400 border border-transparent">
-        <div class="flex items-center mb-3">
-          <div class="mr-3"><i class="fas fa-chart-line text-yellow-400 text-xl"></i></div>
-          <h3 class="text-lg font-bold text-yellow-400">Crypto Scam Pattern Analysis</h3>
-        </div>
-  <p class="text-gray-300"><strong>Situation:</strong> Multiple incidents showed overlapping tactics and wallet behaviors.
-  <br><br><strong>Task:</strong> Identify recurring indicators to speed triage and detection.
-  <br><br><strong>Action:</strong> Aggregated case data, extracted common wallet behaviors and messaging patterns, and summarized high‑confidence indicators.
-  <br><br><strong>Result:</strong> Produced a practical playbook of red flags and triage steps that improved subsequent case handling and made reports clearer for victims and platforms.</p>
-      </div>
-    </div>
-  </div>
-</section>
+                <a href="https://learn.opswatacademy.com/certificate/o1QZONmexA" target="_blank" rel="noopener noreferrer" class="glass-card p-6 rounded-xl group relative overflow-hidden transition-all hover:scale-105 cursor-pointer" aria-label="Critical Infrastructure Protection certification - opens in new window">
+                    <div class="absolute top-0 right-0 p-4 opacity-30 group-hover:opacity-100 transition-opacity" aria-hidden="true">
+                        <iconify-icon icon="lucide:external-link" width="18" class="text-purple-400 group-hover:text-purple-300"></iconify-icon>
+                    </div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-3 bg-purple-500/15 rounded-lg text-purple-400 border border-purple-500/30">
+                            <iconify-icon icon="lucide:lock" width="20"></iconify-icon>
+                        </div>
+                        <span class="text-[10px] font-mono text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded border border-purple-500/20 font-semibold">ICIP</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-white">Critical Infrastructure Protection</h3>
+                    <p class="text-[11px] text-zinc-400 mt-2">OPSWAT Academy • Valid until 10/2026</p>
+                </a>
+            </div>
+        </section>
 
-<section id="terminal" class="mb-20 fade-in-up">
-<h2 class="text-3xl font-bold mb-8 flex items-center">
-  <i class="fas fa-terminal text-blue-400 text-2xl md:text-3xl mr-4"></i>
-  Interactive Terminal
-</h2>
+        <!-- Experience / Cases -->
+        <section id="cases" class="animate-fade-in delay-[200ms]" aria-labelledby="cases-heading">
+            <h2 id="cases-heading" class="text-xs font-mono text-zinc-400 mb-8 uppercase tracking-widest font-bold">Investigative Log</h2>
+            <div class="space-y-3">
+                <!-- Case 1 -->
+                <div class="glass-card rounded-xl overflow-hidden hover:bg-white/6 transition-all duration-300 group">
+                    <div class="p-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                            <h3 class="text-sm font-bold text-white group-hover:text-blue-300 transition-colors">Fake Dating Profile Exposure</h3>
+                            <span class="text-[10px] font-mono text-purple-400 bg-purple-500/15 px-2.5 py-1 rounded border border-purple-500/20 w-fit font-semibold" aria-label="Case category: Impersonation">IMPERSONATION</span>
+                        </div>
+                        <p class="text-xs text-zinc-300 leading-relaxed">
+                            Targeted user by dating profile using stolen images. Ran reverse image searches (Yandex, Google), correlated usernames, and linked profile to multiple cloned accounts. Provided evidence package for takedown.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Case 2 -->
+                <div class="glass-card rounded-xl overflow-hidden hover:bg-white/6 transition-all duration-300 group">
+                    <div class="p-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                            <h3 class="text-sm font-bold text-white group-hover:text-green-300 transition-colors">ETH Investment Scam</h3>
+                            <span class="text-[10px] font-mono text-green-400 bg-green-500/15 px-2.5 py-1 rounded border border-green-500/20 w-fit font-semibold" aria-label="Case category: Crypto tracing">CRYPTO TRACING</span>
+                        </div>
+                        <p class="text-xs text-zinc-300 leading-relaxed">
+                            Unreturned ETH transfers with obfuscated recipient paths. Conducted on-chain analysis via Etherscan. Visualized flows to identify clusters and cash-out points.
+                        </p>
+                    </div>
+                </div>
 
-<div class="terminal rounded-lg overflow-hidden">
-<div class="terminal-header flex items-center px-4 py-2">
-<div class="flex space-x-2 mr-4">
-<div class="w-3 h-3 rounded-full bg-red-500"></div>
-<div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-<div class="w-3 h-3 rounded-full bg-green-500"></div>
-</div>
-<div class="text-sm text-gray-400">ghostwwn@terminal:~</div>
-</div>
-<div class="terminal-body p-4 font-mono text-sm h-96" id="interactive-terminal">
-    <div class="mb-2">Welcome to Nour's interactive terminal. Type 'help' for available commands.</div>
-    <div class="flex items-center mb-4" id="terminal-input-line">
-        <span class="text-green-400 mr-2">ghostwwn@terminal:~$</span>
-        <input type="text" id="terminal-input" class="bg-transparent border-none outline-none flex-grow text-white">
-    </div>
-</div>
-</div>
-</section>
+                <!-- Case 3 -->
+                <div class="glass-card rounded-xl overflow-hidden hover:bg-white/6 transition-all duration-300 group">
+                    <div class="p-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                            <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors">Job Scam Identification</h3>
+                            <span class="text-[10px] font-mono text-red-400 bg-red-500/15 px-2.5 py-1 rounded border border-red-500/20 w-fit font-semibold" aria-label="Case category: Fraud">FRAUD</span>
+                        </div>
+                        <p class="text-xs text-zinc-300 leading-relaxed">
+                            Applicants reported fake job offers. Conducted WHOIS/DNS checks, analyzed VOIP numbers, and compared copy against legitimate postings. Confirmed fraudulent campaign.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<section id="contact" class="mb-12 fade-in-up">
-<h2 class="text-3xl font-bold mb-8 flex items-center">
-  <i class="fas fa-envelope text-blue-400 text-2xl md:text-3xl mr-4"></i>
-  Get In Touch
-</h2>
+        <!-- Interactive Terminal -->
+        <section id="terminal" class="animate-fade-in delay-[300ms]" aria-labelledby="terminal-heading">
+            <h2 id="terminal-heading" class="sr-only">Interactive Terminal</h2>
+            <div class="glass-card rounded-xl overflow-hidden shadow-2xl">
+                <div class="bg-zinc-900/70 px-4 py-3 border-b border-white/5 flex items-center gap-2 justify-between">
+                    <div class="flex gap-1.5" aria-hidden="true">
+                        <div class="w-2.5 h-2.5 rounded-full bg-red-500/40 border border-red-500/60 hover:bg-red-500 transition-all"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/40 border border-yellow-500/60 hover:bg-yellow-500 transition-all"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-green-500/40 border border-green-500/60 hover:bg-green-500 transition-all"></div>
+                    </div>
+                    <div class="text-[10px] font-mono text-zinc-500">ghostwwn@terminal ~ %</div>
+                </div>
+                <div id="terminal-body" class="p-5 h-72 overflow-y-auto font-mono text-xs bg-[#030304] text-zinc-300" role="status" aria-live="polite" aria-label="Terminal output">
+                    <div class="mb-3 text-zinc-500">Welcome to Nour's interactive terminal. Type <span class="text-blue-400">'help'</span> for available commands.</div>
+                    
+                    <div id="terminal-output"></div>
 
-<div class="flex flex-col md:flex-row">
-<div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
-<p class="mb-6">
-Interested in discussing OSINT techniques, cryptocurrency tracing, or potential collaboration opportunities? Feel free to reach out through any of these channels.
-</p>
+                    <div class="flex items-center gap-2 mt-3">
+                        <span class="text-green-500" aria-hidden="true">➜</span>
+                        <span class="text-blue-400" aria-hidden="true">~</span>
+                        <input type="text" id="cmd-input" class="bg-transparent border-none outline-none flex-1 text-zinc-200 placeholder-zinc-700 focus:ring-0 focus:outline-none p-0" autocomplete="off" spellcheck="false" placeholder="type command..." aria-label="Command input" style="box-shadow: none !important; border: none !important;">
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<div class="space-y-4">
+        <!-- Contact & Session -->
+        <section id="contact" class="animate-fade-in delay-[400ms]" aria-labelledby="contact-heading">
+            <h2 id="contact-heading" class="text-xs font-mono text-zinc-400 mb-8 uppercase tracking-widest font-bold">Secure Communication</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-6">
+                <!-- Social Links -->
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="https://t.me/ghostwwn" target="_blank" rel="noopener noreferrer" class="p-4 glass-card rounded-lg flex flex-col items-center gap-2 hover:bg-white/8 transition-all duration-300 hover:scale-105 group" aria-label="Telegram">
+                        <iconify-icon icon="lucide:send" width="24" class="text-blue-400 group-hover:text-blue-300"></iconify-icon>
+                        <span class="text-xs font-semibold text-zinc-300 group-hover:text-white text-center">Telegram</span>
+                    </a>
+                    <a href="mailto:ghostwwn@proton.me" class="p-4 glass-card rounded-lg flex flex-col items-center gap-2 hover:bg-white/8 transition-all duration-300 hover:scale-105 group" aria-label="Email">
+                        <iconify-icon icon="lucide:mail" width="24" class="text-zinc-400 group-hover:text-zinc-300"></iconify-icon>
+                        <span class="text-xs font-semibold text-zinc-300 group-hover:text-white text-center">Email</span>
+                    </a>
+                    <a href="https://github.com/ghostwwn" target="_blank" rel="noopener noreferrer" class="p-4 glass-card rounded-lg flex flex-col items-center gap-2 hover:bg-white/8 transition-all duration-300 hover:scale-105 group" aria-label="GitHub">
+                        <iconify-icon icon="lucide:github" width="24" class="text-zinc-400 group-hover:text-zinc-300"></iconify-icon>
+                        <span class="text-xs font-semibold text-zinc-300 group-hover:text-white text-center">GitHub</span>
+                    </a>
+                    <a href="https://www.instagram.com/osintanalyst" target="_blank" rel="noopener noreferrer" class="p-4 glass-card rounded-lg flex flex-col items-center gap-2 hover:bg-white/8 transition-all duration-300 hover:scale-105 group" aria-label="Instagram">
+                        <iconify-icon icon="lucide:instagram" width="24" class="text-pink-400 group-hover:text-pink-300"></iconify-icon>
+                        <span class="text-xs font-semibold text-zinc-300 group-hover:text-white text-center">Instagram</span>
+                    </a>
+                </div>
 
-<div class="flex items-center">
-<div class="mr-4">
-  <i class="fas fa-map-marker-alt text-blue-400 text-xl"></i>
-</div>
-<div>
-<h3 class="font-bold">Location</h3>
-<p>New Jersey, USA</p>
-</div>
-</div>
-</div>
-</div>
+                <!-- Session ID Card -->
+                <div class="glass-card p-6 rounded-xl flex flex-col justify-between bg-gradient-to-br from-white/3 to-white/1">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-10 h-10 flex items-center justify-center text-green-400 bg-green-500/15 rounded-lg border border-green-500/30 flex-shrink-0" aria-hidden="true">
+                            <svg width="22" height="22" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg" class="session-icon">
+                                <path d="M67.54 22h67.14c10.86 0 20.97 6.19 25.31 16.14 1.4 3.21 2.2 6.72 2.28 10.37.07 3.76-.63 7.4-1.98 10.74-4.18 10.35-14.52 16.87-25.67 16.87H96l44.55 24.75c7.44 4.13 13.67 10.26 17.49 17.87 5.34 10.64 5.81 22.7.92 32.48-2.66 5.32-6.51 9.18-10.47 11.96-6.49 4.56-14.32 6.81-22.25 6.81H57.07c-1.95 0-3.89-.14-5.8-.55-12.18-2.65-21.28-13.4-21.54-25.95-.26-12.92 8.91-24.25 21.42-27.03 1.95-.44 3.96-.58 5.96-.58h38.88L49.58 90.21c-7.3-4.04-13.29-10.2-16.75-17.8-2.06-4.53-3.47-9.97-3.11-16.17.4-6.92 2.92-13.51 7.04-19.09C43.92 27.46 55.48 22 67.53 22Z"></path>
+                                <path d="M96 76.12v39.76"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-bold mb-1">Session ID</div>
+                            <div class="text-sm text-zinc-300 font-semibold">Verified</div>
+                        </div>
+                    </div>
+                    <div class="font-mono text-[9px] text-zinc-400 break-all leading-tight bg-zinc-900/50 p-3 rounded border border-white/5 select-all hover:text-green-400 hover:border-green-500/30 cursor-pointer transition-all duration-300 group" onclick="navigator.clipboard.writeText('05ea0c73c6cfd5b7f7f9a9976c76e87aa207def5cd269f317b29f1e780465e6a42'); alert('Session ID Copied ✓')" role="button" tabindex="0" aria-label="Click to copy session ID">
+                        05ea0c73c6cfd5b7f7f9a9976c76e87a<br>a207def5cd269f317b29f1e780465e6a42
+                    </div>
+                    <p class="text-[9px] text-zinc-600 mt-3">Click to copy • Security verified</p>
+                </div>
+            </div>
 
-<div class="md:w-1/2">
-<div class="space-y-4">
-  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
-    <div class="mr-4">
-      <i class="fab fa-telegram text-blue-400 text-2xl"></i>
-    </div>
-    <div>
-      <h3 class="font-bold">Telegram</h3>
-      <a href="https://t.me/ghostwwn" target="_blank" class="text-blue-400 hover:underline">@ghostwwn</a>
-    </div>
-  </div>
-  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
-    <div class="mr-4">
-      <i class="fab fa-instagram text-pink-400 text-2xl"></i>
-    </div>
-    <div>
-      <h3 class="font-bold">Instagram</h3>
-      <a href="https://instagram.com/ghostwwn" target="_blank" class="text-pink-400 hover:underline">@ghostwwn</a>
-    </div>
-  </div>
-  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
-    <div class="mr-4">
-      <i class="fab fa-github text-gray-400 text-2xl"></i>
-    </div>
-    <div>
-      <h3 class="font-bold">GitHub</h3>
-      <a href="https://github.com/ghostwwn" target="_blank" class="text-gray-400 hover:underline">@ghostwwn</a>
-    </div>
-  </div>
-  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
-    <div class="mr-4">
-      <i class="fab fa-tiktok text-white text-2xl"></i>
-    </div>
-    <div>
-      <h3 class="font-bold">TikTok</h3>
-      <a href="https://www.tiktok.com/@ghostwwn" target="_blank" class="text-white hover:underline">@ghostwwn</a>
-    </div>
-  </div>
-  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
-    <div class="mr-4">
-      <i class="fab fa-discord text-indigo-400 text-2xl"></i>
-    </div>
-    <div>
-      <h3 class="font-bold">Discord</h3>
-      <span class="text-indigo-400">@ghostwwn</span>
-    </div>
-  </div>
-  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
-    <div class="mr-4">
-      <i class="fas fa-envelope text-blue-400 text-2xl"></i>
-    </div>
-    <div>
-      <h3 class="font-bold">Email</h3>
-      <a href="mailto:ghostwwn@proton.me" class="text-blue-400 hover:underline">ghostwwn@proton.me</a>
-    </div>
-  </div>
-  <div class="contact-card bg-gray-800 rounded-xl p-6 shadow-lg flex items-center">
-    <div class="mr-4">
-      <svg width="28" height="28" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h192v192H0z" style="fill:none"/><path d="M67.54 22h67.14c10.86 0 20.97 6.19 25.31 16.14 1.4 3.21 2.2 6.72 2.28 10.37.07 3.76-.63 7.4-1.98 10.74-4.18 10.35-14.52 16.87-25.67 16.87H96l44.55 24.75c7.44 4.13 13.67 10.26 17.49 17.87 5.34 10.64 5.81 22.7.92 32.48-2.66 5.32-6.51 9.18-10.47 11.96-6.49 4.56-14.32 6.81-22.25 6.81H57.07c-1.95 0-3.89-.14-5.8-.55-12.18-2.65-21.28-13.4-21.54-25.95-.26-12.92 8.91-24.25 21.42-27.03 1.95-.44 3.96-.58 5.96-.58h38.88L49.58 90.21c-7.3-4.04-13.29-10.2-16.75-17.8-2.06-4.53-3.47-9.97-3.11-16.17.4-6.92 2.92-13.51 7.04-19.09C43.92 27.46 55.48 22 67.53 22Z" style="stroke-linecap:round;stroke-linejoin:round;stroke:#10b981;stroke-width:12px;fill:none"/><path d="M96 76.12v39.76" style="stroke:#10b981;stroke-width:12px;stroke-miterlimit:10;fill:none"/></svg>
-    </div>
-    <div>
-      <h3 class="font-bold">Session</h3>
-      <span class="break-all text-green-400">05ea0c73c6cfd5b7f7f9a9976c76e87aa207def5cd269f317b29f1e780465e6a42</span>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-</section>
+            <div class="border-t border-white/5 mt-16 pt-8 text-center">
+                <p class="text-[10px] font-mono text-zinc-600">© 2026 NOUR // GHOSTWWN • All Rights Reserved</p>
+            </div>
+        </section>
 
-<footer class="fade-in-up">
-<div class="flex flex-col md:flex-row justify-between items-center">
-<div class="mb-4 md:mb-0">
-<div class="flex items-center">
-<div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center mr-3">
-<span class="text-lg font-bold">N</span>
-</div>
-<div>
-<h3 class="font-bold">Nour</h3>
-<p class="text-sm text-gray-400">OSINT & Crypto Researcher</p>
-</div>
-</div>
-</div>
+    </main>
 
-<div class="flex space-x-6">
-</div>
-</div>
+    <script>
+        // Enhanced Terminal Logic with better command handling and keyboard support
+        const input = document.getElementById('cmd-input');
+        const output = document.getElementById('terminal-output');
+        const terminalBody = document.getElementById('terminal-body');
+        const commands = {
+            help: "Available commands:<br><span class='text-zinc-200'>• about</span> - Learn about me<br><span class='text-zinc-200'>• skills</span> - My expertise<br><span class='text-zinc-200'>• cases</span> - View cases<br><span class='text-zinc-200'>• contact</span> - How to reach me<br><span class='text-zinc-200'>• socials</span> - Social media<br><span class='text-zinc-200'>• clear</span> - Clear terminal",
+            about: "Nour | 16 y/o Independent Researcher from New Jersey, USA.<br>Focus: OSINT Investigation, Fraud Detection, Cryptocurrency Tracing.",
+            skills: "✓ OSINT (PimEyes, Yandex, Social Graphing)<br>✓ Cryptocurrency Analysis (Etherscan, Wallet Tracing)<br>✓ Digital Forensics &amp; Timeline Reconstruction<br>✓ Threat Intelligence &amp; Profile Correlation<br>✓ WHOIS/DNS Investigation",
+            cases: "View detailed case logs in the Cases section above.",
+            contact: "📧 Email: ghostwwn@proton.me<br>💬 Telegram: @ghostwwn<br>🔗 GitHub: github.com/ghostwwn",
+            socials: "Telegram: t.me/ghostwwn<br>GitHub: github.com/ghostwwn<br>Instagram: @osintanalyst",
+            clear: ""
+        };
+        
+        let commandHistory = [];
+        let historyIndex = -1;
 
-<div class="text-center text-gray-500 text-sm mt-8">
-&copy; 2025 ghostwwn. All rights reserved.
-</div>
-</footer>
-</div>
-
-<!-- Floating badge removed per request -->
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    window.scrollTo(0, 0);
-
-    const interactiveTerminalDiv = document.getElementById('interactive-terminal');
-    let terminalInput;
-
-  const initialContentHtml = null;
-
-    
-    const commands = {
-    help: {
-      description: "List all available commands",
-      execute: () => {
-        let output = "Available commands:\n";
-        for (const cmd in commands) {
-          output += `${cmd} - ${commands[cmd].description}\n`;
-        }
-        return output;
-      }
-    },
-    about: {
-      description: "Display information about me",
-      execute: () => {
-        return "Nour | 16-year-old OSINT & Crypto Researcher\n" +
-             "Independent researcher since 2022\n" +
-             "Specializing in fraud investigation and crypto tracing";
-      }
-    },
-    skills: {
-      description: "List my technical skills",
-      execute: () => {
-        return "OSINT Techniques:\n" +
-             "- Reverse image search (PimEyes, Yandex, Tineye)\n" +
-             "- People search and username tracing\n" +
-             "- Metadata analysis & digital footprint tracking\n\n" +
-             "Cryptocurrency Analysis:\n" +
-             "- BTC & ETH wallet tracking\n" +
-             "- Blockchain explorers (Etherscan)\n" +
-             "- Transaction flow analysis";
-      }
-    },
-    contact: {
-      description: "Show contact information",
-      execute: () => {
-        return "Telegram: @ghostwwn (https://t.me/ghostwwn)\nLocation: New Jersey, USA";
-      }
-    }
-    };
-
-    
-    commands.clear = {
-        description: "Clear the terminal screen",
-        execute: () => {
-            setupTerminalElements();
-            return "";
-        }
-    };
-
-  function attachTerminalListeners() {
-    // Limit terminal input length and sanitize pasted content
-    const MAX_INPUT_LENGTH = 300;
-    const MAX_TERMINAL_LINES = 200; // cap lines kept in DOM to prevent memory/abuse
-
-    terminalInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') {
-        const command = terminalInput.value.trim().toLowerCase();
-        terminalInput.value = '';
-
-        // render command line safely (no innerHTML)
-        const commandLine = document.createElement('div');
-        commandLine.className = 'flex items-center mb-1';
-        const promptSpan = document.createElement('span');
-        promptSpan.className = 'text-green-400 mr-2';
-        promptSpan.textContent = 'ghostwwn@terminal:~$';
-        commandLine.appendChild(promptSpan);
-        const cmdText = document.createTextNode(' ' + command);
-        commandLine.appendChild(cmdText);
-        interactiveTerminalDiv.insertBefore(commandLine, document.getElementById('terminal-input-line'));
-
-        let response = "Command not found. Type 'help' for available commands.";
-        if (commands[command]) {
-          try {
-            response = commands[command].execute();
-          } catch (err) {
-            response = 'Error executing command.';
-            console.error(err);
-          }
-        }
-
-        if (response) {
-          const responseDiv = document.createElement('div');
-          responseDiv.className = 'mb-4';
-          renderSafeTextWithLinks(responseDiv, response);
-          interactiveTerminalDiv.insertBefore(responseDiv, document.getElementById('terminal-input-line'));
-        }
-
-        trimTerminalLines();
-        interactiveTerminalDiv.scrollTop = interactiveTerminalDiv.scrollHeight;
-      }
-    });
-
-    terminalInput.addEventListener('input', function() {
-      if (terminalInput.value.length > MAX_INPUT_LENGTH) {
-        terminalInput.value = terminalInput.value.slice(0, MAX_INPUT_LENGTH);
-      }
-      interactiveTerminalDiv.scrollTop = interactiveTerminalDiv.scrollHeight;
-    });
-
-    // sanitize paste: strip any HTML and limit length
-    terminalInput.addEventListener('paste', function(e) {
-      e.preventDefault();
-      const text = (e.clipboardData || window.clipboardData).getData('text').slice(0, MAX_INPUT_LENGTH);
-      // insert as plain text at caret
-      const start = terminalInput.selectionStart || 0;
-      const end = terminalInput.selectionEnd || 0;
-      const newVal = terminalInput.value.slice(0, start) + text + terminalInput.value.slice(end);
-      terminalInput.value = newVal.slice(0, MAX_INPUT_LENGTH);
-    });
-
-    interactiveTerminalDiv.addEventListener('click', function() {
-      try { terminalInput.focus({ preventScroll: true }); } catch (e) { terminalInput.focus(); }
-    });
-
-    // Trim terminal DOM if it grows too large
-    const trimTerminalLines = () => {
-      const children = interactiveTerminalDiv.children;
-      if (children.length > MAX_TERMINAL_LINES + 5) { // +5 for input lines
-        // remove the oldest lines (but keep the input line at end)
-        let toRemove = children.length - (MAX_TERMINAL_LINES + 5);
-        for (let i = 0; i < children.length && toRemove > 0; i++) {
-          const child = children[i];
-          if (child.id !== 'terminal-input-line') {
-            interactiveTerminalDiv.removeChild(child);
-            toRemove--;
-            i--;
-          }
-        }
-      }
-    };
-  }
-
-  function setupTerminalElements() {
-    // Create welcome line and input line using safe DOM methods
-    interactiveTerminalDiv.innerHTML = '';
-    const welcomeDiv = document.createElement('div');
-    welcomeDiv.className = 'mb-2';
-    welcomeDiv.textContent = "Welcome to Nour's interactive terminal. Type 'help' for available commands.";
-    interactiveTerminalDiv.appendChild(welcomeDiv);
-
-    const inputLine = document.createElement('div');
-    inputLine.className = 'flex items-center mb-4';
-    inputLine.id = 'terminal-input-line';
-
-    const prompt = document.createElement('span');
-    prompt.className = 'text-green-400 mr-2';
-    prompt.textContent = 'ghostwwn@terminal:~$';
-
-    terminalInput = document.createElement('input');
-    terminalInput.type = 'text';
-    terminalInput.id = 'terminal-input';
-    terminalInput.className = 'bg-transparent border-none outline-none flex-grow text-white';
-
-    inputLine.appendChild(prompt);
-    inputLine.appendChild(terminalInput);
-    interactiveTerminalDiv.appendChild(inputLine);
-
-    attachTerminalListeners();
-    try { terminalInput.focus({ preventScroll: true }); } catch (e) { terminalInput.focus(); }
-  }
-
-  // Helper: render text preserving newlines and converting safe http(s) URLs into clickable anchors
-  function isSafeUrl(urlString) {
-    try {
-      const url = new URL(urlString);
-      if (url.protocol !== 'http:' && url.protocol !== 'https:') return false;
-      // Optionally restrict hosts here if needed (e.g., allowlist)
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  function renderSafeTextWithLinks(container, text) {
-    // Regex to find http(s) URLs. This is simple and intentionally conservative.
-    const urlRegex = /(https?:\/\/[\w\-._~:\/?#\[\]@!$&'()*+,;=%]+)/g;
-    let lastIndex = 0;
-    let match;
-    while ((match = urlRegex.exec(text)) !== null) {
-      const before = text.slice(lastIndex, match.index);
-      if (before) {
-        // preserve newlines
-        before.split('\n').forEach((line, idx) => {
-          container.appendChild(document.createTextNode(line));
-          if (idx < before.split('\n').length - 1) container.appendChild(document.createElement('br'));
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const cmd = this.value.toLowerCase().trim();
+                if (cmd) {
+                    commandHistory.push(cmd);
+                    historyIndex = commandHistory.length;
+                    
+                    output.innerHTML += `<div class="mb-1"><span class="text-green-500">➜</span> <span class="text-blue-400">~</span> <span class="text-zinc-300">${escapeHtml(this.value)}</span></div>`;
+                    
+                    if (cmd === 'clear') {
+                        output.innerHTML = '';
+                    } else if (commands[cmd]) {
+                        output.innerHTML += `<div class="mb-4 text-zinc-300">${commands[cmd]}</div>`;
+                    } else if (cmd === 'whoami') {
+                        output.innerHTML += `<div class="mb-4 text-blue-400">ghostwwn</div>`;
+                    } else if (cmd === 'date') {
+                        output.innerHTML += `<div class="mb-4 text-zinc-300">${new Date().toString()}</div>`;
+                    } else if (cmd === 'echo hello') {
+                        output.innerHTML += `<div class="mb-4 text-zinc-300">hello</div>`;
+                    } else if (cmd === 'pwd') {
+                        output.innerHTML += `<div class="mb-4 text-zinc-300">/home/nour</div>`;
+                    } else if (cmd === 'ls') {
+                        output.innerHTML += `<div class="mb-4 text-zinc-300">about.txt  cases.txt  certs.txt  projects.txt</div>`;
+                    } else {
+                        output.innerHTML += `<div class="mb-4 text-red-400">command not found: <span class="text-red-300">${escapeHtml(cmd)}</span></div>`;
+                    }
+                    
+                    this.value = '';
+                    terminalBody.scrollTop = terminalBody.scrollHeight;
+                }
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    this.value = commandHistory[historyIndex];
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
+                    this.value = commandHistory[historyIndex];
+                } else {
+                    historyIndex = commandHistory.length;
+                    this.value = '';
+                }
+            }
         });
-      }
-      // Trim trailing punctuation from the matched candidate (e.g., .,:;!?) and closing brackets
-      let candidate = match[0];
-      let suffix = '';
-      while (candidate.length && /[\.\,\!\?\:\;\)\]\}]/.test(candidate[candidate.length - 1])) {
-        suffix = candidate[candidate.length - 1] + suffix;
-        candidate = candidate.slice(0, -1);
-      }
-      if (isSafeUrl(candidate)) {
-        const a = document.createElement('a');
-        a.href = candidate;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer nofollow';
-        a.textContent = candidate;
-        a.style.color = '#60a5fa'; // match blue-400
-        container.appendChild(a);
-        if (suffix) container.appendChild(document.createTextNode(suffix));
-      } else {
-        // if candidate isn't a safe URL, render original match as text (including any suffix)
-        container.appendChild(document.createTextNode(match[0]));
-      }
-      lastIndex = urlRegex.lastIndex;
-    }
-    const rest = text.slice(lastIndex);
-    if (rest) {
-      rest.split('\n').forEach((line, idx) => {
-        container.appendChild(document.createTextNode(line));
-        if (idx < rest.split('\n').length - 1) container.appendChild(document.createElement('br'));
-      });
-    }
-  }
 
-    setupTerminalElements();
-});
-</script>
-<script>
-
-document.addEventListener('DOMContentLoaded', function() {
-  const fadeEls = document.querySelectorAll('.fade-in-up');
-  fadeEls.forEach((el, i) => {
-    setTimeout(() => {
-      el.classList.add('visible');
-    }, 200 + i * 180);
-  });
-
-  function smoothScrollTo(targetY, duration) {
-    const startY = window.pageYOffset;
-    const diff = targetY - startY;
-    let start;
-    function step(timestamp) {
-      if (!start) start = timestamp;
-      const time = timestamp - start;
-      const percent = Math.min(time / duration, 1);
-      window.scrollTo(0, startY + diff * easeInOutCubic(percent));
-      if (time < duration) {
-        requestAnimationFrame(step);
-      }
-    }
-    requestAnimationFrame(step);
-  }
-  function easeInOutCubic(t) {
-    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  }
-
-  var btn = document.getElementById('get-in-touch-btn');
-  if (btn) {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      var contactSection = document.getElementById('contact');
-      if (contactSection) {
-        const y = contactSection.getBoundingClientRect().top + window.pageYOffset - 30;
-        smoothScrollTo(y, 1200);
-      } else {
-        window.location.hash = '#contact';
-      }
-    });
-  }
-
-  const navLinks = document.querySelectorAll('nav a[href^="#"]');
-  navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      const hash = this.getAttribute('href');
-      if (hash && hash.startsWith('#')) {
-        const target = document.getElementById(hash.substring(1));
-        if (target) {
-          e.preventDefault();
-          const y = target.getBoundingClientRect().top + window.pageYOffset - 30;
-          smoothScrollTo(y, 1200);
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
-      }
-    });
-  });
-});
-</script>
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-<script>
-// particles.js config: 90 particles, blue/green, light lines, repulse on hover, push on click
-particlesJS("particles-js", {
-  "particles": {
-    "number": {
-      "value": 80,
-      "density": {
-        "enable": true,
-        "value_area": 800
-      }
-    },
-    "color": {
-      "value": ["#3b82f6", "#10b981"]
-    },
-    "shape": {
-      "type": "circle"
-    },
-    "opacity": {
-      "value": 0.6,
-      "random": true
-    },
-    "size": {
-      "value": 5,
-      "random": true
-    },
-    "line_linked": {
-      "enable": true,
-      "distance": 150,
-      "color": "#e2e8f0",
-      "opacity": 0.2,
-      "width": 1
-    },
-    "move": {
-      "enable": true,
-      "speed": 2,
-      "direction": "none",
-      "random": true,
-      "straight": false,
-      "out_mode": "out",
-      "bounce": false
-    }
-  },
-  "interactivity": {
-    "detect_on": "window",
-    "events": {
-      "onhover": {
-        "enable": true,
-        "mode": "grab"
-      },
-      "onclick": {
-        "enable": true,
-        "mode": "push"
-      },
-      "resize": true
-    },
-    "modes": {
-      "grab": {
-        "distance": 140,
-        "line_linked": {
-          "opacity": 1
+
+        // Terminal body click handler
+        terminalBody.addEventListener('click', function() {
+            input.focus();
+        });
+
+        // Session ID copy handler with keyboard support
+        const sessionIdCard = document.querySelector('[role="button"]');
+        if (sessionIdCard) {
+            sessionIdCard.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    navigator.clipboard.writeText('05ea0c73c6cfd5b7f7f9a9976c76e87aa207def5cd269f317b29f1e780465e6a42');
+                    alert('Session ID Copied ✓');
+                }
+            });
         }
-      },
-      "bubble": {
-        "distance": 400,
-        "size": 40,
-        "duration": 2,
-        "opacity": 8,
-        "speed": 3
-      },
-      "repulse": {
-        "distance": 100,
-        "duration": 0.4
-      },
-      "push": {
-        "particles_nb": 4
-      },
-      "remove": {
-        "particles_nb": 2
-      }
-    }
-  },
-  "retina_detect": true
-});
-</script>
-</body>
-</html>
+
+        // Ultra-smooth scroll functionality with advanced easing
+        function smoothScrollTo(targetY, duration) {
+            const startY = window.pageYOffset;
+            const diff = targetY - startY;
+            let start;
+            
+            function step(timestamp) {
+                if (!start) start = timestamp;
+                const time = timestamp - start;
+                const percent = Math.min(time / duration, 1);
+                
+                // Use custom easing for buttery smooth scroll
+                const eased = easeOutExpo(percent);
+                window.scrollTo({
+                    top: startY + diff * eased,
+                    behavior: 'auto'
+                });
+                
+                if (time < duration) {
+                    requestAnimationFrame(step);
+                }
+            }
+            requestAnimationFrame(step);
+        }
+        
+        // Advanced easing functions for smoothest experience
+        function easeOutExpo(t) {
+            return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+        }
+        
+        function easeInOutCubic(t) {
+            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
+
+        // Get in touch button with enhanced feedback
+        const btn = document.getElementById('get-in-touch-btn');
+        if (btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                    const y = contactSection.getBoundingClientRect().top + window.pageYOffset - 100;
+                    smoothScrollTo(y, 1500);
+                } else {
+                    window.location.hash = '#contact';
+                }
+            });
+        }
+
+        // Navigation links with smooth scroll
+        const navLinks = document.querySelectorAll('nav a[href^="#"], a[href^="#"]');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const hash = this.getAttribute('href');
+                if (hash && hash.startsWith('#')) {
+                    const targetId = hash.substring(1);
+                    const target = document.getElementById(targetId);
+                    if (target) {
+                        e.preventDefault();
+                        const y = target.getBoundingClientRect().top + window.pageYOffset - 100;
+                        smoothScrollTo(y, 1500);
+                    }
+                }
+            });
+        });
+
+        // Add subtle parallax effect to background
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    const scrolled = window.pageYOffset;
+                    const parallaxElements = document.querySelectorAll('.float-animation');
+                    parallaxElements.forEach(el => {
+                        const speed = 0.5;
+                        el.style.transform = `translateY(${scrolled * speed * 0.05}px)`;
+                    });
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Auto focus terminal on click
+        document.addEventListener('DOMContentLoaded', function() {
+            window.scrollTo(0, 0);
+            // Focus terminal when user presses any key (except modifiers)
+            document.addEventListener('keypress', function(e) {
+                if (document.activeElement !== input && !e.ctrlKey && !e.metaKey) {
+                    const charCode = String.fromCharCode(e.which);
+                    if (/[a-z0-9]/.test(charCode)) {
+                        input.focus();
+                    }
+                }
+            });
+        });
+        
+        // Ensure page loads at top
+        window.addEventListener('beforeunload', function() {
+            window.scrollTo(0, 0);
+        });
+    </script>
+
+</body></html>
