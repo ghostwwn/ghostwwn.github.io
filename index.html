@@ -1,716 +1,666 @@
-<html lang="en" class="scroll-smooth"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#000000">
-    <title>Nour | OSINT &amp; Crypto Researcher</title>
-    <meta name="description" content="Portfolio of Nour (@ghostwwn). Specializing in online fraud investigation, OSINT, and cryptocurrency tracing.">
-    <meta name="author" content="Nour (@ghostwwn)">
-    
-    <!-- Tailwind & Icons -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" defer></script>
-    
-    <!-- Fonts with Fallback -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <script>
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Nour // GHOSTWWN - OSINT &amp; Crypto Researcher</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
         tailwind.config = {
-            darkMode: 'class',
+            darkMode: "class",
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
                     colors: {
-                        zinc: {
-                            850: '#1f1f22',
-                            900: '#18181b',
-                            950: '#09090b',
-                        }
+                        "on-background": "#e2e2e2",
+                        "secondary-fixed": "#c7c6c6",
+                        "tertiary": "#e5e2e1",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-tertiary-container": "#000000",
+                        "primary-fixed": "#5d5f5f",
+                        "surface-container-high": "#2a2a2a",
+                        "secondary-container": "#464747",
+                        "on-tertiary-fixed": "#ffffff",
+                        "on-primary-fixed-variant": "#e2e2e2",
+                        "on-primary": "#1a1c1c",
+                        "outline": "#919191",
+                        "on-secondary": "#1a1c1c",
+                        "surface-dim": "#131313",
+                        "primary": "#ffffff",
+                        "surface-tint": "#c6c6c7",
+                        "primary-container": "#d4d4d4",
+                        "on-primary-fixed": "#ffffff",
+                        "on-secondary-container": "#e3e2e2",
+                        "surface": "#0e0e0e",
+                        "on-error-container": "#ffdad6",
+                        "inverse-on-surface": "#303030",
+                        "secondary": "#c7c6c6",
+                        "surface-bright": "#393939",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "on-primary-container": "#000000",
+                        "inverse-surface": "#e2e2e2",
+                        "surface-container-low": "#0e0e0e",
+                        "surface-variant": "#353535",
+                        "outline-variant": "#474747",
+                        "error-container": "#93000a",
+                        "surface-container-highest": "#353535",
+                        "inverse-primary": "#5d5f5f",
+                        "background": "#0e0e0e",
+                        "surface-container": "#0e0e0e",
+                        "tertiary-fixed": "#5f5e5e",
+                        "tertiary-container": "#929090",
+                        "primary-fixed-dim": "#454747",
+                        "on-error": "#690005",
+                        "secondary-fixed-dim": "#ababab",
+                        "tertiary-fixed-dim": "#474746",
+                        "on-tertiary-fixed-variant": "#e5e2e1",
+                        "on-surface": "#e2e2e2",
+                        "on-secondary-fixed-variant": "#3a3c3c",
+                        "error": "#ffb4ab",
+                        "on-surface-variant": "#c6c6c6",
+                        "on-tertiary": "#1b1b1c"
                     },
-                    animation: {
-                        'fade-in': 'fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                        'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                        'pulse-glow': 'pulseGlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 8s cubic-bezier(0.4, 0, 0.2, 1) infinite',
-                        'scale-in': 'scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
                     },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0', transform: 'translateY(20px) scale(0.95)' },
-                            '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
-                        },
-                        slideUp: {
-                            '0%': { opacity: '0', transform: 'translateY(30px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        pulseGlow: {
-                            '0%, 100%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.4)', opacity: '1' },
-                            '50%': { boxShadow: '0 0 35px rgba(59, 130, 246, 0.7)', opacity: '0.9' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
-                            '33%': { transform: 'translateY(-10px) rotate(1deg)' },
-                            '66%': { transform: 'translateY(-5px) rotate(-1deg)' },
-                        },
-                        scaleIn: {
-                            '0%': { opacity: '0', transform: 'scale(0.9)' },
-                            '100%': { opacity: '1', transform: 'scale(1)' },
-                        }
-                    },
-                    transitionTimingFunction: {
-                        'smooth': 'cubic-bezier(0.16, 1, 0.3, 1)',
-                        'bounce': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-                    }
-                }
-            }
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
         }
     </script>
-    
     <style>
-        * {
-            -webkit-tap-highlight-color: transparent;
+        .scanline {
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 50%, rgba(0, 0, 0, 0) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
         }
-        
+
+        .zebra-stripe:nth-child(even) {
+            background-color: #0e0e0e;
+        }
+
+        .glitch-hover:hover {
+            transform: translate(2px, -2px);
+            transition: transform 0.1s ease-in-out;
+        }
+
+        .topnav-link {
+            color: #ababab;
+            border-bottom: 1px solid transparent;
+        }
+
+        .topnav-link:hover {
+            color: #ffffff;
+        }
+
+        .topnav-link[aria-current="true"] {
+            color: #ffffff;
+            border-bottom-color: #ffffff;
+        }
+
         body {
-            background: linear-gradient(135deg, #030304 0%, #0a0511 100%);
-            color: #a1a1aa;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden;
-        }
-        
-        /* Glass Effect */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform, border-color, background;
-        }
-        .glass-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-        .glass-card:active {
-            transform: translateY(-2px) scale(0.99);
+            font-family: "Manrope", sans-serif;
+            background-color: #000000;
+            color: #ffffff;
         }
 
-        /* Session Icon Styling */
-        .session-icon path {
-            stroke: currentColor;
-            stroke-width: 12px;
-            fill: none;
+        .linux-panel {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { 
-            background: linear-gradient(180deg, #3b82f6, #8b5cf6);
-            border-radius: 10px;
-            border: 2px solid transparent;
-            background-clip: content-box;
-        }
-        ::-webkit-scrollbar-thumb:hover { 
-            background: linear-gradient(180deg, #60a5fa, #a78bfa);
-            background-clip: content-box;
+        .linux-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.3);
         }
 
-        .button {
-            --bezier: cubic-bezier(0.16, 1, 0.3, 1);
-            --edge-light: hsla(0, 0%, 50%, 0.8);
-            --text-light: rgba(255, 255, 255, 0.4);
-            --back-color: 240, 40%;
-            cursor: pointer;
-            padding: 0.5em 0.8em;
-            border-radius: 0.5em;
-            min-height: 2em;
-            min-width: 2.5em;
-            display: flex;
-            align-items: center;
-            gap: 0.4em;
-            font-size: 15px;
-            letter-spacing: 0.05em;
-            line-height: 1;
-            font-weight: bold;
-            background: linear-gradient(
-                140deg,
-                hsla(var(--back-color), 50%, 1) min(2em, 20%),
-                hsla(var(--back-color), 50%, 0.6) min(8em, 100%)
-            );
-            color: hsla(0, 0%, 90%);
-            border: 0;
-            box-shadow: inset 0.4px 1px 4px var(--edge-light);
-            transition: all 0.3s var(--bezier);
-            will-change: transform, box-shadow;
-        }
-        .button:hover {
-            --edge-light: hsla(0, 0%, 50%, 1);
-            text-shadow: 0px 0px 12px var(--text-light);
-            box-shadow: inset 0.4px 1px 4px var(--edge-light),
-                2px 6px 12px hsla(0, 0%, 0%, 0.4);
-            transform: translateY(-2px);
-        }
-        .button:active {
-            --text-light: rgba(255, 255, 255, 1);
-            background: linear-gradient(
-                140deg,
-                hsla(var(--back-color), 50%, 1) min(2em, 20%),
-                hsla(var(--back-color), 50%, 0.6) min(8em, 100%)
-            );
-            box-shadow: inset 0.4px 1px 8px var(--edge-light),
-                0px 0px 8px hsla(var(--back-color), 50%, 0.6);
-            text-shadow: 0px 0px 20px var(--text-light);
-            color: hsla(0, 0%, 100%, 1);
-            letter-spacing: 0.1em;
-            transform: translateY(0px);
+        .linux-dot.active {
+            width: 22px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.9);
         }
 
-        /* Enhanced animations with stagger */
-        @media (prefers-reduced-motion: no-preference) {
-            .animate-fade-in {
-                animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-                opacity: 0;
-            }
-            .delay-\[100ms\] { animation-delay: 150ms; }
-            .delay-\[200ms\] { animation-delay: 250ms; }
-            .delay-\[300ms\] { animation-delay: 350ms; }
-            .delay-\[400ms\] { animation-delay: 450ms; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        /* Floating effect */
-        .float-animation {
-            animation: float 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-            will-change: transform;
-        }
-
-        /* Gradient text animation */
-        .gradient-text {
-            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            background-size: 200% 200%;
-            animation: gradientShift 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-            will-change: background-position;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            25% { background-position: 50% 100%; }
-            50% { background-position: 100% 50%; }
-            75% { background-position: 50% 0%; }
-        }
-
-        /* Accessibility improvements */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
-
-        /* Smooth link transitions */
-        a, button {
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        /* Focus styles for keyboard navigation */
-        a:focus-visible,
-        button:focus-visible {
-            outline: 2px solid #3b82f6;
-            outline-offset: 2px;
-            transition: outline-offset 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        /* Performance optimizations */
-        img {
-            will-change: transform;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        img:hover {
-            transform: scale(1.05);
-        }
-
-        /* Remove focus outline from terminal input */
-        #cmd-input:focus,
-        #cmd-input:focus-visible {
-            outline: none !important;
-            box-shadow: none !important;
-            border: none !important;
-        }
-
-        /* Improved mobile responsiveness */
-        @media (max-width: 640px) {
-            .glass-card:hover {
-                transform: translateY(-1px);
-            }
-            
-            main {
-                padding-top: 28px;
-            }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
         }
     </style>
 </head>
-<body class="antialiased min-h-screen relative selection:bg-blue-500/20 selection:text-blue-200">
 
-    <!-- Subtle Grid Background -->
-    <div class="fixed inset-0 pointer-events-none z-0 opacity-20" style="background-image: linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px); background-size: 30px 30px; mask-image: radial-gradient(circle at center, black, transparent 90%);" aria-hidden="true">
-    </div>
-
-    <!-- Navigation -->
-    <nav class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 sm:px-6" role="navigation" aria-label="Main navigation">
-        <div class="glass-card rounded-full pl-5 pr-2 py-2 flex items-center gap-4 sm:gap-8 shadow-2xl bg-[#0a0a0b]/80 w-full max-w-2xl">
-            <a href="#hero" class="text-zinc-100 font-semibold tracking-tight text-sm flex items-center gap-2 flex-shrink-0" aria-label="Nour - Home">
-                <div class="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)] animate-pulse" aria-hidden="true"></div>
-                <span class="hidden sm:inline">ghost</span>
-            </a>
-            <div class="hidden sm:flex items-center gap-6 text-[13px] font-medium text-zinc-500 flex-1">
-                <a href="#about" class="hover:text-blue-400 transition-colors duration-300">About</a>
-                <a href="#cases" class="hover:text-blue-400 transition-colors duration-300">Cases</a>
-                <a href="#terminal" class="hover:text-blue-400 transition-colors duration-300">Terminal</a>
-            </div>
-            <a href="#contact" class="ml-auto text-[11px] font-mono bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-blue-500/50 flex-shrink-0">
-                CONTACT
-            </a>
+<body class="font-body text-on-surface selection:bg-primary selection:text-on-primary bg-[#0e0e0e]">
+    <div class="linux-panel fixed top-0 left-0 right-0 z-[60] h-10 px-6 md:px-10 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+            <span class="linux-dot active"></span>
+            <span class="linux-dot"></span>
+            <span class="linux-dot"></span>
+            <span class="linux-dot"></span>
         </div>
-    </nav>
-
-    <main class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-32 pb-24 space-y-32" role="main">
-        
+        <div class="font-label text-[11px] text-white/80 tracking-[0.25em] uppercase">7:13 PM</div>
+        <div class="flex items-center gap-3 text-white/65">
+            <span class="material-symbols-outlined text-[17px]">terminal</span>
+            <span class="material-symbols-outlined text-[17px]">bluetooth</span>
+            <span class="material-symbols-outlined text-[17px]">volume_up</span>
+            <span class="material-symbols-outlined text-[17px]">power_settings_new</span>
+        </div>
+    </div>
+    <!-- TopAppBar -->
+    <header
+        class="fixed top-10 w-full z-50 border-b border-white/[0.05] bg-[#0e0e0e]/95 backdrop-blur-lg flex justify-between items-center px-6 h-16">
+        <div class="font-headline font-extrabold text-white tracking-[0.12em] text-lg">@ghostwwn</div>
+        <nav class="hidden md:flex space-x-8">
+            <a aria-current="true"
+                class="topnav-link font-headline uppercase tracking-[0.15em] text-xs pb-1 transition-colors"
+                href="#about">About</a>
+            <a class="topnav-link font-headline uppercase tracking-[0.15em] text-xs pb-1 transition-colors"
+                href="#credentials">Credentials</a>
+            <a class="topnav-link font-headline uppercase tracking-[0.15em] text-xs pb-1 transition-colors"
+                href="#cases">Cases</a>
+            <a class="topnav-link font-headline uppercase tracking-[0.15em] text-xs pb-1 transition-colors"
+                href="#contact">Contact</a>
+        </nav>
+        <div class="flex items-center space-x-4">
+            <span class="font-label text-[10px] text-primary/30 tracking-[0.2em]">STATUS: ENCRYPTED</span>
+            <span class="material-symbols-outlined text-white/50">security</span>
+        </div>
+    </header>
+    <main class="pt-[104px]">
         <!-- Hero Section -->
-        <section id="hero" class="grid lg:grid-cols-2 gap-12 items-center animate-fade-in" aria-label="Hero section">
-            <div class="space-y-6">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/5 border border-blue-500/10 text-[11px] font-mono text-blue-400 tracking-wide uppercase">
-                    <span class="relative flex h-2 w-2" aria-hidden="true">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-                    </span>
-                    Open to Work
+        <section
+            class="relative min-h-[80vh] flex flex-col justify-center px-6 md:px-20 border-b border-white/[0.05] overflow-hidden scroll-mt-24"
+            id="about">
+            <div class="absolute inset-0 scanline opacity-10"></div>
+            <div class="z-10 max-w-4xl">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="px-2 py-0.5 bg-white text-black font-label text-[10px] tracking-widest uppercase">Open
+                        to Work</span>
+                    <span
+                        class="text-secondary-fixed-dim font-label text-[10px] tracking-widest uppercase opacity-50">//
+                        AUTH_TOKEN: @GHOSTWWN</span>
                 </div>
-                
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight">
-                    OSINT &amp; <br>
-                    <span class="gradient-text">Crypto Researcher</span>
-                </h1>
-                
-                <p class="text-zinc-300 text-sm sm:text-base leading-relaxed max-w-md">
-                    I'm <strong class="text-white">Nour</strong> (@ghostwwn). A 16-year-old independent researcher and new web pentester focused on online fraud investigation, OSINT, and cryptocurrency tracing. So far, I’ve earned around <strong class="text-white">$1,500</strong> through audits and bug bounty reports, a milestone I’m proud and grateful for.
+                <h1 class="font-headline text-5xl md:text-8xl text-white tracking-tighter mb-4 leading-none">NOUR</h1>
+                <h2 class="font-headline text-xl md:text-3xl text-secondary-fixed-dim tracking-tight mb-8">OSINT &amp;
+                    CRYPTO RESEARCHER</h2>
+                <p class="font-body text-lg md:text-xl text-on-surface-variant max-w-2xl leading-relaxed mb-10">
+                    A 16-year-old independent researcher specializing in forensic investigations and blockchain
+                    security. Successfully secured over $1,500 in bug bounties through meticulous threat detection and
+                    vulnerability disclosure.
                 </p>
-
-                <div class="flex flex-wrap items-center gap-3 pt-4">
-                    <a href="#contact" id="get-in-touch-btn" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-blue-500/50 hover:scale-105 flex items-center gap-2" role="button">
-                        <iconify-icon icon="lucide:zap" width="14"></iconify-icon> Get in Touch
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#contact"
+                        class="bg-white text-black px-8 py-4 font-headline font-bold uppercase tracking-widest text-sm hover:opacity-90 transition-all flex items-center justify-center gap-2">
+                        Get in Touch <span class="material-symbols-outlined text-sm">arrow_forward</span>
                     </a>
-                    <a href="https://t.me/ghostwwn" target="_blank" rel="noopener noreferrer" class="px-6 py-2.5 glass-card text-zinc-300 hover:text-white text-xs font-medium rounded-lg transition-all duration-300 flex items-center gap-2" aria-label="Telegram (opens in new window)">
-                        <iconify-icon icon="lucide:send" width="14"></iconify-icon> Telegram
+                    <a href="https://t.me/ghostwwn" rel="noopener noreferrer" target="_blank"
+                        class="border border-white/20 text-white px-8 py-4 font-headline font-bold uppercase tracking-widest text-sm hover:bg-white/5 transition-all flex items-center justify-center gap-2">
+                        Telegram <span class="material-symbols-outlined text-sm">send</span>
                     </a>
                 </div>
             </div>
-
-            <!-- Profile Badge -->
-            <div class="relative group justify-self-center lg:justify-self-end float-animation">
-                <div class="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-[80px] rounded-full" aria-hidden="true"></div>
-                <div class="glass-card p-6 rounded-2xl w-[280px] relative z-10 hover:-translate-y-2 transition-all duration-500 shadow-2xl">
-                    <div class="flex items-center gap-4 mb-6">
-                        <img src="https://i.ibb.co/mrLbRhQT/517245085-18011839061770877-8505106980687542313-n.jpg" class="w-16 h-16 rounded-full border-2 border-blue-500/30 object-cover" alt="Nour's profile picture">
-                        <div>
-                            <div class="text-sm font-bold text-white">Nour</div>
-                            <div class="text-[11px] text-blue-400 font-mono">@ghostwwn</div>
+            <div class="absolute right-10 top-1/2 -translate-y-1/2 hidden lg:block">
+                <div class="w-[520px] bg-black/20 border border-white/[0.06] overflow-hidden relative">
+                    <div class="absolute inset-0 scanline opacity-15"></div>
+                    <div class="relative p-8">
+                        <div class="flex items-center justify-between mb-7">
+                            <span class="font-label text-[10px] text-white/30 tracking-[0.3em] uppercase">System_Snapshot</span>
+                            <span class="font-label text-[10px] text-white/20 tracking-widest uppercase">NODE: AAG-01</span>
                         </div>
-                    </div>
-                    <div class="space-y-3 font-mono text-[10px] text-zinc-500 border-t border-white/5 pt-4">
-                        <div class="flex justify-between hover:text-zinc-300 transition-colors"><span>LOC</span> <span class="text-blue-400">NJ, USA</span></div>
-                        <div class="flex justify-between hover:text-zinc-300 transition-colors"><span>EXP</span> <span class="text-blue-400">4+ YEARS</span></div>
-                        <div class="flex justify-between hover:text-zinc-300 transition-colors"><span>FOCUS</span> <span class="text-blue-400">FRAUD / WEB / CRYPTO</span></div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="border border-white/[0.05] p-4">
+                                <div class="font-label text-[10px] text-white/20 tracking-widest uppercase mb-2">Focus</div>
+                                <div class="font-headline text-white tracking-tight">OSINT</div>
+                                <div class="font-label text-xs text-white/40">Footprint correlation</div>
+                            </div>
+                            <div class="border border-white/[0.05] p-4">
+                                <div class="font-label text-[10px] text-white/20 tracking-widest uppercase mb-2">Focus</div>
+                                <div class="font-headline text-white tracking-tight">Blockchain</div>
+                                <div class="font-label text-xs text-white/40">Wallet clustering</div>
+                            </div>
+                            <div class="border border-white/[0.05] p-4">
+                                <div class="font-label text-[10px] text-white/20 tracking-widest uppercase mb-2">Signal</div>
+                                <div class="font-headline text-white tracking-tight">High</div>
+                                <div class="font-label text-xs text-white/40">Threat detection</div>
+                            </div>
+                            <div class="border border-white/[0.05] p-4">
+                                <div class="font-label text-[10px] text-white/20 tracking-widest uppercase mb-2">Status</div>
+                                <div class="font-headline text-white tracking-tight">Online</div>
+                                <div class="font-label text-xs text-white/40">Response ready</div>
+                            </div>
+                        </div>
+                        <div class="mt-7 border-t border-white/[0.06] pt-6">
+                            <div class="font-label text-[10px] text-white/20 tracking-widest uppercase mb-3">Active Modules</div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="flex items-center justify-between border border-white/[0.05] px-3 py-2">
+                                    <span class="font-label text-[10px] text-white/40 uppercase tracking-widest">Forensics</span>
+                                    <span class="font-label text-[10px] text-white/20">ENABLED</span>
+                                </div>
+                                <div class="flex items-center justify-between border border-white/[0.05] px-3 py-2">
+                                    <span class="font-label text-[10px] text-white/40 uppercase tracking-widest">Intel</span>
+                                    <span class="font-label text-[10px] text-white/20">ENABLED</span>
+                                </div>
+                                <div class="flex items-center justify-between border border-white/[0.05] px-3 py-2">
+                                    <span class="font-label text-[10px] text-white/40 uppercase tracking-widest">Audit</span>
+                                    <span class="font-label text-[10px] text-white/20">READY</span>
+                                </div>
+                                <div class="flex items-center justify-between border border-white/[0.05] px-3 py-2">
+                                    <span class="font-label text-[10px] text-white/40 uppercase tracking-widest">Disclosure</span>
+                                    <span class="font-label text-[10px] text-white/20">READY</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Certifications -->
-        <section id="about" class="animate-fade-in delay-[100ms]" aria-labelledby="cert-heading">
-            <h2 id="cert-heading" class="text-xs font-mono text-zinc-400 mb-8 uppercase tracking-widest font-bold">Certifications &amp; Credentials</h2>
-            <div class="grid md:grid-cols-2 gap-4">
-                <a href="https://learn.opswatacademy.com/certificate/6BdTXwop_A" target="_blank" rel="noopener noreferrer" class="glass-card p-6 rounded-xl group relative overflow-hidden transition-all hover:scale-105 cursor-pointer" aria-label="Comprehensive OSINT Expert certification - opens in new window">
-                    <div class="absolute top-0 right-0 p-4 opacity-30 group-hover:opacity-100 transition-opacity" aria-hidden="true">
-                        <iconify-icon icon="lucide:external-link" width="18" class="text-blue-400 group-hover:text-blue-300"></iconify-icon>
+        <!-- Certifications & Credentials -->
+        <section class="px-6 md:px-20 py-24 bg-[#0e0e0e] scroll-mt-24" id="credentials">
+            <div class="flex items-center justify-between mb-16">
+                <div>
+                    <span
+                        class="font-label text-[10px] text-white/30 tracking-[0.3em] uppercase">Academic_Records</span>
+                    <h3 class="font-headline text-3xl text-white mt-2">CERTIFICATIONS &amp; CREDENTIALS</h3>
+                </div>
+                <div class="h-[1px] flex-grow mx-8 bg-white/5 hidden md:block"></div>
+                <span class="font-label text-xs text-white/20">NODE_ID: OPS_092</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- OCOE -->
+                <div class="bg-transparent border border-white/[0.05] p-8 relative group overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                        <span class="material-symbols-outlined text-6xl">verified</span>
                     </div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="p-3 bg-blue-500/15 rounded-lg text-blue-400 border border-blue-500/30">
-                            <iconify-icon icon="lucide:shield-check" width="20"></iconify-icon>
+                    <span class="font-label text-[10px] text-white/40 tracking-widest mb-4 block">OPSWAT ACADEMY //
+                        01</span>
+                    <h4 class="font-headline text-2xl text-white mb-2">OCOE</h4>
+                    <p class="font-body text-sm text-on-surface-variant mb-6">OPSWAT Critical Optical Endpoint Associate
+                    </p>
+                    <div class="flex justify-between items-end">
+                        <div class="font-label text-[10px] text-white/20 uppercase space-y-1">
+                            <div>Valid: 2024-2026</div>
+                            <div>Verified: 100% SUCCESS</div>
                         </div>
-                        <span class="text-[10px] font-mono text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded border border-blue-500/20 font-semibold">OCOE</span>
+                        <span class="material-symbols-outlined text-white/40">verified_user</span>
                     </div>
-                    <h3 class="text-sm font-bold text-white">Comprehensive OSINT Expert</h3>
-                    <p class="text-[11px] text-zinc-400 mt-2">OPSWAT Academy • Valid until 10/2026</p>
+                </div>
+                <!-- ICIP -->
+                <div class="bg-transparent border border-white/[0.05] p-8 relative group overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                        <span class="material-symbols-outlined text-6xl">shield_locked</span>
+                    </div>
+                    <span class="font-label text-[10px] text-white/40 tracking-widest mb-4 block">OPSWAT ACADEMY //
+                        02</span>
+                    <h4 class="font-headline text-2xl text-white mb-2">ICIP</h4>
+                    <p class="font-body text-sm text-on-surface-variant mb-6">Introduction to Critical Infrastructure
+                        Protection</p>
+                    <div class="flex justify-between items-end">
+                        <div class="font-label text-[10px] text-white/20 uppercase space-y-1">
+                            <div>Valid: 2024-2027</div>
+                            <div>Verified: 100% SUCCESS</div>
+                        </div>
+                        <span class="material-symbols-outlined text-white/40">security</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Investigative Log -->
+        <section class="py-24 bg-[#0e0e0e] scroll-mt-24" id="cases">
+            <div class="px-6 md:px-20 mb-16">
+                <span class="font-label text-[10px] text-white/30 tracking-[0.3em] uppercase">Operational_Logs</span>
+                <h3 class="font-headline text-3xl text-white mt-2">INVESTIGATIVE LOG</h3>
+            </div>
+            <div class="flex flex-col">
+                <!-- Log 01 -->
+                <div
+                    class="px-6 md:px-20 py-12 flex flex-col md:flex-row gap-8 items-start hover:bg-white/[0.02] transition-colors group border-t border-white/[0.05]">
+                    <div class="font-label text-xs text-white/20 pt-2 shrink-0">LOG_ID: 01</div>
+                    <div class="flex-grow">
+                        <h4 class="font-headline text-2xl text-white mb-4">Fake Dating Profile Exposure</h4>
+                        <p class="font-body text-on-surface-variant max-w-3xl mb-6">Cross-platform forensic analysis
+                            uncovering a network of identity theft used for social engineering campaigns. Successfully
+                            mapped original sources via EXIF data and digital footprint correlation.</p>
+                        <div class="flex flex-wrap gap-3">
+                            <span
+                                class="border border-white/[0.05] px-3 py-1 font-label text-[10px] uppercase text-white/40">Digital
+                                Forensics</span>
+                            <span
+                                class="border border-white/[0.05] px-3 py-1 font-label text-[10px] uppercase text-white/40">OSINT</span>
+                            <span
+                                class="border border-white/[0.05] px-3 py-1 font-label text-[10px] uppercase text-white/40">Ident
+                                Analysis</span>
+                        </div>
+                    </div>
+                    <span
+                        class="material-symbols-outlined text-white/10 group-hover:text-white/40 transition-colors">visibility</span>
+                </div>
+                <!-- Log 02 -->
+                <div
+                    class="px-6 md:px-20 py-12 flex flex-col md:flex-row gap-8 items-start hover:bg-white/[0.02] transition-colors group border-t border-white/[0.05]">
+                    <div class="font-label text-xs text-white/20 pt-2 shrink-0">LOG_ID: 02</div>
+                    <div class="flex-grow">
+                        <h4 class="font-headline text-2xl text-white mb-4">ETH Investment Scam</h4>
+                        <p class="font-body text-on-surface-variant max-w-3xl mb-6">Blockchain investigation tracking
+                            fraudulent ETH transfers. Identified wallet clusters and linked them to known offshore
+                            laundering services using heuristic pattern matching.</p>
+                        <div class="flex flex-wrap gap-3">
+                            <span
+                                class="border border-white/[0.05] px-3 py-1 font-label text-[10px] uppercase text-white/40">Blockchain
+                                Analysis</span>
+                            <span
+                                class="border border-white/[0.05] px-3 py-1 font-label text-[10px] uppercase text-white/40">Crypto
+                                Forensics</span>
+                            <span
+                                class="border border-white/[0.05] px-3 py-1 font-label text-[10px] uppercase text-white/40">Asset
+                                Recovery</span>
+                        </div>
+                    </div>
+                    <span
+                        class="material-symbols-outlined text-white/10 group-hover:text-white/40 transition-colors">account_balance_wallet</span>
+                </div>
+                <!-- Log 03 -->
+                <div
+                    class="px-6 md:px-20 py-12 flex flex-col md:flex-row gap-8 items-start hover:bg-white/[0.02] transition-colors group border-t border-white/[0.05]">
+                    <div class="font-label text-xs text-white/20 pt-2 shrink-0">LOG_ID: 03</div>
+                    <div class="flex-grow">
+                        <h4 class="font-headline text-2xl text-white mb-4">Job Scam Identification</h4>
+                        <p class="font-body text-on-surface-variant max-w-3xl mb-6">Deconstruction of sophisticated
+                            corporate impersonation schemes. Identified 12+ fraudulent domains and reported them for
+                            takedown, preventing further exploitation of remote workers.</p>
+                        <div class="flex flex-wrap gap-3">
+                            <span
+                                class="border border-white/[0.05] px-3 py-1 font-label text-[10px] uppercase text-white/40">Threat
+                                Intel</span>
+                            <span
+                                class="border border-white/[0.05] px-3 py-1 font-label text-[10px] uppercase text-white/40">Domain
+                                Analysis</span>
+                            <span
+                                class="border border-white/[0.05] px-3 py-1 font-label text-[10px] uppercase text-white/40">Phishing
+                                Prevention</span>
+                        </div>
+                    </div>
+                    <span
+                        class="material-symbols-outlined text-white/10 group-hover:text-white/40 transition-colors">domain_disabled</span>
+                </div>
+                <!-- Log 04 -->
+                <div
+                    class="px-6 md:px-20 py-12 flex flex-col md:flex-row gap-8 items-start hover:bg-white/[0.02] transition-colors group border-t border-b border-white/[0.05]">
+                    <div class="font-label text-xs text-white/20 pt-2 shrink-0">LOG_ID: 04</div>
+                    <div class="flex-grow">
+                        <h4 class="font-headline text-2xl text-white mb-4">Confidential Infrastructure Audit</h4>
+                        <p class="font-body text-on-surface-variant max-w-3xl mb-6">Secured penetration testing and
+                            security audit for a fintech startup. Disclosed critical path vulnerabilities in CI/CD
+                            pipeline and user authentication layers.</p>
+                        <div class="flex flex-wrap gap-3">
+                            <span
+                                class="border border-white/[0.05] px-3 py-1 font-label text-[10px] uppercase text-white/40">Security
+                                Audit</span>
+                            <span
+                                class="border border-white/[0.05] px-3 py-1 font-label text-[10px] uppercase text-white/40">Pentesting</span>
+                            <span
+                                class="border border-white/[0.05] px-3 py-1 font-label text-[10px] uppercase text-white/40">Vulnerability
+                                Disclosure</span>
+                        </div>
+                    </div>
+                    <span
+                        class="material-symbols-outlined text-white/10 group-hover:text-white/40 transition-colors">terminal</span>
+                </div>
+            </div>
+        </section>
+        <section class="px-6 md:px-20 py-24 bg-[#0e0e0e] border-t border-white/[0.05] scroll-mt-24" id="contact">
+            <div class="flex items-center justify-between mb-16">
+                <div>
+                    <span class="font-label text-[10px] text-white/30 tracking-[0.3em] uppercase">External_Links</span>
+                    <h3 class="font-headline text-3xl text-white mt-2">CONTACT</h3>
+                </div>
+                <div class="h-[1px] flex-grow mx-8 bg-white/5 hidden md:block"></div>
+                <span class="font-label text-xs text-white/20">CHANNELS: 04</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a class="group bg-black/20 border border-white/[0.06] p-7 relative overflow-hidden hover:bg-white/[0.02] transition-colors"
+                    href="https://t.me/ghostwwn" rel="noopener noreferrer" target="_blank">
+                    <div class="absolute inset-0 scanline opacity-10"></div>
+                    <div class="relative">
+                        <div class="flex items-start justify-between gap-6">
+                            <div>
+                                <div class="font-headline text-white tracking-tight text-2xl uppercase">Telegram</div>
+                                <div class="font-body text-sm text-on-surface-variant mt-2">@ghostwwn</div>
+                            </div>
+                            <span
+                                class="material-symbols-outlined text-white/30 group-hover:text-white transition-colors">north_east</span>
+                        </div>
+                    </div>
                 </a>
-
-                <a href="https://learn.opswatacademy.com/certificate/o1QZONmexA" target="_blank" rel="noopener noreferrer" class="glass-card p-6 rounded-xl group relative overflow-hidden transition-all hover:scale-105 cursor-pointer" aria-label="Critical Infrastructure Protection certification - opens in new window">
-                    <div class="absolute top-0 right-0 p-4 opacity-30 group-hover:opacity-100 transition-opacity" aria-hidden="true">
-                        <iconify-icon icon="lucide:external-link" width="18" class="text-purple-400 group-hover:text-purple-300"></iconify-icon>
-                    </div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="p-3 bg-purple-500/15 rounded-lg text-purple-400 border border-purple-500/30">
-                            <iconify-icon icon="lucide:lock" width="20"></iconify-icon>
+                <a class="group bg-black/20 border border-white/[0.06] p-7 relative overflow-hidden hover:bg-white/[0.02] transition-colors"
+                    href="mailto:ghostwwn@proton.me">
+                    <div class="absolute inset-0 scanline opacity-10"></div>
+                    <div class="relative">
+                        <div class="flex items-start justify-between gap-6">
+                            <div>
+                                <div class="font-headline text-white tracking-tight text-2xl uppercase">Email</div>
+                                <div class="font-body text-sm text-on-surface-variant mt-2">ghostwwn@proton.me</div>
+                            </div>
+                            <span
+                                class="material-symbols-outlined text-white/30 group-hover:text-white transition-colors">north_east</span>
                         </div>
-                        <span class="text-[10px] font-mono text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded border border-purple-500/20 font-semibold">ICIP</span>
                     </div>
-                    <h3 class="text-sm font-bold text-white">Critical Infrastructure Protection</h3>
-                    <p class="text-[11px] text-zinc-400 mt-2">OPSWAT Academy • Valid until 10/2026</p>
+                </a>
+                <a class="group bg-black/20 border border-white/[0.06] p-7 relative overflow-hidden hover:bg-white/[0.02] transition-colors"
+                    href="https://github.com/ghostwwn" rel="noopener noreferrer" target="_blank">
+                    <div class="absolute inset-0 scanline opacity-10"></div>
+                    <div class="relative">
+                        <div class="flex items-start justify-between gap-6">
+                            <div>
+                                <div class="font-headline text-white tracking-tight text-2xl uppercase">GitHub</div>
+                                <div class="font-body text-sm text-on-surface-variant mt-2">@ghostwwn</div>
+                            </div>
+                            <span
+                                class="material-symbols-outlined text-white/30 group-hover:text-white transition-colors">north_east</span>
+                        </div>
+                    </div>
+                </a>
+                <a class="group bg-black/20 border border-white/[0.06] p-7 relative overflow-hidden hover:bg-white/[0.02] transition-colors"
+                    href="https://instagram.com/osintanalyst" rel="noopener noreferrer" target="_blank">
+                    <div class="absolute inset-0 scanline opacity-10"></div>
+                    <div class="relative">
+                        <div class="flex items-start justify-between gap-6">
+                            <div>
+                                <div class="font-headline text-white tracking-tight text-2xl uppercase">Instagram</div>
+                                <div class="font-body text-sm text-on-surface-variant mt-2">@osintanalyst</div>
+                            </div>
+                            <span
+                                class="material-symbols-outlined text-white/30 group-hover:text-white transition-colors">north_east</span>
+                        </div>
+                    </div>
                 </a>
             </div>
         </section>
-
-        <!-- Experience / Cases -->
-        <section id="cases" class="animate-fade-in delay-[200ms]" aria-labelledby="cases-heading">
-            <h2 id="cases-heading" class="text-xs font-mono text-zinc-400 mb-8 uppercase tracking-widest font-bold">Investigative Log</h2>
-            <div class="space-y-3">
-                <!-- Case 1 -->
-                <div class="glass-card rounded-xl overflow-hidden hover:bg-white/6 transition-all duration-300 group">
-                    <div class="p-6">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
-                            <h3 class="text-sm font-bold text-white group-hover:text-blue-300 transition-colors">Fake Dating Profile Exposure</h3>
-                            <span class="text-[10px] font-mono text-purple-400 bg-purple-500/15 px-2.5 py-1 rounded border border-purple-500/20 w-fit font-semibold" aria-label="Case category: Impersonation">IMPERSONATION</span>
-                        </div>
-                        <p class="text-xs text-zinc-300 leading-relaxed">
-                            Targeted user by dating profile using stolen images. Ran reverse image searches (Yandex, Google), correlated usernames, and linked profile to multiple cloned accounts. Provided evidence package for takedown.
-                        </p>
-                    </div>
+        <!-- Session Info & Security -->
+        <section class="px-6 md:px-20 py-16 border-t border-white/[0.05] bg-[#0e0e0e]" id="session-acc">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="flex flex-col space-y-2">
+                    <span
+                        class="font-label text-[10px] text-white/20 tracking-[0.4em] uppercase">Session_Fingerprint</span>
+                    <p class="font-label text-[10px] text-white/40 break-all max-w-lg">05ea0c73c6cfd5b7f7f9a9976c76e87a
+                        a207def5cd269f317b29f1e780465e6a42</p>
                 </div>
-                
-                <!-- Case 2 -->
-                <div class="glass-card rounded-xl overflow-hidden hover:bg-white/6 transition-all duration-300 group">
-                    <div class="p-6">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
-                            <h3 class="text-sm font-bold text-white group-hover:text-green-300 transition-colors">ETH Investment Scam</h3>
-                            <span class="text-[10px] font-mono text-green-400 bg-green-500/15 px-2.5 py-1 rounded border border-green-500/20 w-fit font-semibold" aria-label="Case category: Crypto tracing">CRYPTO TRACING</span>
-                        </div>
-                        <p class="text-xs text-zinc-300 leading-relaxed">
-                            Unreturned ETH transfers with obfuscated recipient paths. Conducted on-chain analysis via Etherscan. Visualized flows to identify clusters and cash-out points.
-                        </p>
+                <div class="flex items-center space-x-6">
+                    <div class="flex items-center gap-3 border border-white/[0.05] px-4 py-2">
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white/50 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-white/50"></span>
+                        </span>
+                        <span class="font-label text-[10px] text-white/50 tracking-widest uppercase">Security
+                            Verified</span>
                     </div>
-                </div>
-
-                <!-- Case 3 -->
-                <div class="glass-card rounded-xl overflow-hidden hover:bg-white/6 transition-all duration-300 group">
-                    <div class="p-6">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
-                            <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors">Job Scam Identification</h3>
-                            <span class="text-[10px] font-mono text-red-400 bg-red-500/15 px-2.5 py-1 rounded border border-red-500/20 w-fit font-semibold" aria-label="Case category: Fraud">FRAUD</span>
-                        </div>
-                        <p class="text-xs text-zinc-300 leading-relaxed">
-                            Applicants reported fake job offers. Conducted WHOIS/DNS checks, analyzed VOIP numbers, and compared copy against legitimate postings. Confirmed fraudulent campaign.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Case 4 -->
-                <div class="glass-card rounded-xl overflow-hidden hover:bg-white/6 transition-all duration-300 group">
-                    <div class="p-6">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
-                            <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">Confidential Infrastructure Security Audit</h3>
-                            <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/15 px-2.5 py-1 rounded border border-cyan-500/20 w-fit font-semibold" aria-label="Case category: Web pentest">WEB PENTEST</span>
-                        </div>
-                        <p class="text-xs text-zinc-300 leading-relaxed">
-                            March 2026 engagement on a production platform. Identified a chained authorization and mass-assignment weakness that could allow privilege escalation, data exposure, and pricing manipulation. Reported findings through responsible disclosure, validated impact, and provided prioritized remediation guidance including hardened access rules.
-                        </p>
+                    <div class="text-right">
+                        <div class="font-label text-[10px] text-white/20 uppercase">Uptime</div>
+                        <div class="font-label text-xs text-white/40">99.999%</div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Interactive Terminal -->
-        <section id="terminal" class="animate-fade-in delay-[300ms]" aria-labelledby="terminal-heading">
-            <h2 id="terminal-heading" class="sr-only">Interactive Terminal</h2>
-            <div class="glass-card rounded-xl overflow-hidden shadow-2xl">
-                <div class="bg-zinc-900/70 px-4 py-3 border-b border-white/5 flex items-center gap-2 justify-between">
-                    <div class="flex gap-1.5" aria-hidden="true">
-                        <div class="w-2.5 h-2.5 rounded-full bg-red-500/40 border border-red-500/60 hover:bg-red-500 transition-all"></div>
-                        <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/40 border border-yellow-500/60 hover:bg-yellow-500 transition-all"></div>
-                        <div class="w-2.5 h-2.5 rounded-full bg-green-500/40 border border-green-500/60 hover:bg-green-500 transition-all"></div>
+        <!-- Footer -->
+        <footer class="w-full border-t border-white/10 bg-surface">
+            <div class="px-6 md:px-20 py-12">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-10">
+                    <div class="md:col-span-5">
+                        <div class="font-headline text-lg font-extrabold tracking-[0.14em] text-white">GHOSTWWN</div>
+                        <p class="mt-4 text-xs leading-relaxed text-on-surface-variant max-w-md">
+                            Independent OSINT and crypto investigations focused on fraud response, attribution, and
+                            rapid defensive guidance.
+                        </p>
                     </div>
-                    <div class="text-[10px] font-mono text-zinc-500">ghostwwn@terminal ~ %</div>
-                </div>
-                <div id="terminal-body" class="p-5 h-72 overflow-y-auto font-mono text-xs bg-[#030304] text-zinc-300" role="status" aria-live="polite" aria-label="Terminal output">
-                    <div class="mb-3 text-zinc-500">Welcome to Nour's interactive terminal. Type <span class="text-blue-400">'help'</span> for available commands.</div>
-                    
-                    <div id="terminal-output"></div>
-
-                    <div class="flex items-center gap-2 mt-3">
-                        <span class="text-green-500" aria-hidden="true">➜</span>
-                        <span class="text-blue-400" aria-hidden="true">~</span>
-                        <input type="text" id="cmd-input" class="bg-transparent border-none outline-none flex-1 text-zinc-200 placeholder-zinc-700 focus:ring-0 focus:outline-none p-0" autocomplete="off" spellcheck="false" placeholder="type command..." aria-label="Command input" style="box-shadow: none !important; border: none !important;">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact & Session -->
-        <section id="contact" class="animate-fade-in delay-[400ms]" aria-labelledby="contact-heading">
-            <h2 id="contact-heading" class="text-xs font-mono text-zinc-400 mb-8 uppercase tracking-widest font-bold">Secure Communication</h2>
-            
-            <div class="grid lg:grid-cols-2 gap-6">
-                <!-- Social Links -->
-                <div class="grid grid-cols-2 gap-3">
-                    <a href="https://t.me/ghostwwn" target="_blank" rel="noopener noreferrer" class="p-4 glass-card rounded-lg flex flex-col items-center gap-2 hover:bg-white/8 transition-all duration-300 hover:scale-105 group" aria-label="Telegram">
-                        <iconify-icon icon="lucide:send" width="24" class="text-blue-400 group-hover:text-blue-300"></iconify-icon>
-                        <span class="text-xs font-semibold text-zinc-300 group-hover:text-white text-center">Telegram</span>
-                    </a>
-                    <a href="mailto:ghostwwn@proton.me" class="p-4 glass-card rounded-lg flex flex-col items-center gap-2 hover:bg-white/8 transition-all duration-300 hover:scale-105 group" aria-label="Email">
-                        <iconify-icon icon="lucide:mail" width="24" class="text-zinc-400 group-hover:text-zinc-300"></iconify-icon>
-                        <span class="text-xs font-semibold text-zinc-300 group-hover:text-white text-center">Email</span>
-                    </a>
-                    <a href="https://github.com/ghostwwn" target="_blank" rel="noopener noreferrer" class="p-4 glass-card rounded-lg flex flex-col items-center gap-2 hover:bg-white/8 transition-all duration-300 hover:scale-105 group" aria-label="GitHub">
-                        <iconify-icon icon="lucide:github" width="24" class="text-zinc-400 group-hover:text-zinc-300"></iconify-icon>
-                        <span class="text-xs font-semibold text-zinc-300 group-hover:text-white text-center">GitHub</span>
-                    </a>
-                    <a href="https://www.instagram.com/osintanalyst" target="_blank" rel="noopener noreferrer" class="p-4 glass-card rounded-lg flex flex-col items-center gap-2 hover:bg-white/8 transition-all duration-300 hover:scale-105 group" aria-label="Instagram">
-                        <iconify-icon icon="lucide:instagram" width="24" class="text-pink-400 group-hover:text-pink-300"></iconify-icon>
-                        <span class="text-xs font-semibold text-zinc-300 group-hover:text-white text-center">Instagram</span>
-                    </a>
-                </div>
-
-                <!-- Session ID Card -->
-                <div class="glass-card p-6 rounded-xl flex flex-col justify-between bg-gradient-to-br from-white/3 to-white/1">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="w-10 h-10 flex items-center justify-center text-green-400 bg-green-500/15 rounded-lg border border-green-500/30 flex-shrink-0" aria-hidden="true">
-                            <svg width="22" height="22" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg" class="session-icon">
-                                <path d="M67.54 22h67.14c10.86 0 20.97 6.19 25.31 16.14 1.4 3.21 2.2 6.72 2.28 10.37.07 3.76-.63 7.4-1.98 10.74-4.18 10.35-14.52 16.87-25.67 16.87H96l44.55 24.75c7.44 4.13 13.67 10.26 17.49 17.87 5.34 10.64 5.81 22.7.92 32.48-2.66 5.32-6.51 9.18-10.47 11.96-6.49 4.56-14.32 6.81-22.25 6.81H57.07c-1.95 0-3.89-.14-5.8-.55-12.18-2.65-21.28-13.4-21.54-25.95-.26-12.92 8.91-24.25 21.42-27.03 1.95-.44 3.96-.58 5.96-.58h38.88L49.58 90.21c-7.3-4.04-13.29-10.2-16.75-17.8-2.06-4.53-3.47-9.97-3.11-16.17.4-6.92 2.92-13.51 7.04-19.09C43.92 27.46 55.48 22 67.53 22Z"></path>
-                                <path d="M96 76.12v39.76"></path>
-                            </svg>
+                    <div
+                        class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 text-[10px] tracking-[0.2em] uppercase">
+                        <div class="space-y-3">
+                            <div class="text-white/45">Navigation</div>
+                            <div class="grid gap-2">
+                                <a class="text-[#555555] hover:text-gray-200 transition-colors duration-300"
+                                    href="#about">About</a>
+                                <a class="text-[#555555] hover:text-gray-200 transition-colors duration-300"
+                                    href="#credentials">Credentials</a>
+                                <a class="text-[#555555] hover:text-gray-200 transition-colors duration-300"
+                                    href="#cases">Cases</a>
+                                <a class="text-[#555555] hover:text-gray-200 transition-colors duration-300"
+                                    href="#contact">Contact</a>
+                            </div>
                         </div>
-                        <div class="flex-1">
-                            <div class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-bold mb-1">Session ID</div>
-                            <div class="text-sm text-zinc-300 font-semibold">Verified</div>
+                        <div class="space-y-3">
+                            <div class="text-white/45">Social</div>
+                            <div class="grid gap-2">
+                                <a class="text-[#555555] hover:text-gray-200 transition-colors duration-300"
+                                    href="https://github.com/ghostwwn" rel="noopener noreferrer" target="_blank">GitHub</a>
+                                <a class="text-[#555555] hover:text-gray-200 transition-colors duration-300"
+                                    href="https://instagram.com/osintanalyst" rel="noopener noreferrer"
+                                    target="_blank">Instagram</a>
+                                <a class="text-[#555555] hover:text-gray-200 transition-colors duration-300"
+                                    href="https://t.me/ghostwwn" rel="noopener noreferrer" target="_blank">Telegram</a>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="text-white/45">Contact</div>
+                            <div class="grid gap-2">
+                                <a class="text-[#555555] hover:text-gray-200 transition-colors duration-300"
+                                    href="mailto:ghostwwn@proton.me">Email</a>
+                                <a class="text-[#555555] hover:text-gray-200 transition-colors duration-300"
+                                    href="#session-acc">Session_Acc</a>
+                                <div class="text-[#555555] tracking-normal uppercase">New Jersey, USA</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="font-mono text-[9px] text-zinc-400 break-all leading-tight bg-zinc-900/50 p-3 rounded border border-white/5 select-all hover:text-green-400 hover:border-green-500/30 cursor-pointer transition-all duration-300 group" onclick="navigator.clipboard.writeText('05ea0c73c6cfd5b7f7f9a9976c76e87aa207def5cd269f317b29f1e780465e6a42'); alert('Session ID Copied ✓')" role="button" tabindex="0" aria-label="Click to copy session ID">
-                        05ea0c73c6cfd5b7f7f9a9976c76e87a<br>a207def5cd269f317b29f1e780465e6a42
-                    </div>
-                    <p class="text-[9px] text-zinc-600 mt-3">Click to copy • Security verified</p>
+                </div>
+                <div class="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between gap-4">
+                    <div class="text-[10px] tracking-[0.2em] uppercase text-[#555555]">© 2026 Nour // Ghostwwn</div>
+                    <div class="text-[10px] tracking-[0.2em] uppercase text-[#555555]">Built for forensic workflows</div>
                 </div>
             </div>
-
-            <div class="border-t border-white/5 mt-16 pt-8 text-center">
-                <p class="text-[10px] font-mono text-zinc-600">© 2026 NOUR // GHOSTWWN • All Rights Reserved</p>
-            </div>
-        </section>
-
+        </footer>
     </main>
+    <!-- Data Ticker -->
+    <div
+        class="fixed bottom-0 left-0 right-0 bg-[#0e0e0e] border-t border-white/[0.05] z-50 h-6 overflow-hidden hidden md:flex items-center">
+        <div class="whitespace-nowrap font-label text-[8px] text-white/20 flex items-center gap-12 animate-marquee">
+            <span>[SYS_LOG] :: INCOMING REQUEST FROM 192.168.1.1</span>
+            <span>[THREAD] :: ANALYZING ETH TRANSACTION HASH: 0x5a2d...</span>
+            <span>[AUTH] :: GHOSTWWN VERIFIED IN ZONE_01</span>
+            <span>[ALERT] :: MULTIPLE UNSUCCESSFUL LOGIN ATTEMPTS DETECTED IN NODE_4</span>
+            <span>[SYS_LOG] :: SCANNING FOR VULNERABILITIES... 100% COMPLETE</span>
+            <span>[DATA] :: NEW BOUNTY RECORDED: $250.00</span>
+        </div>
+    </div>
+    <style>
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%);
+            }
 
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .animate-marquee {
+            animation: marquee 30s linear infinite;
+        }
+    </style>
     <script>
-        // Enhanced Terminal Logic with better command handling and keyboard support
-        const input = document.getElementById('cmd-input');
-        const output = document.getElementById('terminal-output');
-        const terminalBody = document.getElementById('terminal-body');
-        const commands = {
-            help: "Available commands:<br><span class='text-zinc-200'>• about</span> - Learn about me<br><span class='text-zinc-200'>• skills</span> - My expertise<br><span class='text-zinc-200'>• cases</span> - View cases<br><span class='text-zinc-200'>• contact</span> - How to reach me<br><span class='text-zinc-200'>• socials</span> - Social media<br><span class='text-zinc-200'>• clear</span> - Clear terminal",
-            about: "Nour | 16 y/o Independent Researcher &amp; New Web Pentester from New Jersey, USA.<br>Focus: OSINT Investigation, Fraud Detection, Cryptocurrency Tracing.<br>Earned around $1,500 through audits and bug bounty reports, a milestone I'm proud and grateful for.",
-            skills: "✓ OSINT (PimEyes, Yandex, Social Graphing)<br>✓ Cryptocurrency Analysis (Etherscan, Wallet Tracing)<br>✓ Digital Forensics &amp; Timeline Reconstruction<br>✓ Threat Intelligence &amp; Profile Correlation<br>✓ WHOIS/DNS Investigation",
-            cases: "View detailed case logs in the Cases section above.",
-            contact: "📧 Email: ghostwwn@proton.me<br>💬 Telegram: @ghostwwn<br>🔗 GitHub: github.com/ghostwwn",
-            socials: "Telegram: t.me/ghostwwn<br>GitHub: github.com/ghostwwn<br>Instagram: @osintanalyst",
-            clear: ""
-        };
-        
-        let commandHistory = [];
-        let historyIndex = -1;
+        (() => {
+            const headerEl = document.querySelector("header");
+            const navLinks = Array.from(document.querySelectorAll("a.topnav-link[href^='#']"));
+            const sections = navLinks
+                .map((link) => document.querySelector(link.getAttribute("href")))
+                .filter(Boolean);
 
-        input.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                const cmd = this.value.toLowerCase().trim();
-                if (cmd) {
-                    commandHistory.push(cmd);
-                    historyIndex = commandHistory.length;
-                    
-                    output.innerHTML += `<div class="mb-1"><span class="text-green-500">➜</span> <span class="text-blue-400">~</span> <span class="text-zinc-300">${escapeHtml(this.value)}</span></div>`;
-                    
-                    if (cmd === 'clear') {
-                        output.innerHTML = '';
-                    } else if (commands[cmd]) {
-                        output.innerHTML += `<div class="mb-4 text-zinc-300">${commands[cmd]}</div>`;
-                    } else if (cmd === 'whoami') {
-                        output.innerHTML += `<div class="mb-4 text-blue-400">ghostwwn</div>`;
-                    } else if (cmd === 'date') {
-                        output.innerHTML += `<div class="mb-4 text-zinc-300">${new Date().toString()}</div>`;
-                    } else if (cmd === 'echo hello') {
-                        output.innerHTML += `<div class="mb-4 text-zinc-300">hello</div>`;
-                    } else if (cmd === 'pwd') {
-                        output.innerHTML += `<div class="mb-4 text-zinc-300">/home/nour</div>`;
-                    } else if (cmd === 'ls') {
-                        output.innerHTML += `<div class="mb-4 text-zinc-300">about.txt  cases.txt  certs.txt  projects.txt</div>`;
+            const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            const setActive = (activeId) => {
+                navLinks.forEach((link) => {
+                    const isActive = link.getAttribute("href") === `#${activeId}`;
+                    if (isActive) {
+                        link.setAttribute("aria-current", "true");
                     } else {
-                        output.innerHTML += `<div class="mb-4 text-red-400">command not found: <span class="text-red-300">${escapeHtml(cmd)}</span></div>`;
+                        link.removeAttribute("aria-current");
                     }
-                    
-                    this.value = '';
-                    terminalBody.scrollTop = terminalBody.scrollHeight;
-                }
-            } else if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                if (historyIndex > 0) {
-                    historyIndex--;
-                    this.value = commandHistory[historyIndex];
-                }
-            } else if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                if (historyIndex < commandHistory.length - 1) {
-                    historyIndex++;
-                    this.value = commandHistory[historyIndex];
-                } else {
-                    historyIndex = commandHistory.length;
-                    this.value = '';
-                }
-            }
-        });
-
-        // Escape HTML to prevent XSS
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        // Terminal body click handler
-        terminalBody.addEventListener('click', function() {
-            input.focus();
-        });
-
-        // Session ID copy handler with keyboard support
-        const sessionIdCard = document.querySelector('[role="button"]');
-        if (sessionIdCard) {
-            sessionIdCard.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    navigator.clipboard.writeText('05ea0c73c6cfd5b7f7f9a9976c76e87aa207def5cd269f317b29f1e780465e6a42');
-                    alert('Session ID Copied ✓');
-                }
-            });
-        }
-
-        // Ultra-smooth scroll functionality with advanced easing
-        function smoothScrollTo(targetY, duration) {
-            const startY = window.pageYOffset;
-            const diff = targetY - startY;
-            let start;
-            
-            function step(timestamp) {
-                if (!start) start = timestamp;
-                const time = timestamp - start;
-                const percent = Math.min(time / duration, 1);
-                
-                // Use custom easing for buttery smooth scroll
-                const eased = easeOutExpo(percent);
-                window.scrollTo({
-                    top: startY + diff * eased,
-                    behavior: 'auto'
                 });
-                
-                if (time < duration) {
-                    requestAnimationFrame(step);
-                }
-            }
-            requestAnimationFrame(step);
-        }
-        
-        // Advanced easing functions for smoothest experience
-        function easeOutExpo(t) {
-            return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-        }
-        
-        function easeInOutCubic(t) {
-            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-        }
+            };
 
-        // Get in touch button with enhanced feedback
-        const btn = document.getElementById('get-in-touch-btn');
-        if (btn) {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const contactSection = document.getElementById('contact');
-                if (contactSection) {
-                    const y = contactSection.getBoundingClientRect().top + window.pageYOffset - 100;
-                    smoothScrollTo(y, 1500);
-                } else {
-                    window.location.hash = '#contact';
-                }
-            });
-        }
+            const getHeaderOffset = () => (headerEl ? headerEl.offsetHeight : 0) + 12;
 
-        // Navigation links with smooth scroll
-        const navLinks = document.querySelectorAll('nav a[href^="#"], a[href^="#"]');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                const hash = this.getAttribute('href');
-                if (hash && hash.startsWith('#')) {
-                    const targetId = hash.substring(1);
-                    const target = document.getElementById(targetId);
-                    if (target) {
-                        e.preventDefault();
-                        const y = target.getBoundingClientRect().top + window.pageYOffset - 100;
-                        smoothScrollTo(y, 1500);
-                    }
-                }
-            });
-        });
+            const getActiveId = () => {
+                const offset = getHeaderOffset();
+                const scrollPos = window.scrollY + offset;
 
-        // Add subtle parallax effect to background
-        let ticking = false;
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                window.requestAnimationFrame(function() {
-                    const scrolled = window.pageYOffset;
-                    const parallaxElements = document.querySelectorAll('.float-animation');
-                    parallaxElements.forEach(el => {
-                        const speed = 0.5;
-                        el.style.transform = `translateY(${scrolled * speed * 0.05}px)`;
-                    });
-                    ticking = false;
-                });
+                let active = sections[0]?.id;
+                for (const section of sections) {
+                    if (!section || !section.id) continue;
+                    if (scrollPos >= section.offsetTop) active = section.id;
+                }
+                return active;
+            };
+
+            let ticking = false;
+            const update = () => {
+                ticking = false;
+                const activeId = getActiveId();
+                if (activeId) setActive(activeId);
+            };
+
+            const requestUpdate = () => {
+                if (ticking) return;
                 ticking = true;
-            }
-        });
+                window.requestAnimationFrame(update);
+            };
 
-        // Auto focus terminal on click
-        document.addEventListener('DOMContentLoaded', function() {
-            window.scrollTo(0, 0);
-            // Focus terminal when user presses any key (except modifiers)
-            document.addEventListener('keypress', function(e) {
-                if (document.activeElement !== input && !e.ctrlKey && !e.metaKey) {
-                    const charCode = String.fromCharCode(e.which);
-                    if (/[a-z0-9]/.test(charCode)) {
-                        input.focus();
-                    }
-                }
+            window.addEventListener("scroll", requestUpdate, { passive: true });
+            window.addEventListener("resize", requestUpdate);
+
+            navLinks.forEach((link) => {
+                link.addEventListener("click", (e) => {
+                    const target = document.querySelector(link.getAttribute("href"));
+                    if (!target) return;
+                    e.preventDefault();
+
+                    const top = target.getBoundingClientRect().top + window.scrollY - getHeaderOffset();
+                    history.pushState(null, "", link.getAttribute("href"));
+                    window.scrollTo({ top, behavior: prefersReducedMotion ? "auto" : "smooth" });
+                    requestUpdate();
+                });
             });
-        });
-        
-        // Ensure page loads at top
-        window.addEventListener('beforeunload', function() {
-            window.scrollTo(0, 0);
-        });
-    </script>
 
-</body></html>
+            window.addEventListener("popstate", requestUpdate);
+            window.addEventListener("load", requestUpdate);
+            requestUpdate();
+        })();
+    </script>
+</body>
+
+</html>
