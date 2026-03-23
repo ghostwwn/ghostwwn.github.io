@@ -145,7 +145,7 @@
             <span class="linux-dot"></span>
             <span class="linux-dot"></span>
         </div>
-        <div class="font-label text-[11px] text-white/80 tracking-[0.25em] uppercase">7:13 PM</div>
+        <div class="font-label text-[11px] text-white/80 tracking-[0.25em] uppercase" id="top-clock">--:-- --</div>
         <div class="flex items-center gap-3 text-white/65">
             <span class="material-symbols-outlined text-[17px]">terminal</span>
             <span class="material-symbols-outlined text-[17px]">bluetooth</span>
@@ -156,7 +156,7 @@
     <!-- TopAppBar -->
     <header
         class="fixed top-10 w-full z-50 border-b border-white/[0.05] bg-[#0e0e0e]/95 backdrop-blur-lg flex justify-between items-center px-6 h-16">
-        <div class="font-headline font-extrabold text-white tracking-[0.12em] text-lg">@ghostwwn</div>
+        <div class="font-headline font-extrabold text-white tracking-[0.12em] text-lg">GHOSTWWN</div>
         <nav class="hidden md:flex space-x-8">
             <a aria-current="true"
                 class="topnav-link font-headline uppercase tracking-[0.15em] text-xs pb-1 transition-colors"
@@ -594,11 +594,25 @@
     </style>
     <script>
         (() => {
+            const topClockEl = document.getElementById("top-clock");
             const headerEl = document.querySelector("header");
             const navLinks = Array.from(document.querySelectorAll("a.topnav-link[href^='#']"));
             const sections = navLinks
                 .map((link) => document.querySelector(link.getAttribute("href")))
                 .filter(Boolean);
+
+            const formatLocalTime = (date) => {
+                const hours = date.getHours();
+                const minutes = String(date.getMinutes()).padStart(2, "0");
+                const period = hours >= 12 ? "PM" : "AM";
+                const hours12 = hours % 12 || 12;
+                return `${hours12}:${minutes} ${period}`;
+            };
+
+            const updateTopClock = () => {
+                if (!topClockEl) return;
+                topClockEl.textContent = formatLocalTime(new Date());
+            };
 
             const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -658,6 +672,8 @@
 
             window.addEventListener("popstate", requestUpdate);
             window.addEventListener("load", requestUpdate);
+            updateTopClock();
+            setInterval(updateTopClock, 1000);
             requestUpdate();
         })();
     </script>
