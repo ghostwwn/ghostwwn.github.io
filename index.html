@@ -119,16 +119,142 @@
         }
 
         .linux-dot {
-            width: 8px;
-            height: 8px;
+            display: inline-block;
+            width: 7px;
+            height: 7px;
             border-radius: 9999px;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.38);
+            transition: width 0.28s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.28s ease;
         }
 
         .linux-dot.active {
             width: 22px;
+            background: rgba(255, 255, 255, 0.92);
+        }
+
+        @keyframes dotToPill {
+            0% {
+                width: 7px;
+                background: rgba(255, 255, 255, 0.38);
+            }
+
+            45% {
+                width: 10px;
+                background: rgba(255, 255, 255, 0.72);
+            }
+
+            100% {
+                width: 22px;
+                background: rgba(255, 255, 255, 0.92);
+            }
+        }
+
+        .linux-dot.morphing {
+            animation: dotToPill 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .linux-tab-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 85px;
+            height: 18px;
+            gap: 7px;
             border-radius: 9999px;
-            background: rgba(255, 255, 255, 0.9);
+            background: transparent;
+            padding: 2px 7px;
+            transition: background-color 0.16s ease;
+            flex-shrink: 0;
+        }
+
+        .linux-tab-group:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .linux-dot-btn {
+            border: 0;
+            padding: 0;
+            margin: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 9999px;
+            width: auto;
+            min-width: 8px;
+            min-height: 14px;
+            line-height: 0;
+            overflow: visible;
+            position: relative;
+            z-index: 1;
+        }
+
+        .linux-dot-btn:hover {
+            background: transparent;
+        }
+
+        .linux-dot-btn:focus-visible {
+            outline: 1px solid rgba(255, 255, 255, 0.7);
+            outline-offset: 3px;
+        }
+
+        .terminal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 70;
+            background: rgba(0, 0, 0, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .terminal-overlay.hidden {
+            display: none;
+        }
+
+        .terminal-panel {
+            width: min(760px, calc(100vw - 48px));
+            height: min(68vh, 620px);
+            background: rgba(0, 0, 0, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .terminal-output {
+            flex: 1;
+            overflow: auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 12px;
+            line-height: 1.45;
+            color: rgba(255, 255, 255, 0.9);
+            padding: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(7, 7, 7, 0.9);
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .terminal-input {
+            width: 100%;
+            border: 0 !important;
+            outline: 0;
+            background: rgba(7, 7, 7, 0.9) !important;
+            color: rgba(255, 255, 255, 0.92);
+            padding: 10px 12px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 12px;
+            box-shadow: none !important;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .terminal-input::placeholder {
+            color: rgba(255, 255, 255, 0.45);
         }
 
         .material-symbols-outlined {
@@ -139,15 +265,30 @@
 
 <body class="font-body text-on-surface selection:bg-primary selection:text-on-primary bg-[#0e0e0e]">
     <div class="linux-panel fixed top-0 left-0 right-0 z-[60] h-10 px-6 md:px-10 flex items-center justify-between">
-        <div class="flex items-center gap-2">
-            <span class="linux-dot active"></span>
-            <span class="linux-dot"></span>
-            <span class="linux-dot"></span>
-            <span class="linux-dot"></span>
+        <div class="linux-tab-group" id="top-left-tabs-group" role="tablist" aria-label="Section tabs">
+            <button aria-label="Go to About" class="linux-dot-btn top-left-tab" data-index="0" data-target="about"
+                role="tab" type="button">
+                <span class="linux-dot active"></span>
+            </button>
+            <button aria-label="Go to Credentials" class="linux-dot-btn top-left-tab" data-index="1"
+                data-target="credentials" role="tab" type="button">
+                <span class="linux-dot"></span>
+            </button>
+            <button aria-label="Go to Cases" class="linux-dot-btn top-left-tab" data-index="2" data-target="cases"
+                role="tab" type="button">
+                <span class="linux-dot"></span>
+            </button>
+            <button aria-label="Go to Contact" class="linux-dot-btn top-left-tab" data-index="3" data-target="contact"
+                role="tab" type="button">
+                <span class="linux-dot"></span>
+            </button>
         </div>
         <div class="font-label text-[11px] text-white/80 tracking-[0.25em] uppercase" id="top-clock">--:-- --</div>
         <div class="flex items-center gap-3 text-white/65">
-            <span class="material-symbols-outlined text-[17px]">terminal</span>
+            <button aria-controls="site-terminal" aria-expanded="false" aria-label="Toggle terminal"
+                class="text-white/65 hover:text-white transition-colors" id="terminal-toggle-btn" type="button">
+                <span class="material-symbols-outlined text-[17px]">terminal</span>
+            </button>
             <span class="material-symbols-outlined text-[17px]">bluetooth</span>
             <span class="material-symbols-outlined text-[17px]">volume_up</span>
             <span class="material-symbols-outlined text-[17px]">power_settings_new</span>
@@ -173,6 +314,22 @@
             <span class="material-symbols-outlined text-white/50">security</span>
         </div>
     </header>
+    <section aria-label="Terminal" class="terminal-overlay hidden" id="site-terminal-overlay">
+        <div aria-modal="true" class="terminal-panel" id="site-terminal" role="dialog">
+            <div class="flex items-center justify-between px-3 h-9 border-b border-white/10">
+                <div class="font-label text-[10px] text-white/45 tracking-[0.2em] uppercase">Ghostwwn_Terminal</div>
+                <button aria-label="Close terminal"
+                    class="font-label text-[10px] text-white/55 hover:text-white transition-colors" id="terminal-close-btn"
+                    type="button">CLOSE</button>
+            </div>
+            <div class="terminal-output" id="terminal-output"></div>
+            <label class="flex items-center" for="terminal-input">
+                <span class="font-label text-[11px] text-white/55 pl-3">$</span>
+                <input autocomplete="off" class="terminal-input" id="terminal-input" placeholder="Type help and press Enter"
+                    spellcheck="false" type="text" />
+            </label>
+        </div>
+    </section>
     <main class="pt-[104px]">
         <!-- Hero Section -->
         <section
@@ -595,11 +752,24 @@
     <script>
         (() => {
             const topClockEl = document.getElementById("top-clock");
+            const topPanelEl = document.querySelector(".linux-panel");
             const headerEl = document.querySelector("header");
             const navLinks = Array.from(document.querySelectorAll("a.topnav-link[href^='#']"));
+            const topLeftTabs = Array.from(document.querySelectorAll(".top-left-tab"));
+            const topLeftTabsGroup = document.getElementById("top-left-tabs-group");
+            const terminalOverlayEl = document.getElementById("site-terminal-overlay");
+            const terminalPanelEl = document.getElementById("site-terminal");
+            const terminalToggleBtn = document.getElementById("terminal-toggle-btn");
+            const terminalCloseBtn = document.getElementById("terminal-close-btn");
+            const terminalOutputEl = document.getElementById("terminal-output");
+            const terminalInputEl = document.getElementById("terminal-input");
+            const orderedSectionIds = ["about", "credentials", "cases", "contact"];
             const sections = navLinks
                 .map((link) => document.querySelector(link.getAttribute("href")))
                 .filter(Boolean);
+            let activeTopTabIndex = 0;
+            let terminalHistory = [];
+            let terminalHistoryIndex = -1;
 
             const formatLocalTime = (date) => {
                 const hours = date.getHours();
@@ -616,6 +786,26 @@
 
             const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+            const updateTopTabDots = (index) => {
+                if (!topLeftTabs.length) return;
+                const boundedIndex = Math.max(0, Math.min(index, topLeftTabs.length - 1));
+                topLeftTabs.forEach((tab, tabIndex) => {
+                    const dot = tab.querySelector(".linux-dot");
+                    if (!dot) return;
+                    dot.classList.toggle("active", tabIndex === boundedIndex);
+                });
+            };
+
+            const morphTopTabDot = (index) => {
+                if (!topLeftTabs.length) return;
+                const boundedIndex = Math.max(0, Math.min(index, topLeftTabs.length - 1));
+                const dot = topLeftTabs[boundedIndex]?.querySelector(".linux-dot");
+                if (!dot) return;
+                dot.classList.remove("morphing");
+                void dot.offsetWidth;
+                dot.classList.add("morphing");
+            };
+
             const setActive = (activeId) => {
                 navLinks.forEach((link) => {
                     const isActive = link.getAttribute("href") === `#${activeId}`;
@@ -625,9 +815,19 @@
                         link.removeAttribute("aria-current");
                     }
                 });
+
+                const nextIndex = orderedSectionIds.indexOf(activeId);
+                if (nextIndex >= 0) {
+                    activeTopTabIndex = nextIndex;
+                    updateTopTabDots(activeTopTabIndex);
+                }
             };
 
-            const getHeaderOffset = () => (headerEl ? headerEl.offsetHeight : 0) + 12;
+            const getHeaderOffset = () => {
+                const panelHeight = topPanelEl ? topPanelEl.offsetHeight : 0;
+                const headerHeight = headerEl ? headerEl.offsetHeight : 0;
+                return panelHeight + headerHeight + 12;
+            };
 
             const getActiveId = () => {
                 const offset = getHeaderOffset();
@@ -639,6 +839,131 @@
                     if (scrollPos >= section.offsetTop) active = section.id;
                 }
                 return active;
+            };
+
+            const getNextSectionId = () => {
+                const nextIndex = (activeTopTabIndex + 1) % orderedSectionIds.length;
+                return orderedSectionIds[nextIndex];
+            };
+
+            const scrollToSectionById = (id, behavior = "smooth") => {
+                const target = id ? document.getElementById(id) : null;
+                if (!target) return false;
+
+                const top = target.getBoundingClientRect().top + window.scrollY - getHeaderOffset();
+                history.pushState(null, "", `#${id}`);
+                window.scrollTo({ top, behavior });
+                requestUpdate();
+                return true;
+            };
+
+            const appendTerminalLine = (text) => {
+                if (!terminalOutputEl) return;
+                terminalOutputEl.textContent += `${text}\n`;
+                terminalOutputEl.scrollTop = terminalOutputEl.scrollHeight;
+            };
+
+            const runTerminalCommand = (raw) => {
+                const input = raw.trim();
+                if (!input) return;
+
+                appendTerminalLine(`$ ${input}`);
+                const [commandRaw, ...args] = input.split(/\s+/);
+                const command = commandRaw.toLowerCase();
+                const arg = args.join(" ").toLowerCase();
+                const activeSectionId = getActiveId() || orderedSectionIds[0];
+
+                if (command === "help") {
+                    appendTerminalLine("Commands:");
+                    appendTerminalLine("  help, clear, history, ls, pwd, whoami, uname, date, time");
+                    appendTerminalLine("  goto <about|credentials|cases|contact>");
+                    appendTerminalLine("  next, prev, echo <text>, exit");
+                    return;
+                }
+
+                if (command === "clear") {
+                    if (terminalOutputEl) terminalOutputEl.textContent = "";
+                    return;
+                }
+
+                if (command === "ls") {
+                    appendTerminalLine("about  credentials  cases  contact");
+                    return;
+                }
+
+                if (command === "history") {
+                    if (!terminalHistory.length) {
+                        appendTerminalLine("No command history yet");
+                        return;
+                    }
+                    terminalHistory.forEach((entry, index) => appendTerminalLine(`${index + 1}  ${entry}`));
+                    return;
+                }
+
+                if (command === "pwd") {
+                    appendTerminalLine(`/${activeSectionId}`);
+                    return;
+                }
+
+                if (command === "whoami") {
+                    appendTerminalLine("ghostwwn");
+                    return;
+                }
+
+                if (command === "uname") {
+                    appendTerminalLine("GhostwwnOS web-shell 1.0.0");
+                    return;
+                }
+
+                if (command === "date") {
+                    appendTerminalLine(new Date().toString());
+                    return;
+                }
+
+                if (command === "time") {
+                    appendTerminalLine(`Local time: ${formatLocalTime(new Date())}`);
+                    return;
+                }
+
+                if (command === "echo") {
+                    appendTerminalLine(args.join(" "));
+                    return;
+                }
+
+                if (command === "next") {
+                    scrollToSectionById(getNextSectionId(), prefersReducedMotion ? "auto" : "smooth");
+                    return;
+                }
+
+                if (command === "prev") {
+                    const prevIndex = (activeTopTabIndex - 1 + orderedSectionIds.length) % orderedSectionIds.length;
+                    scrollToSectionById(orderedSectionIds[prevIndex], prefersReducedMotion ? "auto" : "smooth");
+                    return;
+                }
+
+                if (command === "goto") {
+                    const ok = scrollToSectionById(arg, prefersReducedMotion ? "auto" : "smooth");
+                    if (ok) {
+                        appendTerminalLine(`Navigated to ${arg}`);
+                    } else {
+                        appendTerminalLine("Unknown section. Try: about, credentials, cases, contact");
+                    }
+                    return;
+                }
+
+                if (command === "exit") {
+                    setTerminalOpen(false);
+                    return;
+                }
+
+                appendTerminalLine("Unknown command. Type help");
+            };
+
+            const setTerminalOpen = (open) => {
+                if (!terminalOverlayEl || !terminalPanelEl || !terminalToggleBtn) return;
+                terminalOverlayEl.classList.toggle("hidden", !open);
+                terminalToggleBtn.setAttribute("aria-expanded", String(open));
+                if (open && terminalInputEl) terminalInputEl.focus();
             };
 
             let ticking = false;
@@ -663,17 +988,91 @@
                     if (!target) return;
                     e.preventDefault();
 
-                    const top = target.getBoundingClientRect().top + window.scrollY - getHeaderOffset();
-                    history.pushState(null, "", link.getAttribute("href"));
-                    window.scrollTo({ top, behavior: prefersReducedMotion ? "auto" : "smooth" });
-                    requestUpdate();
+                    const id = target.id;
+                    scrollToSectionById(id, prefersReducedMotion ? "auto" : "smooth");
                 });
             });
 
+            if (topLeftTabsGroup) {
+                topLeftTabsGroup.addEventListener("click", () => {
+                    const nextIndex = (activeTopTabIndex + 1) % orderedSectionIds.length;
+                    activeTopTabIndex = nextIndex;
+                    updateTopTabDots(nextIndex);
+                    morphTopTabDot(nextIndex);
+                    scrollToSectionById(orderedSectionIds[nextIndex], prefersReducedMotion ? "auto" : "smooth");
+                });
+            }
+
+            if (terminalToggleBtn) {
+                terminalToggleBtn.addEventListener("click", () => {
+                    const willOpen = terminalOverlayEl ? terminalOverlayEl.classList.contains("hidden") : false;
+                    setTerminalOpen(willOpen);
+                });
+            }
+
+            if (terminalCloseBtn) {
+                terminalCloseBtn.addEventListener("click", () => setTerminalOpen(false));
+            }
+
+            if (terminalInputEl) {
+                terminalInputEl.addEventListener("keydown", (e) => {
+                    if (e.key === "ArrowUp") {
+                        if (!terminalHistory.length) return;
+                        e.preventDefault();
+                        terminalHistoryIndex = Math.max(0, terminalHistoryIndex - 1);
+                        terminalInputEl.value = terminalHistory[terminalHistoryIndex] || "";
+                        return;
+                    }
+
+                    if (e.key === "ArrowDown") {
+                        if (!terminalHistory.length) return;
+                        e.preventDefault();
+                        terminalHistoryIndex = Math.min(terminalHistory.length, terminalHistoryIndex + 1);
+                        terminalInputEl.value = terminalHistory[terminalHistoryIndex] || "";
+                        return;
+                    }
+
+                    if (e.key !== "Enter") return;
+                    const raw = terminalInputEl.value;
+                    terminalInputEl.value = "";
+                    if (raw.trim()) {
+                        terminalHistory.push(raw.trim());
+                        terminalHistoryIndex = terminalHistory.length;
+                    }
+                    runTerminalCommand(raw);
+                });
+            }
+
+            if (terminalOverlayEl) {
+                terminalOverlayEl.addEventListener("click", (e) => {
+                    if (e.target === terminalOverlayEl) setTerminalOpen(false);
+                });
+            }
+
+            window.addEventListener("keydown", (e) => {
+                if (e.key === "Escape") setTerminalOpen(false);
+            });
+
             window.addEventListener("popstate", requestUpdate);
-            window.addEventListener("load", requestUpdate);
+
+            const alignToCurrentHash = () => {
+                if (!window.location.hash) return;
+                const target = document.querySelector(window.location.hash);
+                if (!target) return;
+                const top = target.getBoundingClientRect().top + window.scrollY - getHeaderOffset();
+                window.scrollTo({ top, behavior: "auto" });
+            };
+
+            window.addEventListener("load", () => {
+                alignToCurrentHash();
+                requestUpdate();
+                updateTopTabDots(activeTopTabIndex);
+            });
+
             updateTopClock();
             setInterval(updateTopClock, 1000);
+            appendTerminalLine("Ghostwwn Terminal Online");
+            appendTerminalLine("Type help for commands");
             requestUpdate();
         })();
     </script>
